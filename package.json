@@ -1,0 +1,24 @@
+{
+  "name": "scea",
+  "version": "0.0.1",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "clean": "yarn workspaces foreach -pv --from '@scea/*' run clean",
+    "lint": "yarn workspaces foreach -pv --from '@scea/*' run lint",
+    "build": "yarn workspaces foreach -pvR --topological-dev --from '@scea/*' run build",
+    "test": "yarn workspaces foreach -pv --from '@scea/*' run test --passWithNoTests"
+  },
+  "workspaces": [
+    "core",
+    "web",
+    "server",
+    "api",
+    "cli"
+  ],
+  "packageManager": "yarn@3.2.1",
+  "dependencies": {
+    "db-migrate": "^0.11.13",
+    "db-migrate-pg": "^1.2.2"
+  }
+}
