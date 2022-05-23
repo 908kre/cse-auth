@@ -1,4 +1,4 @@
-# Kaguya
+# ???
 
 A automated currency exchange system with machine learning
 
@@ -6,7 +6,6 @@ A automated currency exchange system with machine learning
 
 | Packages                    | Description  |
 | :---------------------------| :----------- |
-| **[kaguya](./kaguya_nn)**   | ML           |
 | **[@scea/core](./core)**     | Domain       |
 | **[@scea/web](./web)**       | Web frontend |
 | **[@scea/server](./server)** | Backend      |
