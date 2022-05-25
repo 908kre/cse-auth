@@ -7,7 +7,12 @@
     "clean": "yarn workspaces foreach -pv --from '@scea/*' run clean",
     "lint": "yarn workspaces foreach -pv --from '@scea/*' run lint",
     "build": "yarn workspaces foreach -pvR --topological-dev --from '@scea/*' run build",
-    "test": "yarn workspaces foreach -pv --from '@scea/*' run test --passWithNoTests"
+    "test": "yarn workspaces foreach -pv --from '@scea/*' run test --passWithNoTests",
+    "core": "yarn workspace @scea/core",
+    "srv": "yarn workspace @scea/server",
+    "web": "yarn workspace @scea/web",
+    "api": "yarn workspace @scea/api",
+    "cli": "yarn workspace @scea/cli"
   },
   "workspaces": [
     "core",

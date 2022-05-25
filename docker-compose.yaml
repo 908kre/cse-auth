@@ -24,6 +24,12 @@ services:
     environment:
       <<: *env
 
+  server:
+    <<: *app
+    command: yarn workspace @scea/cli cli start
+    environment:
+      <<: *env
+
   db:
     image: "timescale/timescaledb:latest-pg13"
     environment:

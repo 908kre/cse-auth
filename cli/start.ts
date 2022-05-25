@@ -1,22 +1,28 @@
 import { Argv } from "yargs";
-import { GmoCoin } from "@scea/server/gmo-coin";
-import { TickerStore } from "@scea/server/ticker-store";
-import { Postgresql } from "@scea/server/postgresql";
-import { CreateFn } from "@scea/core/ticker/create";
-import pino from "pino";
+import { App } from "@scea/server/route";
 
 export default {
   command: "start",
   builder: (yargs: Argv) => {
-    return yargs;
+    return yargs.option('port', {
+      type: 'number',
+      alias: 'p',
+      demandOption: false,
+      default:80,
+      describe: 'Port'
+    });
   },
-  handler: () => {
-    const sql = Postgresql();
-    const exchange = GmoCoin();
-    const logger = pino();
-    const store = {
-      ticker: TickerStore(sql),
-    };
-    exchange.subscribe(CreateFn({ store }));
+
+  handler: (argv:{
+    port:number
+  }) => {
+    const app = App()
+    app.listen(argv.port, "0.0.0.0", (err, address) => {
+      if (err) {
+        console.error(err);
+        process.exit(1);
+      }
+      console.log(`Slave ${process.pid} Server listening at ${address}`);
+    });
   },
 };

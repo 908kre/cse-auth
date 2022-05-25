@@ -5,11 +5,12 @@
   "license": "MIT",
   "types": "index.ts",
   "scripts": {
+    "build": "webpack --progress --mode=production",
+    "watch": "webpack --watch",
+    "serve": "webpack-dev-server --host 0.0.0.0 --disable-host-check",
     "clean": "tsc --build --clean",
-    "build": "tsc --noEmit false",
-    "prepack": "yarn build",
-    "postpack": "yarn clean",
-    "test": "jest"
+    "start:dev": "webpack serve",
+    "storybook": "start-storybook"
   },
   "devDependencies": {
     "jest": "^27.0.4",
@@ -22,5 +23,21 @@
     },
     "testEnvironment": "node",
     "testRegex": ".*\\.(test|spec)?\\.(ts|tsx)$"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^6.1.1",
+    "@types/react": "^18.0.9",
+    "@types/react-dom": "^18.0.5",
+    "bulma": "^0.9.4",
+    "css-loader": "^6.7.1",
+    "html-webpack-plugin": "^5.5.0",
+    "react": "^18.1.0",
+    "react-dom": "^18.1.0",
+    "react-router-dom": "^6.3.0",
+    "storybook": "^6.5.5",
+    "styles-loader": "^4.0.1",
+    "ts-loader": "^9.3.0",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2"
   }
 }
