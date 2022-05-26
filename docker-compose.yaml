@@ -1,11 +1,7 @@
 version: '2.4'
 
 x-env: &env
-  CODECOV_TOKEN: &CODECOV_TOKEN ${CODECOV_TOKEN}
-  GMO_COIN_API_KEY: &GMO_COIN_API_KEY ${GMO_COIN_API_KEY}
-  GMO_COIN_SECRET_KEY: &GMO_COIN_SECRET_KEY ${GMO_COIN_SECRET_KEY}
-
-
+  SERVER_PORT: &SERVER_PORT ${SERVER_PORT:?}
   # internal
   DATABASE_URL: postgres://app:app@db/app
 
@@ -17,7 +13,6 @@ x-app: &app
   volumes:
     - .:/app
 
-
 services:
   app:
     <<: *app
@@ -27,6 +22,8 @@ services:
   server:
     <<: *app
     command: yarn workspace @scea/cli cli start
+    ports:
+      - "${SERVER_PORT}:80"
     environment:
       <<: *env
 
