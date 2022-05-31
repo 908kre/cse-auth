@@ -1,10 +1,4 @@
-export enum ErrorName {
-  NotFound = "NotFound",
-  AlreadyExists = "AlreadyExists",
+export enum ErrorKind {
+  InvalidSystemNameFormat = "InvalidSystemNameFormat",
 }
-
-export const error = (name: ErrorName, message: string): Error => {
-  const err = Error(message);
-  err.name = name;
-  return err;
-};
+export default ErrorKind;
