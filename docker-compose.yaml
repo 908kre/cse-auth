@@ -10,6 +10,9 @@ x-app: &app
   image: "scea-dev"
   build:
     context: .
+    args:
+      - http_proxy
+      - https_proxy
   volumes:
     - .:/app
 
