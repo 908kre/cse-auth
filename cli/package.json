@@ -1,5 +1,5 @@
 {
-  "name": "@scea/cli",
+  "name": "@csea/cli",
   "version": "0.1.0",
   "license": "MIT",
   "types": "index.ts",
@@ -12,11 +12,11 @@
     "cli": "ts-node index.ts"
   },
   "bin": {
-    "scea": "bin/scea"
+    "csea": "bin/csea"
   },
   "dependencies": {
-    "@scea/core": "0.1.0",
-    "@scea/server": "0.1.0",
+    "@csea/core": "0.1.0",
+    "@csea/server": "0.1.0",
     "pino": "^7.10.0",
     "yargs": "^17.4.1"
   },

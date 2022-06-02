@@ -1,6 +1,6 @@
-import { Lock, ErrorKind, Store } from "@scea/core";
-import { System } from "@scea/core/system";
-import FindFn from "@scea/core/system/find";
+import { Lock, ErrorKind, Store } from "@csea/core";
+import { System } from "@csea/core/system";
+import FindFn from "@csea/core/system/find";
 
 export type Payload = {
   id: string;

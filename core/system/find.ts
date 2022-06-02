@@ -1,5 +1,5 @@
-import { Lock, ErrorKind, Store } from "@scea/core";
-import { System } from "@scea/core/system";
+import { Lock, ErrorKind, Store } from "@csea/core";
+import { System } from "@csea/core/system";
 
 export type Payload = {
   id: string;

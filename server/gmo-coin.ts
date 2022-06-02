@@ -1,7 +1,7 @@
 import axios from "axios";
-import { Symbol, Interval } from "@scea/core";
-import { Candle } from "@scea/core/candle";
-import { Ticker } from "@scea/core/ticker";
+import { Symbol, Interval } from "@csea/core";
+import { Candle } from "@csea/core/candle";
+import { Ticker } from "@csea/core/ticker";
 import * as datefns from "date-fns";
 import WebSocket from "ws";
 

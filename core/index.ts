@@ -1,5 +1,5 @@
 export { ErrorKind } from "./error";
-import { System } from "@scea/core/system";
+import { System } from "@csea/core/system";
 
 export type SystemStore = {
   insert: (payload: System) => Promise<void | Error>;

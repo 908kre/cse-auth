@@ -1,5 +1,5 @@
 import { Argv } from "yargs";
-import { App } from "@scea/server/route";
+import { App } from "@csea/server/route";
 
 export default {
   command: "start",
