@@ -7,6 +7,7 @@ export type System = {
   name:string
   code: string
   createdAt:Date
+  validate: () => void|Error
 }
 
 export const System = (args?: {
