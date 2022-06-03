@@ -1,8 +1,8 @@
 import { Row, Sql } from "postgres";
-import { Order } from "@scea/core/order";
+import { Order } from "@csea/core/order";
 import { first } from "lodash";
-import { error, ErrorName } from "@scea/core/error";
-import { Symbol } from "@scea/core";
+import { error, ErrorName } from "@csea/core/error";
+import { Symbol } from "@csea/core";
 
 const TABLE = "orders";
 const COLUMNS = [

@@ -1,8 +1,8 @@
 import { TickerStore } from "./ticker-store";
 import { Postgresql } from "./postgresql";
-import { Ticker } from "@scea/core/ticker";
-import { ErrorName } from "@scea/core/error";
-import { Symbol } from "@scea/core";
+import { Ticker } from "@csea/core/ticker";
+import { ErrorName } from "@csea/core/error";
+import { Symbol } from "@csea/core";
 import { range } from "lodash";
 
 describe("order-store", () => {

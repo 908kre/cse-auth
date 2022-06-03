@@ -1,18 +1,18 @@
 {
-  "name": "scea",
+  "name": "csea",
   "version": "0.0.1",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "clean": "yarn workspaces foreach -pv --from '@scea/*' run clean",
-    "lint": "yarn workspaces foreach -pv --from '@scea/*' run lint",
-    "build": "yarn workspaces foreach -pvR --topological-dev --from '@scea/*' run build",
-    "test": "yarn workspaces foreach -pv --from '@scea/*' run test --passWithNoTests",
-    "core": "yarn workspace @scea/core",
-    "srv": "yarn workspace @scea/server",
-    "web": "yarn workspace @scea/web",
-    "api": "yarn workspace @scea/api",
-    "cli": "yarn workspace @scea/cli"
+    "clean": "yarn workspaces foreach -pv --from '@csea/*' run clean",
+    "lint": "yarn workspaces foreach -pv --from '@csea/*' run lint",
+    "build": "yarn workspaces foreach -pvR --topological-dev --from '@csea/*' run build",
+    "test": "yarn workspaces foreach -pv --from '@csea/*' run test --passWithNoTests",
+    "core": "yarn workspace @csea/core",
+    "srv": "yarn workspace @csea/server",
+    "web": "yarn workspace @csea/web",
+    "api": "yarn workspace @csea/api",
+    "cli": "yarn workspace @csea/cli"
   },
   "workspaces": [
     "core",

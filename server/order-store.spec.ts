@@ -1,8 +1,8 @@
 import { OrderStore } from "./order-store";
 import { Postgresql } from "./postgresql";
-import { Order, OrderKind } from "@scea/core/order";
-import { ErrorName } from "@scea/core/error";
-import { Symbol } from "@scea/core";
+import { Order, OrderKind } from "@csea/core/order";
+import { ErrorName } from "@csea/core/error";
+import { Symbol } from "@csea/core";
 import { range } from "lodash";
 
 describe("order-store", () => {

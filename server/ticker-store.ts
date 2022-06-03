@@ -1,8 +1,8 @@
 import { Row, Sql } from "postgres";
-import { Ticker } from "@scea/core/ticker";
+import { Ticker } from "@csea/core/ticker";
 import { first } from "lodash";
-import { error, ErrorName } from "@scea/core/error";
-import { Symbol } from "@scea/core";
+import { error, ErrorName } from "@csea/core/error";
+import { Symbol } from "@csea/core";
 
 const TABLE = "tickers";
 const COLUMNS = ["symbol", "ask", "bid", "last", "high", "low", "volume", "ts"];

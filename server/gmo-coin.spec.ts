@@ -1,5 +1,5 @@
 import { GmoCoin } from "./gmo-coin";
-import { Symbol, Interval } from "@scea/core";
+import { Symbol, Interval } from "@csea/core";
 import { range } from "lodash";
 
 describe("GmoCoin", () => {
