@@ -7,7 +7,7 @@ x-env: &env
 
 
 x-app: &app
-  image: "scea-dev"
+  image: "csea-dev"
   build:
     context: .
     args:
@@ -24,7 +24,7 @@ services:
 
   server:
     <<: *app
-    command: yarn workspace @scea/cli cli start
+    command: yarn workspace @csea/cli cli start
     ports:
       - "${SERVER_PORT}:80"
     environment:

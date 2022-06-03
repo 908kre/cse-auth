@@ -1,6 +1,6 @@
 import { v4 as uuid } from 'uuid';
-import ErrorKind from '@scea/core/error'
-// export { default as CreateFn } from "@scea/core/workspace/create"
+import ErrorKind from '@csea/core/error'
+// export { default as CreateFn } from "@csea/core/workspace/create"
 
 export type System = {
   id: string

@@ -6,11 +6,11 @@ A automated currency exchange system with machine learning
 
 | Packages                    | Description  |
 | :---------------------------| :----------- |
-| **[@scea/core](./core)**     | Domain       |
-| **[@scea/web](./web)**       | Web frontend |
-| **[@scea/server](./server)** | Backend      |
-| **[@scea/api](./api)**       | Client       |
-| **[@scea/cli](./cli)**       | CLI          |
+| **[@csea/core](./core)**     | Domain       |
+| **[@csea/web](./web)**       | Web frontend |
+| **[@csea/server](./server)** | Backend      |
+| **[@csea/api](./api)**       | Client       |
+| **[@csea/cli](./cli)**       | CLI          |
 
 # Setup
 
@@ -30,5 +30,5 @@ docker-compose build app
 ```
 docker compose run --rm app yarn install
 ```
-# sce-auth
-# sce-auth
+# cse-auth
+# cse-auth
