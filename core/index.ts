@@ -5,7 +5,8 @@ export type SystemStore = {
   insert: (payload: System) => Promise<void | Error>;
   update: (payload: System) => Promise<void | Error>;
   find: (payload: {
-    id :string,
+    id? :string,
+    code? :string,
   }) => Promise<System | undefined | Error>;
   filter: (payload: {}) => Promise<System[] | Error>;
   delete: (payload: {
