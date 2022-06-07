@@ -2,6 +2,7 @@ version: '2.4'
 
 x-env: &env
   SERVER_PORT: &SERVER_PORT ${SERVER_PORT:?}
+  STORYBOOK_PORT: &STORYBOOK_PORT ${STORYBOOK_PORT:?}
   # internal
   DATABASE_URL: postgres://app:app@db/app
 
@@ -21,6 +22,12 @@ services:
     <<: *app
     environment:
       <<: *env
+
+  storybook:
+    <<: *app
+    command: yarn web storybook
+    ports:
+      - "$STORYBOOK_PORT:$STORYBOOK_PORT"
 
   server:
     <<: *app
