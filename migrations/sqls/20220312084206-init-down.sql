@@ -1,3 +1,4 @@
 /* Replace with your SQL commands */
-DROP TABLE orders;
-DROP TABLE tickers;
+DROP TABLE systems;
+DROP TABLE roles;
+DROP TABLE role_users;
