@@ -85,7 +85,7 @@ export const Store = (sql: Sql<any>): SystemStore => {
   const insert = async (payload: System): Promise<void | Error> => {
     try {
       await sql`
-      INSERT INTO workspaces ${sql(
+      INSERT INTO systems ${sql(
         from(payload),...COLUMNS
       )}`;
     } catch (err) {
@@ -94,7 +94,7 @@ export const Store = (sql: Sql<any>): SystemStore => {
   };
   const update = async (payload: System): Promise<void | Error> => {
     try {
-      await sql`UPDATE workspaces SET ${sql(from(payload),...COLUMNS)} WHERE id = ${payload.id}`;
+      await sql`UPDATE systems SET ${sql(from(payload),...COLUMNS)} WHERE id = ${payload.id}`;
     }catch (err) {
       return err;
     }
