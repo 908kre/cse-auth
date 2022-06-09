@@ -36,5 +36,4 @@ export type Lock = {
 
 export type Store = {
   system: SystemStore;
-  role: RoleStore;
 }
