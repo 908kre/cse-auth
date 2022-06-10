@@ -2,7 +2,7 @@ import { Lock, ErrorKind, Store } from "@csea/core";
 import { System } from "@csea/core/system";
 
 export type Payload = {
-  ids: string[];
+  ids?: string[];
 };
 
 export type Fn = (payload: Payload) => Promise<System[] | Error>
