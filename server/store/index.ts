@@ -1,5 +1,6 @@
 import postgres from "postgres";
 import SystemStore from "./system";
+import RoleStore from "./role";
 
 export const Store = (args: { 
   url: string; 
@@ -12,8 +13,10 @@ export const Store = (args: {
     await sql.end({ timeout: 5 });
   };
   const system = SystemStore(sql);
+  const role = RoleStore(sql);
   return {
     system,
+    role,
     close,
   };
 };

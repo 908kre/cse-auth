@@ -2,6 +2,11 @@ export { ErrorKind } from "./error";
 import { System } from "@csea/core/system";
 import { Role } from "@csea/core/role";
 
+export type Claims = {
+  exp: number;
+  userId: string;
+};
+
 export type SystemStore = {
   insert: (payload: System) => Promise<void | Error>;
   update: (payload: System) => Promise<void | Error>;
@@ -34,6 +39,18 @@ export type Lock = {
   auto: <T>(fn: () => Promise<T>) => Promise<T>;
 };
 
+export type Auth = {
+  sign: (claims: Claims) => Promise<string | Error>;
+  verify: () => Promise<Claims | Error>;
+};
+
+export type Crypt = {
+  compare: (payload: { password: string; hash: string }) => Promise<boolean>;
+  hash: (payload: { password: string }) => Promise<string | Error>;
+};
+
+
 export type Store = {
   system: SystemStore;
+  role:RoleStore;
 }

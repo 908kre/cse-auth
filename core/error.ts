@@ -3,5 +3,6 @@ export enum ErrorKind {
   SystemAlreadyExist = "SystemAlreadyExist",
   RoleNotFound = "RoleNotFound",
   InvalidSystemNameFormat = "InvalidSystemNameFormat",
+  InvalidNameOrPassword = "InvalidNameOrPassword"
 }
 export default ErrorKind;

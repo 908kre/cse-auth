@@ -3,10 +3,10 @@ import { ErrorKind } from "@csea/core";
 import { v4 as uuid } from "uuid";
 
 const api = RootApi();
-api.setUrl(`http://srv/${process.env.PREFIX}`);
+api.setUrl(`http://server`);
 
 
-  describe("system", () => {
+describe("system", () => {
   const id = uuid();
   test("create", async () => {
     const res = await api.system.create({
