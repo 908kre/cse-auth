@@ -1,6 +1,8 @@
 import postgres from "postgres";
 import SystemStore from "./system";
 import RoleStore from "./role";
+import RoleUserStore from "./roleUser";
+import RoleGroupStore from "./roleGroup";
 
 export const Store = (args: { 
   url: string; 
@@ -14,9 +16,13 @@ export const Store = (args: {
   };
   const system = SystemStore(sql);
   const role = RoleStore(sql);
+  const roleUser = RoleUserStore(sql);
+  const roleGroup = RoleGroupStore(sql);
   return {
     system,
     role,
+    roleUser,
+    roleGroup,
     close,
   };
 };
