@@ -1,45 +1,29 @@
 import { v4 as uuid } from 'uuid';
 import ErrorKind from '@csea/core/error'
-// export { default as CreateFn } from "@csea/core/workspace/create"
+export { default as CreateFn } from "@csea/core/roleUser/create"
+export { default as UpdateFn } from "@csea/core/roleUser/update"
+export { default as FindFn } from "@csea/core/roleUser/find"
+export { default as FilterFn } from "@csea/core/roleUser/filter"
+export { default as DeleteFn } from "@csea/core/roleUser/delete"
 
 export type RoleUser = {
   id: string
   roleId:string
-  companyCode: string
-  userCode: string
-  divisionCode: string
-  post:number 
-  categoryFlg:boolean
   createdAt:Date
 }
 
 export const RoleUser = (args?: {
   id?: string,
   roleId?: string,
-  companyCode?: string,
-  userCode?: string,
-  divisionCode?: string,
-  post?:number,
-  categoryFlg?:boolean,
   createdAt?: Date
 }):RoleUser => {
   const id = args?.id ?? uuid()
   const roleId = args?.roleId ?? ""
-  const companyCode = args?.companyCode ?? ""
-  const userCode = args?.userCode ?? ""
-  const divisionCode = args?.divisionCode ?? ""
-  const post = args?.post ?? 0
-  const categoryFlg = args?.categoryFlg ?? false
   const createdAt = args?.createdAt ?? new Date()
 
   const self = {
     id,
     roleId,
-    companyCode,
-    userCode,
-    divisionCode,
-    post,
-    categoryFlg,
     createdAt,
   }
   return self

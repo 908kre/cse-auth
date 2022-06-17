@@ -1,24 +1,30 @@
-CREATE TABLE orders (
+CREATE TABLE systems (
+    id             uuid        NOT NULL PRIMARY KEY,
+    code           text        NOT NULL,
+    name           text        NOT NULL,
+    created_at     timestamp NOT NULL
+);
+
+CREATE TABLE roles (
+    id             uuid        NOT NULL PRIMARY KEY,
+    system_id      text        NOT NULL,
+    name           text        not null,
+    code           text        not null,
+    charge         text        NOT NULL,
+    created_at     timestamp NOT NULL
+);
+
+CREATE TABLE role_users (
     id             text        NOT NULL PRIMARY KEY,
-    contract_price double precision,
-    price          double precision,
-    symbol_id      text,
-    kind           text        NOT NULL,
-    status         text        NOT NULL,
-    side           text        NOT NULL,
-    updated_at     TIMESTAMPTZ NOT NULL,
-    created_at     TIMESTAMPTZ NOT NULL
+    role_id        text        NOT NULL,
+    created_at     timestamp   NOT NULL,
+    UNIQUE (id, role_id)
 );
 
-CREATE TABLE tickers (
-    ask    double precision NOT NULL,
-    bid    double precision NOT NULL,
-    high   double precision NOT NULL,
-    last   double precision NOT NULL,
-    low    double precision NOT NULL,
-    volume double precision NOT NULL,
-    symbol text        NOT NULL,
-    ts     TIMESTAMPTZ NOT NULL
+CREATE TABLE role_groups (
+    id             text        NOT NULL PRIMARY KEY,
+    role_id        text        NOT NULL,
+    post           integer     NOT NULL,
+    created_at     timestamp   NOT NULL,
+    UNIQUE (id, role_id, post)
 );
-
-SELECT create_hypertable('tickers', 'ts');

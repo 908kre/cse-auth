@@ -1780,6 +1780,11 @@
     mkdirp "^1.0.4"
     rimraf "^3.0.2"
 
+"@oniku/lockfile@^0.0.0":
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/@oniku/lockfile/-/lockfile-0.0.0.tgz#774143dc0dcba7b173ed708c2ed9fd317290aa46"
+  integrity sha512-OuKAM3f4oWj2bfuv201tLLvTnpSHFZBgmHUJv82OWhW2+F+ANavI2OU+cFuO63MFV3FXzEgdotdWS4thtlGUpA==
+
 "@pmmmwh/react-refresh-webpack-plugin@^0.5.3":
   version "0.5.7"
   resolved "https://registry.yarnpkg.com/@pmmmwh/react-refresh-webpack-plugin/-/react-refresh-webpack-plugin-0.5.7.tgz#58f8217ba70069cc6a73f5d7e05e85b458c150e2"

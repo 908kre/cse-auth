@@ -16,12 +16,22 @@ x-app: &app
       - https_proxy
   volumes:
     - .:/app
+  environment:
+    - DATABASE_URL=postgres://app:app@db/app
 
 services:
   app:
     <<: *app
     environment:
       <<: *env
+    depends_on:
+      - migration
+
+  migration:
+    <<: *app
+    command: yarn db-migrate up
+    depends_on:
+      - db
 
   storybook:
     <<: *app
