@@ -6,6 +6,8 @@ export type Payload = {
   id: string;
   name: string;
   code: string;
+  systemId: string;
+  charge: string;
 };
 
 export type Fn = (payload: Payload) => Promise<Role | Error>
@@ -21,7 +23,9 @@ export const Fn = (props: {
       const newRole = Role({
         ...role,
         name: payload.name,
-        code:payload.code
+        code:payload.code,
+        systemId:payload.systemId,
+        charge:payload.charge
       })
       const updateErr = await props.store.role.update(newRole);
       if (updateErr instanceof Error) { return updateErr; }

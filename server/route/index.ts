@@ -1,9 +1,12 @@
 import fastify, { FastifyPlugin } from "fastify";
 import path from "path";
 import fastifyStatic from "fastify-static";
+
+import { Lock, Store } from "@csea/core";
 import SystemRoutes from "./system";
 import RoleRoutes from "./role";
-import { Lock, Store } from "@csea/core";
+import RoleUserRoutes from "./roleUser";
+import RoleGroupRoutes from "./roleGroup";
 
 
 export const App = (args:{ store: Store; lock: Lock }) => {
@@ -22,6 +25,12 @@ export const App = (args:{ store: Store; lock: Lock }) => {
   });
   app.register(RoleRoutes({ store, lock }), {
     prefix: `${prefix}/role`,
+  });
+  app.register(RoleUserRoutes({ store, lock }), {
+    prefix: `${prefix}/role-user`,
+  });
+  app.register(RoleGroupRoutes({ store, lock }), {
+    prefix: `${prefix}/role-group`,
   });
   app.ready(async () => {
     console.log(app.printRoutes());

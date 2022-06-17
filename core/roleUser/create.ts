@@ -4,7 +4,6 @@ import { RoleUser } from "@csea/core/roleUser";
 export type Payload = {
   id?: string;
   roleId?: string;
-  code?: string;
 };
 
 export type Fn = (payload: Payload) => Promise<RoleUser | Error>
