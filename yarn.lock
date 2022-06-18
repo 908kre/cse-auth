@@ -1697,8 +1697,10 @@ __metadata:
     react-dom: ^18.1.0
     react-hook-form: ^7.32.2
     react-router-dom: ^6.3.0
+    spinners-react: ^1.0.7
     storybook: ^6.5.7
     styles-loader: ^4.0.1
+    swr: ^1.3.0
     ts-jest: ^27.0.3
     ts-loader: ^9.3.0
     typescript: ^4.6.4
@@ -17689,6 +17691,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"spinners-react@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "spinners-react@npm:1.0.7"
+  peerDependencies:
+    "@types/react": ^16.x || ^17.x || ^18.x
+    "@types/react-dom": ^16.x || ^17.x || ^18.x
+    react: ^16.x || ^17.x || ^18.x
+    react-dom: ^16.x || ^17.x || ^18.x
+  checksum: a06c67b89118721fd5042ef8927e193924de18701ee65724fc3bf158733a332ad1a06179e650c87ab16ea9af09a92a425131d1b53f0a8bc059588a7231fb3d31
+  languageName: node
+  linkType: hard
+
 "split-string@npm:^3.0.1, split-string@npm:^3.0.2":
   version: 3.1.0
   resolution: "split-string@npm:3.1.0"
@@ -18216,6 +18230,15 @@ __metadata:
   bin:
     svgo: bin/svgo
   checksum: b92f71a8541468ffd0b81b8cdb36b1e242eea320bf3c1a9b2c8809945853e9d8c80c19744267eb91cabf06ae9d5fff3592d677df85a31be4ed59ff78534fa420
+  languageName: node
+  linkType: hard
+
+"swr@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "swr@npm:1.3.0"
+  peerDependencies:
+    react: ^16.11.0 || ^17.0.0 || ^18.0.0
+  checksum: e7a184f0d560e9c8be85c023cc8e65e56a88a6ed46f9394b301b07f838edca23d2e303685319a4fcd620b81d447a7bcb489c7fa0a752c259f91764903c690cdb
   languageName: node
   linkType: hard
 

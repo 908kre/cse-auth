@@ -1,10 +1,20 @@
 import React, { Suspense, lazy } from "react";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
+import { PageLayout } from "@csea/web/components/page-layout";
+import { SystemsPage } from "@csea/web/pages/systems";
 
 export default function App() {
   return (
     <Router>
-      hello
+      <PageLayout
+        content={
+          <Suspense fallback={<div>Loading...</div>}>
+            <Routes>
+              <Route path={"/"} element={<SystemsPage />} />
+            </Routes>
+          </Suspense>
+        }
+      />
     </Router>
   );
-} 
+}
