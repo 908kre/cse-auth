@@ -3,6 +3,7 @@ import SystemTable from ".";
 import { System } from "@csea/core/system";
 import { nanoid } from "nanoid";
 import { range } from "lodash";
+import { action } from "@storybook/addon-actions";
 
 export default {
   title: "SystemTable",
@@ -17,5 +18,6 @@ export const Primary = () => (
         name: "name:" + nanoid(),
       })
     )}
+    onEdit={action("onEdit")}
   />
 );
