@@ -1,6 +1,5 @@
 import DataGrid from "react-data-grid";
 import { System } from "@csea/core/system";
-import { EditBtn } from "@csea/web/components/buttons";
 
 const columns = [
   { key: "id", name: "ID" },
