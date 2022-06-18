@@ -19,5 +19,6 @@ export const Primary = () => (
       })
     )}
     onEdit={action("onEdit")}
+    onCreate={action("onCreate")}
   />
 );
