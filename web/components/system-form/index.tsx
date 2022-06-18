@@ -27,7 +27,14 @@ export const SystemForm = (props: {
       <div className="field">
         <label className="label">ID</label>
         <div className="control">
-          <input className="input" {...register("id", { required: true })} />
+          {
+            props.system ? (
+              <div className= 'p-1'>  {props.system.id} </div>
+            ) : (
+              <input className="input" {...register("id", { required: true })} />
+            )
+
+          }
         </div>
       </div>
       <div className="field">
