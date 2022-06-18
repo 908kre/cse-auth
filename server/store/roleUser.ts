@@ -28,20 +28,17 @@ export const Store = (sql: Sql<any>): RoleUserStore => {
 
   const find = async (payload: {
     id?: string;
+    roleId?: string;
   }): Promise<RoleUser | undefined | Error> => {
     try {
       const rows= await (async () => {
-        const { id } = payload;
-        if (id !== undefined) {
-          return await sql`SELECT * FROM role_users WHERE id=${id}`;
+        const { id, roleId } = payload;
+        if (id !== undefined && roleId !== undefined) {
+          return await sql`SELECT * FROM role_users WHERE id=${id} AND role_id=${roleId}`;
         }
         return []
       })()
-      const row = first(rows.map(to));
-      if (row === undefined) {
-        return;
-      }
-      return row;
+      return first(rows.map(to));
     } catch (err) {
       return err;
     }
@@ -77,13 +74,6 @@ export const Store = (sql: Sql<any>): RoleUserStore => {
       return err;
     }
   };
-  const update = async (payload: RoleUser): Promise<void | Error> => {
-    try {
-      await sql`UPDATE role_users SET ${sql(from(payload),...COLUMNS)} WHERE id = ${payload.id}`;
-    }catch (err) {
-      return err;
-    }
-  };
 
   const delete_ = async (payload: {
     id?: string;
@@ -109,7 +99,6 @@ export const Store = (sql: Sql<any>): RoleUserStore => {
     filter,
     find,
     insert,
-    update,
     clear,
     delete: delete_,
   };

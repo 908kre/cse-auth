@@ -9,7 +9,6 @@ export { default as DeleteFn } from "@csea/core/system/delete"
 export type System = {
   id: string
   name:string
-  code: string
   createdAt:Date
   validate: () => void|Error
 }
@@ -17,22 +16,19 @@ export type System = {
 export const System = (args?: {
   id?: string,
   name?: string,
-  code?:string,
   createdAt?: Date
 }):System => {
-  const id = args?.id ?? uuid()
+  const id = args?.id ?? "" 
   const name = args?.name ?? ""
-  const code = args?.code ?? ""
   const createdAt = args?.createdAt ?? new Date()
   const validate = () => {
-    if(!name) {
-      return new Error(ErrorKind.InvalidSystemNameFormat)
+    if(id === "") {
+      return new Error(ErrorKind.InvalidSystemIdFormat)
     }
   }
   const self = {
     id,
     name,
-    code,
     createdAt,
     validate,
   }

@@ -1,7 +1,6 @@
 import { v4 as uuid } from 'uuid';
 import ErrorKind from '@csea/core/error'
 export { default as CreateFn } from "@csea/core/roleUser/create"
-export { default as UpdateFn } from "@csea/core/roleUser/update"
 export { default as FindFn } from "@csea/core/roleUser/find"
 export { default as FilterFn } from "@csea/core/roleUser/filter"
 export { default as DeleteFn } from "@csea/core/roleUser/delete"
@@ -17,7 +16,7 @@ export const RoleUser = (args?: {
   roleId?: string,
   createdAt?: Date
 }):RoleUser => {
-  const id = args?.id ?? uuid()
+  const id = args?.id ?? "" 
   const roleId = args?.roleId ?? ""
   const createdAt = args?.createdAt ?? new Date()
 

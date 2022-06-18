@@ -14,6 +14,9 @@ export const Fn = (props: {
   return async (payload: Payload) => {
     return await props.lock.auto(async () => {
       const roleUser = RoleUser(payload)
+      if(await props.store.roleUser.find({id: payload.id, roleId: payload.roleId})){
+        return new Error(ErrorKind.RoleUserAlreadyExist)
+      }
       const insertErr = await props.store.roleUser.insert(roleUser)
       if(insertErr instanceof Error) { return insertErr }
       return roleUser 

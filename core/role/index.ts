@@ -9,33 +9,36 @@ export { default as DeleteFn } from "@csea/core/role/delete"
 export type Role = {
   id: string
   name:string
-  code: string
   systemId:string
   charge:string
   createdAt:Date
+  validate: () => void|Error
 }
 
 export const Role = (args?: {
   id?: string,
   name?: string,
-  code?:string,
   systemId?:string,
   charge?:string,
   createdAt?: Date
 }):Role => {
-  const id = args?.id ?? uuid()
+  const id = args?.id ?? "" 
   const name = args?.name ?? ""
-  const code = args?.code ?? ""
   const systemId = args?.systemId ?? ""
   const charge = args?.charge ?? ""
   const createdAt = args?.createdAt ?? new Date()
+  const validate = () => {
+    if(id === "") {
+      return new Error(ErrorKind.InvalidRoleIdFormat)
+    }
+  }
   const self = {
     id,
     name,
-    code,
     systemId,
     charge,
     createdAt,
+    validate
   }
   return self
 }

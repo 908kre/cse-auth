@@ -4,7 +4,6 @@ import { System } from "@csea/core/system";
 export type Payload = {
   id?: string;
   name?: string;
-  code?: string;
 };
 
 export type Fn = (payload: Payload) => Promise<System | Error>
@@ -17,6 +16,9 @@ export const Fn = (props: {
       const system = System(payload)
       const valErr = system.validate()
       if(valErr instanceof Error) { return valErr }
+      if(await props.store.system.find({id: payload.id})){
+        return new Error(ErrorKind.SystemAlreadyExist)
+      }
       const insertErr = await props.store.system.insert(system)
       if(insertErr instanceof Error) { return insertErr }
       return system 

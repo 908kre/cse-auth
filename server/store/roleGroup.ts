@@ -31,12 +31,14 @@ export const Store = (sql: Sql<any>): RoleGroupStore => {
 
   const find = async (payload: {
     id?: string;
+    roleId?:string;
+    post?: string;
   }): Promise<RoleGroup | undefined | Error> => {
     try {
       const rows= await (async () => {
-        const { id } = payload;
-        if (id !== undefined) {
-          return await sql`SELECT * FROM role_groups WHERE id=${id}`;
+        const { id, roleId, post } = payload;
+        if (id !== undefined && roleId !== undefined && post !== undefined) {
+          return await sql`SELECT * FROM role_groups WHERE id=${id} AND role_id=${roleId} AND post=${post}`;
         }
         return []
       })()
@@ -80,13 +82,6 @@ export const Store = (sql: Sql<any>): RoleGroupStore => {
       return err;
     }
   };
-  const update = async (payload: RoleGroup): Promise<void | Error> => {
-    try {
-      await sql`UPDATE role_groups SET ${sql(from(payload),...COLUMNS)} WHERE id = ${payload.id}`;
-    }catch (err) {
-      return err;
-    }
-  };
 
   const delete_ = async (payload: {
     id?: string;
@@ -112,7 +107,6 @@ export const Store = (sql: Sql<any>): RoleGroupStore => {
     filter,
     find,
     insert,
-    update,
     clear,
     delete: delete_,
   };

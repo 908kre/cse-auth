@@ -2,7 +2,8 @@ import { Lock, ErrorKind, Store } from "@csea/core";
 import { RoleUser } from "@csea/core/roleUser";
 
 export type Payload = {
-  id: string;
+  id?: string;
+  systemId?: string;
 };
 
 export type Fn = (payload: Payload) => Promise<RoleUser | Error>

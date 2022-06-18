@@ -4,7 +4,7 @@ import { RoleGroup } from "@csea/core/roleGroup";
 export type Payload = {
   id?: string;
   roleId?: string;
-  post?: number;
+  post?: string;
 };
 
 export type Fn = (payload: Payload) => Promise<RoleGroup | Error>
@@ -15,6 +15,13 @@ export const Fn = (props: {
   return async (payload: Payload) => {
     return await props.lock.auto(async () => {
       const roleGroup = RoleGroup(payload)
+      if(await props.store.roleGroup.find({
+        id: payload.id, 
+        roleId: payload.roleId,
+        post: payload.post,
+      })){
+        return new Error(ErrorKind.RoleGroupAlreadyExist)
+      }
       const insertErr = await props.store.roleGroup.insert(roleGroup)
       if(insertErr instanceof Error) { return insertErr }
       return roleGroup 

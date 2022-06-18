@@ -25,23 +25,15 @@ describe("roleGroup", () => {
       }
     });
     test("find", async () => {
-      const ret = await store.roleGroup.find({ id: roleGroup.id });
+      const ret = await store.roleGroup.find({ 
+        id: roleGroup.id, 
+        roleId: roleGroup.roleId,
+        post: roleGroup.post
+      });
       if (ret instanceof Error) {
         throw ret;
       }
       expect(ret?.id).toBe(roleGroup.id);
-    });
-    test("update", async () => {
-      roleGroup.post = 5000;
-      const err = await store.roleGroup.update(roleGroup);
-      if (err instanceof Error) {
-        throw err;
-      }
-      const ret = await store.roleGroup.find({ id: roleGroup.id });
-      if (ret instanceof Error) {
-        throw ret;
-      }
-      expect(ret?.post).toEqual(roleGroup.post);
     });
     test("delete", async () => {
       const ret = await store.roleGroup.delete({ id: roleGroup.id });

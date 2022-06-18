@@ -14,7 +14,6 @@ export type SystemStore = {
   update: (payload: System) => Promise<void | Error>;
   find: (payload: {
     id? :string,
-    code? :string,
   }) => Promise<System | undefined | Error>;
   filter: (payload: {}) => Promise<System[] | Error>;
   delete: (payload: {
@@ -28,6 +27,7 @@ export type RoleStore = {
   update: (payload: Role) => Promise<void | Error>;
   find: (payload: {
     id? :string,
+    systemId? :string,
   }) => Promise<Role | undefined | Error>;
   filter: (payload: {}) => Promise<Role[] | Error>;
   delete: (payload: {
@@ -38,10 +38,9 @@ export type RoleStore = {
 
 export type RoleUserStore = {
   insert: (payload: RoleUser) => Promise<void | Error>;
-  update: (payload: RoleUser) => Promise<void | Error>;
   find: (payload: {
     id? :string,
-  }) => Promise<RoleUser | undefined | Error>;
+    roleId? :string; }) => Promise<RoleUser | undefined | Error>;
   filter: (payload: {}) => Promise<RoleUser[] | Error>;
   delete: (payload: {
     id: string;
@@ -51,9 +50,10 @@ export type RoleUserStore = {
 
 export type RoleGroupStore = {
   insert: (payload: RoleGroup) => Promise<void | Error>;
-  update: (payload: RoleGroup) => Promise<void | Error>;
   find: (payload: {
     id? :string,
+    roleId?:string;
+    post? :string;
   }) => Promise<RoleGroup | undefined | Error>;
   filter: (payload: {}) => Promise<RoleGroup[] | Error>;
   delete: (payload: {

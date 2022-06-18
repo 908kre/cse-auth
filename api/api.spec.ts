@@ -123,15 +123,6 @@ describe("roleUser", () => {
       throw res
     }
   });
-  test("update", async () => {
-    const res = await api.roleUser.update({
-      id: uuid(),
-      roleId: uuid(),
-    });
-    if (res instanceof Error) {
-      expect(res.message).toBe(ErrorKind.RoleUserNotFound);
-    }
-  });
   test("filter", async () => {
     const res = await api.roleUser.filter({
     });
@@ -166,16 +157,6 @@ describe("roleGroup", () => {
     });
     if (res instanceof Error) {
       throw res
-    }
-  });
-  test("update", async () => {
-    const res = await api.roleGroup.update({
-      id: uuid(),
-      roleId: uuid(),
-      post: 0
-    });
-    if (res instanceof Error) {
-      expect(res.message).toBe(ErrorKind.RoleGroupNotFound);
     }
   });
   test("filter", async () => {

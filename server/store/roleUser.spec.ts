@@ -25,23 +25,14 @@ describe("roleUser", () => {
       }
     });
     test("find", async () => {
-      const ret = await store.roleUser.find({ id: roleUser.id });
+      const ret = await store.roleUser.find({ 
+        id: roleUser.id,
+        roleId: roleUser.roleId,
+      });
       if (ret instanceof Error) {
         throw ret;
       }
       expect(ret?.id).toBe(roleUser.id);
-    });
-    test("update", async () => {
-      roleUser.roleId = uuid();
-      const err = await store.roleUser.update(roleUser);
-      if (err instanceof Error) {
-        throw err;
-      }
-      const ret = await store.roleUser.find({ id: roleUser.id });
-      if (ret instanceof Error) {
-        throw ret;
-      }
-      expect(ret?.roleId).toEqual(roleUser.roleId);
     });
     test("delete", async () => {
       const ret = await store.roleUser.delete({ id: roleUser.id });

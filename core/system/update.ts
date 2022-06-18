@@ -5,7 +5,6 @@ import FindFn from "@csea/core/system/find";
 export type Payload = {
   id: string;
   name: string;
-  code: string;
 };
 
 export type Fn = (payload: Payload) => Promise<System | Error>
@@ -21,7 +20,6 @@ export const Fn = (props: {
       const newSystem = System({
         ...system,
         name: payload.name,
-        code:payload.code
       })
       const valErr = newSystem.validate()
       if(valErr instanceof Error){return valErr}

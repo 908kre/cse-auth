@@ -5,7 +5,6 @@ import FindFn from "@csea/core/role/find";
 export type Payload = {
   id: string;
   name: string;
-  code: string;
   systemId: string;
   charge: string;
 };
@@ -23,7 +22,6 @@ export const Fn = (props: {
       const newRole = Role({
         ...role,
         name: payload.name,
-        code:payload.code,
         systemId:payload.systemId,
         charge:payload.charge
       })
