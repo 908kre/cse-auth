@@ -7,9 +7,20 @@ import { SystemTable } from "@csea/web/components/system-table";
 
 const api = Api();
 export const SystemsPage = () => {
-  const { data: systems } = useSWR("systems", () => api.system.filter({}));
+  const navigate = useNavigate();
+  const { data: systems } = useSWR("/system", () => api.system.filter({}));
   if (systems === undefined || systems instanceof Error) {
     return <Loading />;
   }
-  return <SystemTable rows={systems} />;
+  return (
+    <SystemTable
+      rows={systems}
+      onCreate={() => {
+        navigate("/system/create");
+      }}
+      onEdit={({ id }) => {
+        navigate(`/system/update/${id}`);
+      }}
+    />
+  );
 };

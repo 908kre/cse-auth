@@ -14,5 +14,6 @@ export const Primary = () => (
   <SystemForm
     system={System({ id: nanoid(), name: "test" })}
     onSubmit={action("submit")}
+    onDelete={action("delete")}
   />
 );
