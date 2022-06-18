@@ -1690,7 +1690,10 @@ __metadata:
     html-webpack-plugin: ^5.5.0
     jest: ^27.0.4
     jest-mock: ^27.0.4
+    lodash: ^4.17.21
+    nanoid: ^4.0.0
     react: ^18.1.0
+    react-data-grid: ^7.0.0-beta.13
     react-dom: ^18.1.0
     react-router-dom: ^6.3.0
     storybook: ^6.5.7
@@ -7026,7 +7029,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clsx@npm:^1.0.4":
+"clsx@npm:^1.0.4, clsx@npm:^1.1.1":
   version: 1.1.1
   resolution: "clsx@npm:1.1.1"
   checksum: ff052650329773b9b245177305fc4c4dc3129f7b2be84af4f58dc5defa99538c61d4207be7419405a5f8f3d92007c954f4daba5a7b74e563d5de71c28c830063
@@ -14083,6 +14086,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nanoid@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "nanoid@npm:4.0.0"
+  bin:
+    nanoid: bin/nanoid.js
+  checksum: 7d5946df5c6d383694195b781ae7b5067c149d164ec71e910d6b06676309c3459b68af570b944fb5ecd5065d19df464f05700d141d70bb712ff8ca06642fd8df
+  languageName: node
+  linkType: hard
+
 "nanomatch@npm:^1.2.9":
   version: 1.2.13
   resolution: "nanomatch@npm:1.2.13"
@@ -16079,6 +16091,18 @@ __metadata:
     react: ">=16.8.0"
     react-dom: ">=16.8.0"
   checksum: e60811781716e57f0990379eff20d6f22d4d35b9e858c47ecf857c1dc1c1a2274c924ded7248bad5f1e2fbf2aab06e59b12852910c8dee5e6850f8e4df293670
+  languageName: node
+  linkType: hard
+
+"react-data-grid@npm:^7.0.0-beta.13":
+  version: 7.0.0-canary.49
+  resolution: "react-data-grid@npm:7.0.0-canary.49"
+  dependencies:
+    clsx: ^1.1.1
+  peerDependencies:
+    react: ^16.14 || ^17.0
+    react-dom: ^16.14 || ^17.0
+  checksum: fe57d441a5e56dac39a0f7e06979a27d5606515653ead31fc06f9c2fe08ebaf88ff4ab70f1565dd356b343cf4612137dea2d188a40a7e246b85dd5aa2589da04
   languageName: node
   linkType: hard
 
