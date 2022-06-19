@@ -12,7 +12,6 @@ describe("system", () => {
     const res = await api.system.create({
       id: id,
       name: uuid(),
-      code: uuid(),
     });
     if (res instanceof Error) {
 
@@ -30,7 +29,6 @@ describe("system", () => {
     const res = await api.system.update({
       id: uuid(),
       name: uuid(),
-      code: uuid(),
     });
     if (res instanceof Error) {
       expect(res.message).toBe(ErrorKind.SystemNotFound);
@@ -59,7 +57,6 @@ describe("role", () => {
     const res = await api.role.create({
       id: id,
       name: uuid(),
-      code: uuid(),
       systemId: uuid(),
       charge: uuid(),
     });
@@ -79,7 +76,6 @@ describe("role", () => {
     const res = await api.role.update({
       id: uuid(),
       name: uuid(),
-      code: uuid(),
       systemId: uuid(),
       charge: uuid(),
     });
@@ -106,9 +102,10 @@ describe("role", () => {
 
 describe("roleUser", () => {
   const id = uuid();
+  const roleId = uuid();
   test("create", async () => {
     const res = await api.roleUser.create({
-      id: id,
+      userId: id,
       roleId: uuid(),
     });
     if (res instanceof Error) {
@@ -117,7 +114,8 @@ describe("roleUser", () => {
   });
   test("delete", async () => {
     const res = await api.roleUser.delete({
-      id: id,
+      userId: id,
+      roleId: roleId,
     });
     if (res instanceof Error) {
       throw res
@@ -132,7 +130,8 @@ describe("roleUser", () => {
   });
   test("find", async () => {
     const res = await api.roleUser.find({
-      id: uuid(),
+      userId: uuid(),
+      roleId: uuid(),
     });
     if (res instanceof Error) {
       expect(res.message).toBe(ErrorKind.RoleUserNotFound);
@@ -140,12 +139,11 @@ describe("roleUser", () => {
   });
 });
 describe("roleGroup", () => {
-  const id = uuid();
   test("create", async () => {
     const res = await api.roleGroup.create({
-      id: id,
+      groupId: uuid(),
       roleId: uuid(),
-      post: 0
+      post: uuid(),
     });
     if (res instanceof Error) {
       throw res
@@ -153,7 +151,9 @@ describe("roleGroup", () => {
   });
   test("delete", async () => {
     const res = await api.roleGroup.delete({
-      id: id,
+      groupId: uuid(),
+      roleId: uuid(),
+      post: uuid(),
     });
     if (res instanceof Error) {
       throw res
@@ -168,7 +168,9 @@ describe("roleGroup", () => {
   });
   test("find", async () => {
     const res = await api.roleGroup.find({
-      id: uuid(),
+      groupId: uuid(),
+      roleId: uuid(),
+      post: uuid(),
     });
     if (res instanceof Error) {
       expect(res.message).toBe(ErrorKind.RoleGroupNotFound);
