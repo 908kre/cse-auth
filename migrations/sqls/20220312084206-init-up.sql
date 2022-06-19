@@ -14,16 +14,16 @@ CREATE TABLE roles (
 );
 
 CREATE TABLE role_users (
-    id             text        NOT NULL,
+    user_id        text        NOT NULL,
     role_id        text        NOT NULL,
     created_at     timestamp   NOT NULL,
-    UNIQUE (id, role_id)
+    UNIQUE (user_id, role_id)
 );
 
 CREATE TABLE role_groups (
-    id             text        NOT NULL,
+    group_id       text        NOT NULL,
     role_id        text        NOT NULL,
     post           text        NOT NULL,
     created_at     timestamp   NOT NULL,
-    UNIQUE (id, role_id, post)
+    UNIQUE (group_id, role_id, post)
 );

@@ -6,22 +6,22 @@ export { default as FilterFn } from "@csea/core/roleUser/filter"
 export { default as DeleteFn } from "@csea/core/roleUser/delete"
 
 export type RoleUser = {
-  id: string
+  userId: string
   roleId:string
   createdAt:Date
 }
 
 export const RoleUser = (args?: {
-  id?: string,
+  userId?: string,
   roleId?: string,
   createdAt?: Date
 }):RoleUser => {
-  const id = args?.id ?? "" 
+  const userId = args?.userId ?? "" 
   const roleId = args?.roleId ?? ""
   const createdAt = args?.createdAt ?? new Date()
 
   const self = {
-    id,
+    userId,
     roleId,
     createdAt,
   }

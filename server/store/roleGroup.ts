@@ -4,7 +4,7 @@ import { RoleGroup } from "@csea/core/roleGroup";
 import { RoleGroupStore } from "@csea/core";
 
 const COLUMNS = [
-  "id",
+  "group_id",
   "role_id",
   "post",
   "created_at",
@@ -13,7 +13,7 @@ const COLUMNS = [
 export const Store = (sql: Sql<any>): RoleGroupStore => {
   const to = (r: Row): RoleGroup => {
     return RoleGroup({
-      id: r.id,
+      groupId: r.group_id,
       roleId: r.role_id,
       post: r.post,
       createdAt: r.created_at,
@@ -22,7 +22,7 @@ export const Store = (sql: Sql<any>): RoleGroupStore => {
 
   const from = (r: RoleGroup): Row => {
     return {
-      id: r.id,
+      group_id: r.groupId,
       role_id: r.roleId,
       post: r.post,
       created_at: r.createdAt,
@@ -30,15 +30,15 @@ export const Store = (sql: Sql<any>): RoleGroupStore => {
   };
 
   const find = async (payload: {
-    id?: string;
+    groupId?: string;
     roleId?:string;
     post?: string;
   }): Promise<RoleGroup | undefined | Error> => {
     try {
       const rows= await (async () => {
-        const { id, roleId, post } = payload;
-        if (id !== undefined && roleId !== undefined && post !== undefined) {
-          return await sql`SELECT * FROM role_groups WHERE id=${id} AND role_id=${roleId} AND post=${post}`;
+        const { groupId, roleId, post } = payload;
+        if (groupId !== undefined && roleId !== undefined && post !== undefined) {
+          return await sql`SELECT * FROM role_groups WHERE group_id=${groupId} AND role_id=${roleId} AND post=${post}`;
         }
         return []
       })()
@@ -53,13 +53,13 @@ export const Store = (sql: Sql<any>): RoleGroupStore => {
   };
 
   const filter = async (payload: {
-    ids?: string[];
+    groupId?:string;
   }): Promise<RoleGroup[] | Error> => {
     try {
-      const { ids } = payload;
+      const { groupId} = payload;
       let rows = [];
-      if (ids !== undefined && ids.length > 0) {
-        rows = await sql`SELECT  * FROM role_groups WHERE id IN (${ids})`;
+      if (groupId) {
+        rows = await sql`SELECT  * FROM role_groups WHERE group_id = ${groupId}`;
       } else {
         rows = await sql`SELECT * FROM role_groups`;
       }
@@ -84,13 +84,13 @@ export const Store = (sql: Sql<any>): RoleGroupStore => {
   };
 
   const delete_ = async (payload: {
-    id?: string;
+    groupId: string;
+    roleId: string;
+    post: string;
   }) => {
     try {
-      const { id } = payload;
-      if (id !== undefined) {
-        await sql`DELETE FROM role_groups WHERE id=${id}`;
-      }
+      const { groupId, roleId, post } = payload;
+      await sql`DELETE FROM role_groups WHERE group_id=${groupId} AND role_id=${roleId} AND post=${post}`;
     } catch (err) {
       return err;
     }

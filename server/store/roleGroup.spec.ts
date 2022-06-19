@@ -16,7 +16,11 @@ describe("roleGroup", () => {
       throw e;
     });
   });
-  const roleGroup = RoleGroup({ id: uuid() });
+  const roleGroup = RoleGroup({ 
+    groupId: uuid(),
+    roleId: uuid(),
+    post: uuid()
+  });
   describe("crud", () => {
     test("insert", async () => {
       const err = await store.roleGroup.insert(roleGroup);
@@ -26,21 +30,29 @@ describe("roleGroup", () => {
     });
     test("find", async () => {
       const ret = await store.roleGroup.find({ 
-        id: roleGroup.id, 
+        groupId: roleGroup.groupId, 
         roleId: roleGroup.roleId,
         post: roleGroup.post
       });
       if (ret instanceof Error) {
         throw ret;
       }
-      expect(ret?.id).toBe(roleGroup.id);
+      expect(ret?.groupId).toBe(roleGroup.groupId);
     });
     test("delete", async () => {
-      const ret = await store.roleGroup.delete({ id: roleGroup.id });
+      const ret = await store.roleGroup.delete({
+        groupId:roleGroup.groupId,
+        roleId:roleGroup.roleId,
+        post:roleGroup.post,
+      });
       if (ret instanceof Error) {
         throw ret;
       }
-      const findRet = await store.roleGroup.find({ id: roleGroup.id });
+      const findRet = await store.roleGroup.find({ 
+        groupId: roleGroup.groupId, 
+        roleId: roleGroup.roleId,
+        post: roleGroup.post
+      });
       if (findRet instanceof Error) {
         throw findRet;
       }

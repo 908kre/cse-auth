@@ -3,10 +3,12 @@ import { System } from "@csea/core/system";
 import { Role } from "@csea/core/role";
 import { RoleUser } from "@csea/core/roleUser";
 import { RoleGroup } from "@csea/core/roleGroup";
+import { User } from "@csea/core/user";
 
 export type Claims = {
   exp: number;
   userId: string;
+  roles: string[]
 };
 
 export type SystemStore = {
@@ -39,11 +41,12 @@ export type RoleStore = {
 export type RoleUserStore = {
   insert: (payload: RoleUser) => Promise<void | Error>;
   find: (payload: {
-    id? :string,
-    roleId? :string; }) => Promise<RoleUser | undefined | Error>;
-  filter: (payload: {}) => Promise<RoleUser[] | Error>;
+    userId :string,
+    roleId :string; }) => Promise<RoleUser | undefined | Error>;
+  filter: (payload: { userId?:string }) => Promise<RoleUser[] | Error>;
   delete: (payload: {
-    id: string;
+    userId: string;
+    roleId: string;
   }) => Promise<void | Error>;
   clear: () => Promise<void | Error>;
 };
@@ -51,17 +54,22 @@ export type RoleUserStore = {
 export type RoleGroupStore = {
   insert: (payload: RoleGroup) => Promise<void | Error>;
   find: (payload: {
-    id? :string,
-    roleId?:string;
-    post? :string;
+    groupId :string,
+    roleId:string;
+    post:string;
   }) => Promise<RoleGroup | undefined | Error>;
-  filter: (payload: {}) => Promise<RoleGroup[] | Error>;
+  filter: (payload: { groupId?: string }) => Promise<RoleGroup[] | Error>;
   delete: (payload: {
-    id: string;
+    groupId: string;
+    roleId: string;
+    post: string;
   }) => Promise<void | Error>;
   clear: () => Promise<void | Error>;
 };
 
+export type UserStore = {
+  find: (payload: {id: string; password: string }) => Promise<User | Error>
+};
 
 export type Lock = {
   auto: <T>(fn: () => Promise<T>) => Promise<T>;
@@ -77,10 +85,10 @@ export type Crypt = {
   hash: (payload: { password: string }) => Promise<string | Error>;
 };
 
-
 export type Store = {
   system: SystemStore;
   role:RoleStore;
   roleUser:RoleUserStore;
   roleGroup:RoleGroupStore;
+  user: UserStore;
 }

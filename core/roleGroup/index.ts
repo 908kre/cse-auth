@@ -6,25 +6,25 @@ export { default as FilterFn } from "@csea/core/roleGroup/filter"
 export { default as DeleteFn } from "@csea/core/roleGroup/delete"
 
 export type RoleGroup = {
-  id: string
+  groupId: string
   roleId:string
   post:string;
   createdAt:Date
 }
 
 export const RoleGroup = (args?: {
-  id?: string,
+  groupId?: string,
   roleId?: string,
   post?: string,
   createdAt?: Date
 }):RoleGroup => {
-  const id = args?.id ?? ""
+  const groupId = args?.groupId ?? ""
   const roleId = args?.roleId ?? ""
   const post = args?.post ?? ""
   const createdAt = args?.createdAt ?? new Date()
 
   const self = {
-    id,
+    groupId,
     roleId,
     post,
     createdAt,

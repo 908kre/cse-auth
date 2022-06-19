@@ -16,7 +16,7 @@ describe("roleUser", () => {
       throw e;
     });
   });
-  const roleUser = RoleUser({ id: uuid() });
+  const roleUser = RoleUser({ userId: uuid(), roleId: uuid() });
   describe("crud", () => {
     test("insert", async () => {
       const err = await store.roleUser.insert(roleUser);
@@ -26,20 +26,20 @@ describe("roleUser", () => {
     });
     test("find", async () => {
       const ret = await store.roleUser.find({ 
-        id: roleUser.id,
+        userId: roleUser.userId,
         roleId: roleUser.roleId,
       });
       if (ret instanceof Error) {
         throw ret;
       }
-      expect(ret?.id).toBe(roleUser.id);
+      expect(ret?.userId).toBe(roleUser.userId);
     });
     test("delete", async () => {
-      const ret = await store.roleUser.delete({ id: roleUser.id });
+      const ret = await store.roleUser.delete({ userId: roleUser.userId, roleId: roleUser.roleId });
       if (ret instanceof Error) {
         throw ret;
       }
-      const findRet = await store.roleUser.find({ id: roleUser.id });
+      const findRet = await store.roleUser.find({ userId: roleUser.userId, roleId: roleUser.roleId });
       if (findRet instanceof Error) {
         throw findRet;
       }
@@ -49,6 +49,9 @@ describe("roleUser", () => {
   describe("filter", () => {
     test("empty", async () => {
       await store.roleUser.filter({}).catch((err) => {
+        throw err;
+      });
+      await store.roleUser.filter({ userId: roleUser.userId }).catch((err) => {
         throw err;
       });
     });

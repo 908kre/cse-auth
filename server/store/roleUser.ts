@@ -4,7 +4,7 @@ import { RoleUser } from "@csea/core/roleUser";
 import { RoleUserStore } from "@csea/core";
 
 const COLUMNS = [
-  "id",
+  "user_id",
   "role_id",
   "created_at",
 ] as const
@@ -12,7 +12,7 @@ const COLUMNS = [
 export const Store = (sql: Sql<any>): RoleUserStore => {
   const to = (r: Row): RoleUser => {
     return RoleUser({
-      id: r.id,
+      userId: r.user_id,
       roleId: r.role_id,
       createdAt: r.created_at,
     });
@@ -20,21 +20,21 @@ export const Store = (sql: Sql<any>): RoleUserStore => {
 
   const from = (r: RoleUser): Row => {
     return {
-      id: r.id,
+      user_id: r.userId,
       role_id: r.roleId,
       created_at: r.createdAt,
     };
   };
 
   const find = async (payload: {
-    id?: string;
+    userId?: string;
     roleId?: string;
   }): Promise<RoleUser | undefined | Error> => {
     try {
       const rows= await (async () => {
-        const { id, roleId } = payload;
-        if (id !== undefined && roleId !== undefined) {
-          return await sql`SELECT * FROM role_users WHERE id=${id} AND role_id=${roleId}`;
+        const { userId, roleId } = payload;
+        if (userId !== undefined && roleId !== undefined) {
+          return await sql`SELECT * FROM role_users WHERE user_id=${userId} AND role_id=${roleId}`;
         }
         return []
       })()
@@ -45,13 +45,13 @@ export const Store = (sql: Sql<any>): RoleUserStore => {
   };
 
   const filter = async (payload: {
-    ids?: string[];
+    userId?:string
   }): Promise<RoleUser[] | Error> => {
     try {
-      const { ids } = payload;
+      const { userId } = payload;
       let rows = [];
-      if (ids !== undefined && ids.length > 0) {
-        rows = await sql`SELECT  * FROM role_users WHERE id IN (${ids})`;
+      if (userId) {
+        rows = await sql`SELECT  * FROM role_users WHERE user_id  = ${userId})`;
       } else {
         rows = await sql`SELECT * FROM role_users`;
       }
@@ -76,13 +76,12 @@ export const Store = (sql: Sql<any>): RoleUserStore => {
   };
 
   const delete_ = async (payload: {
-    id?: string;
+    userId: string;
+    roleId: string;
   }) => {
     try {
-      const { id } = payload;
-      if (id !== undefined) {
-        await sql`DELETE FROM role_users WHERE id=${id}`;
-      }
+      const { userId, roleId } = payload;
+      await sql`DELETE FROM role_users WHERE user_id=${userId} AND role_id=${roleId}`;
     } catch (err) {
       return err;
     }
