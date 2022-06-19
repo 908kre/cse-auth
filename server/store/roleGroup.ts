@@ -3,12 +3,7 @@ import { first } from "lodash";
 import { RoleGroup } from "@csea/core/roleGroup";
 import { RoleGroupStore } from "@csea/core";
 
-const COLUMNS = [
-  "group_id",
-  "role_id",
-  "post",
-  "created_at",
-] as const
+const COLUMNS = ["group_id", "role_id", "post", "created_at"] as const;
 
 export const Store = (sql: Sql<any>): RoleGroupStore => {
   const to = (r: Row): RoleGroup => {
@@ -31,17 +26,21 @@ export const Store = (sql: Sql<any>): RoleGroupStore => {
 
   const find = async (payload: {
     groupId?: string;
-    roleId?:string;
+    roleId?: string;
     post?: string;
   }): Promise<RoleGroup | undefined | Error> => {
     try {
-      const rows= await (async () => {
+      const rows = await (async () => {
         const { groupId, roleId, post } = payload;
-        if (groupId !== undefined && roleId !== undefined && post !== undefined) {
+        if (
+          groupId !== undefined &&
+          roleId !== undefined &&
+          post !== undefined
+        ) {
           return await sql`SELECT * FROM role_groups WHERE group_id=${groupId} AND role_id=${roleId} AND post=${post}`;
         }
-        return []
-      })()
+        return [];
+      })();
       const row = first(rows.map(to));
       if (row === undefined) {
         return;
@@ -53,20 +52,20 @@ export const Store = (sql: Sql<any>): RoleGroupStore => {
   };
 
   const filter = async (payload: {
-    groupId?:string;
+    groupId?: string;
   }): Promise<RoleGroup[] | Error> => {
     try {
-      const { groupId} = payload;
+      const { groupId } = payload;
       let rows = [];
       if (groupId) {
-        rows = await sql`SELECT  * FROM role_groups WHERE group_id = ${groupId}`;
+        rows = await sql`SELECT * FROM role_groups WHERE group_id = ${groupId}`;
       } else {
         rows = await sql`SELECT * FROM role_groups`;
       }
-      if(rows.length === 0){
-        return []
+      if (rows.length === 0) {
+        return [];
       }
-      const roleGroups = rows.map(to)
+      const roleGroups = rows.map(to);
       return roleGroups;
     } catch (err) {
       return err;
@@ -75,9 +74,7 @@ export const Store = (sql: Sql<any>): RoleGroupStore => {
   const insert = async (payload: RoleGroup): Promise<void | Error> => {
     try {
       await sql`
-      INSERT INTO role_groups ${sql(
-        from(payload),...COLUMNS
-      )}`;
+      INSERT INTO role_groups ${sql(from(payload), ...COLUMNS)}`;
     } catch (err) {
       return err;
     }
@@ -111,4 +108,4 @@ export const Store = (sql: Sql<any>): RoleGroupStore => {
     delete: delete_,
   };
 };
-export default Store
+export default Store;

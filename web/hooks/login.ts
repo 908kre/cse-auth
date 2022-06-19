@@ -1,14 +1,44 @@
 import React from "react";
+import { Claims } from "@csea/core";
+import useSWR, { useSWRConfig } from "swr";
+import { SignInFn } from "@csea/core/auth";
+import Api from "@csea/api";
 
-export const useLogin = (props?: {}) => {
+type LogInInfo = {
+  id: string;
+  password: string;
+};
+export const useLogin = (props?: { onLogin?: VoidFunction }) => {
+  const api = Api();
   const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false);
-  const [userId, setUserId] = React.useState<string>("");
-  const [password, setPassword] = React.useState<string>("");
+  const [logInInfo, setLogInInfo] = React.useState<LogInInfo>({
+    id: "",
+    password: "",
+  });
+  const [token, setToken] = React.useState<string>("");
+  const [claims, setClaims] = React.useState<Claims | undefined>(undefined);
+
+  const logIn = async (req) => {
+    const token = await api.signIn(req);
+    if (token instanceof Error) {
+      return token;
+    }
+    setToken(token);
+    api.setToken(token);
+    const claims = await api.verify();
+    if (claims instanceof Error) {
+      return;
+    }
+    setClaims(claims);
+    setIsLoggedIn(true);
+    props?.onLogin?.();
+  };
 
   return {
     isLoggedIn,
-    userId,
-    password,
-    setPassword,
+    logInInfo,
+    claims,
+    logIn,
+    api,
   };
 };

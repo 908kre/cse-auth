@@ -7,14 +7,14 @@ import SystemRoutes from "./system";
 import RoleRoutes from "./role";
 import RoleUserRoutes from "./roleUser";
 import RoleGroupRoutes from "./roleGroup";
+import AuthRoutes from "./auth";
 
-export const App = (args: {
+export const App = (props: {
   store: Store;
   lock: Lock;
   auth: Auth;
   secret: string;
 }) => {
-  const { store, lock } = args;
   const app = fastify({
     bodyLimit: 12485760,
     logger: true,
@@ -24,18 +24,19 @@ export const App = (args: {
   app.register(fastifyStatic, {
     root: "/app/web/dist",
   });
-  app.register(SystemRoutes({ store, lock }), {
+  app.register(SystemRoutes(props), {
     prefix: `${prefix}/system`,
   });
-  app.register(RoleRoutes({ store, lock }), {
+  app.register(RoleRoutes(props), {
     prefix: `${prefix}/role`,
   });
-  app.register(RoleUserRoutes({ store, lock }), {
+  app.register(RoleUserRoutes(props), {
     prefix: `${prefix}/role-user`,
   });
-  app.register(RoleGroupRoutes({ store, lock }), {
+  app.register(RoleGroupRoutes(props), {
     prefix: `${prefix}/role-group`,
   });
+  app.register(AuthRoutes(props), { prefix: `${prefix}/auth` });
   app.ready(async () => {
     console.log(app.printRoutes());
   });
