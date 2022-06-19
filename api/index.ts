@@ -3,6 +3,8 @@ import SystemApi from "./system";
 import RoleApi from "./role";
 import RoleUserApi from "./roleUser";
 import RoleGroupApi from "./roleGroup";
+import { SignInPayload } from "@csea/core/auth"
+import { TOKEN_KEY, Claims } from "@csea/core"
 
 
 export function toError(err: any): Error {
@@ -16,6 +18,10 @@ export function toError(err: any): Error {
 
 export type RootApi = {
   setUrl: (url: string) => void;
+  signIn: (payload: SignInPayload) => Promise<string | Error>;
+  verify: () => Promise<Claims | Error>;
+  setToken: (token: string) => void;
+  unsetToken: () => void;
   system: ReturnType<typeof SystemApi>;
   role: ReturnType<typeof RoleApi>;
   roleUser: ReturnType<typeof RoleUserApi>;
@@ -30,12 +36,42 @@ export const RootApi = (): RootApi => {
   const roleUser = RoleUserApi({ http, prefix: `${prefix}/role-user` });
   const roleGroup = RoleGroupApi({ http, prefix: `${prefix}/role-group` });
 
+  const signIn = async (
+    payload: SignInPayload
+  ): Promise<string | Error> => {
+    try {
+      const res = await http.post(`${prefix}/sign-in`, payload);
+      return res.data;
+    } catch (err) {
+      return toError(err);
+    }
+  };
+
+  const setToken = (token: string) => {
+    http.defaults.headers[TOKEN_KEY] = token;
+  };
+  const unsetToken = () => {
+    http.defaults.headers[TOKEN_KEY] = "";
+  };
+  const verify = async (): Promise<Claims | Error> => {
+    try {
+      const res = await http.get(`${prefix}/verify`);
+      return res.data;
+    } catch (err) {
+      return toError(err);
+    }
+  };
+
   const setUrl = (url: string) => {
     http.defaults.baseURL = url;
   };
 
   return {
     setUrl,
+    verify,
+    signIn,
+    setToken,
+    unsetToken,
     system,
     role,
     roleUser,

@@ -32,5 +32,5 @@ export const SignInFn = (props: { auth: Auth; store: Store }): SignInFn => {
       roles: roles,
     };
     return await props.auth.sign(claims);
-  };
+  }
 };
