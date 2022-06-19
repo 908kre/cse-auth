@@ -1,11 +1,10 @@
 import { Lock, ErrorKind, Claims, Store, Auth, Crypt } from ".";
 import { uniq } from "lodash";
 
-export type SignInPayload = {
+export type SignInFn = (req: {
   id: string;
   password: string;
-};
-export type SignInFn = (req: SignInPayload) => Promise<string | Error>;
+}) => Promise<string | Error>;
 export const SignInFn = (props: { auth: Auth; store: Store }): SignInFn => {
   return async (req) => {
     const user = await props.store.user.find(req);
