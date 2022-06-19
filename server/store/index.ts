@@ -3,6 +3,7 @@ import SystemStore from "./system";
 import RoleStore from "./role";
 import RoleUserStore from "./roleUser";
 import RoleGroupStore from "./roleGroup";
+import UserStore from "./user";
 
 export const Store = (args: { 
   url: string; 
@@ -18,11 +19,13 @@ export const Store = (args: {
   const role = RoleStore(sql);
   const roleUser = RoleUserStore(sql);
   const roleGroup = RoleGroupStore(sql);
+  const user = UserStore();
   return {
     system,
     role,
     roleUser,
     roleGroup,
+    user,
     close,
   };
 };

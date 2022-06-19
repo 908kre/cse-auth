@@ -9,6 +9,8 @@ export enum ErrorKind {
   RoleGroupAlreadyExist = "RoleGroupAlreadyExist",
   InvalidSystemIdFormat = "InvalidSystemIdFormat",
   InvalidRoleIdFormat = "InvalidRoleIdFormat",
-  InvalidNameOrPassword = "InvalidNameOrPassword"
+  InvalidNameOrPassword = "InvalidNameOrPassword",
+  TokenNotFound = "TokenNotFound",
+  InvalidToken = "InvalidToken"
 }
 export default ErrorKind;

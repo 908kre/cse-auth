@@ -5,6 +5,8 @@ import { RoleUser } from "@csea/core/roleUser";
 import { RoleGroup } from "@csea/core/roleGroup";
 import { User } from "@csea/core/user";
 
+export const TOKEN_KEY = "x-auth-token";
+
 export type Claims = {
   exp: number;
   userId: string;

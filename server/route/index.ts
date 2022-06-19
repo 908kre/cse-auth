@@ -8,6 +8,7 @@ import RoleRoutes from "./role";
 import RoleUserRoutes from "./roleUser";
 import RoleGroupRoutes from "./roleGroup";
 
+export { store, lock, Auth } from "..";
 
 export const App = (args:{ store: Store; lock: Lock }) => {
   const { store, lock } = args;
