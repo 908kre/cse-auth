@@ -5,6 +5,7 @@ export type User = {
   name: string;
   groupId: string;
   post: string;
+  admin: boolean;
 };
 
 export const User = (args?: {
@@ -12,16 +13,19 @@ export const User = (args?: {
   name?: string;
   groupId?: string;
   post?: string;
+  admin?: boolean;
 }): User => {
   const id = args?.id ?? "";
   const name = args?.name ?? "";
   const groupId = args?.groupId ?? "";
   const post = args?.groupId ?? "";
+  const admin = args?.admin ?? false;
   return {
     id,
     name,
     groupId,
     post,
+    admin,
   };
 };
 export default User;

@@ -2,15 +2,18 @@ import fastify, { FastifyPlugin } from "fastify";
 import path from "path";
 import fastifyStatic from "fastify-static";
 
-import { Lock, Store } from "@csea/core";
+import { Lock, Store, Auth } from "@csea/core";
 import SystemRoutes from "./system";
 import RoleRoutes from "./role";
 import RoleUserRoutes from "./roleUser";
 import RoleGroupRoutes from "./roleGroup";
 
-export { store, lock, Auth } from "..";
-
-export const App = (args:{ store: Store; lock: Lock }) => {
+export const App = (args: {
+  store: Store;
+  lock: Lock;
+  auth: Auth;
+  secret: string;
+}) => {
   const { store, lock } = args;
   const app = fastify({
     bodyLimit: 12485760,

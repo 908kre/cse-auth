@@ -10,19 +10,15 @@ export const TOKEN_KEY = "x-auth-token";
 export type Claims = {
   exp: number;
   userId: string;
-  roles: string[]
+  roles: string[];
 };
 
 export type SystemStore = {
   insert: (payload: System) => Promise<void | Error>;
   update: (payload: System) => Promise<void | Error>;
-  find: (payload: {
-    id? :string,
-  }) => Promise<System | undefined | Error>;
+  find: (payload: { id?: string }) => Promise<System | undefined | Error>;
   filter: (payload: {}) => Promise<System[] | Error>;
-  delete: (payload: {
-    id: string;
-  }) => Promise<void | Error>;
+  delete: (payload: { id: string }) => Promise<void | Error>;
   clear: () => Promise<void | Error>;
 };
 
@@ -30,22 +26,21 @@ export type RoleStore = {
   insert: (payload: Role) => Promise<void | Error>;
   update: (payload: Role) => Promise<void | Error>;
   find: (payload: {
-    id? :string,
-    systemId? :string,
+    id?: string;
+    systemId?: string;
   }) => Promise<Role | undefined | Error>;
   filter: (payload: {}) => Promise<Role[] | Error>;
-  delete: (payload: {
-    id: string;
-  }) => Promise<void | Error>;
+  delete: (payload: { id: string }) => Promise<void | Error>;
   clear: () => Promise<void | Error>;
 };
 
 export type RoleUserStore = {
   insert: (payload: RoleUser) => Promise<void | Error>;
   find: (payload: {
-    userId :string,
-    roleId :string; }) => Promise<RoleUser | undefined | Error>;
-  filter: (payload: { userId?:string }) => Promise<RoleUser[] | Error>;
+    userId: string;
+    roleId: string;
+  }) => Promise<RoleUser | undefined | Error>;
+  filter: (payload: { userId?: string }) => Promise<RoleUser[] | Error>;
   delete: (payload: {
     userId: string;
     roleId: string;
@@ -56,9 +51,9 @@ export type RoleUserStore = {
 export type RoleGroupStore = {
   insert: (payload: RoleGroup) => Promise<void | Error>;
   find: (payload: {
-    groupId :string,
-    roleId:string;
-    post:string;
+    groupId: string;
+    roleId: string;
+    post: string;
   }) => Promise<RoleGroup | undefined | Error>;
   filter: (payload: { groupId?: string }) => Promise<RoleGroup[] | Error>;
   delete: (payload: {
@@ -70,7 +65,8 @@ export type RoleGroupStore = {
 };
 
 export type UserStore = {
-  find: (payload: {id: string; password: string }) => Promise<User | Error>
+  find: (payload: { id: string; password: string }) => Promise<User | Error>;
+  update: (payload: Pick<User, "id" | "admin">) => Promise<User | Error>;
 };
 
 export type Lock = {
@@ -79,7 +75,7 @@ export type Lock = {
 
 export type Auth = {
   sign: (claims: Claims) => Promise<string | Error>;
-  verify: () => Promise<Claims | Error>;
+  verify: (token?: string) => Promise<Claims | Error>;
 };
 
 export type Crypt = {
@@ -89,8 +85,8 @@ export type Crypt = {
 
 export type Store = {
   system: SystemStore;
-  role:RoleStore;
-  roleUser:RoleUserStore;
-  roleGroup:RoleGroupStore;
+  role: RoleStore;
+  roleUser: RoleUserStore;
+  roleGroup: RoleGroupStore;
   user: UserStore;
-}
+};

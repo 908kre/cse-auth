@@ -1,8 +1,8 @@
 import jwt from "jsonwebtoken";
 import { Claims, ErrorKind } from "@csea/core";
 
-export const JwtAuth = (args: { token?: string; secret: string }) => {
-  const { token, secret } = args;
+export const JwtAuth = (args: { secret: string }) => {
+  const { secret } = args;
   const sign = (claims: Claims): Promise<string | Error> => {
     return new Promise((resolve) => {
       jwt.sign(
@@ -18,7 +18,7 @@ export const JwtAuth = (args: { token?: string; secret: string }) => {
       );
     });
   };
-  const verify = async (): Promise<Claims | Error> => {
+  const verify = async (token?: string): Promise<Claims | Error> => {
     return new Promise((resolve, reject) => {
       if (token === undefined) {
         return resolve(new Error(ErrorKind.TokenNotFound));
@@ -36,4 +36,3 @@ export const JwtAuth = (args: { token?: string; secret: string }) => {
     sign,
   };
 };
-
