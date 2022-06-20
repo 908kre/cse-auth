@@ -2,25 +2,26 @@ import { Argv } from "yargs";
 import { App } from "@csea/server/route";
 import { Store } from "@csea/server/store";
 import { Lock } from "@oniku/lockfile";
+import { JwtAuth } from "@csea/server/auth";
 
 export default {
   command: "start",
   builder: (yargs: Argv) => {
-    return yargs.option('port', {
-      type: 'number',
-      alias: 'p',
+    return yargs.option("port", {
+      type: "number",
+      alias: "p",
       demandOption: false,
-      default:80,
-      describe: 'Port'
+      default: 80,
+      describe: "Port",
     });
   },
 
-  handler: (argv:{
-    port:number
-  }) => {
-    const store = Store({ url: process.env.DATABASE_URL || "" })
+  handler: (argv: { port: number }) => {
+    const store = Store({ url: process.env.DATABASE_URL || "" });
     const lock = Lock({ dir: "/tmp" });
-    const app = App({ store, lock})
+    const secret = Math.random().toString(32).substring(2);
+    const auth = JwtAuth({ secret });
+    const app = App({ store, lock, secret, auth });
     app.listen(argv.port, "0.0.0.0", (err, address) => {
       if (err) {
         console.error(err);

@@ -6,7 +6,6 @@ import { RoleStore } from "@csea/core";
 const COLUMNS = [
   "id",
   "name",
-  "code",
   "system_id",
   "charge",
   "created_at",
@@ -17,7 +16,6 @@ export const Store = (sql: Sql<any>): RoleStore => {
     return Role({
       id: r.id,
       name: r.name,
-      code: r.code,
       systemId: r.system_id,
       charge: r.charge,
       createdAt: r.created_at,
@@ -28,7 +26,6 @@ export const Store = (sql: Sql<any>): RoleStore => {
     return {
       id: r.id,
       name: r.name,
-      code: r.code,
       system_id: r.systemId,
       charge: r.charge,
       created_at: r.createdAt,
@@ -37,24 +34,19 @@ export const Store = (sql: Sql<any>): RoleStore => {
 
   const find = async (payload: {
     id?: string;
-    name?: string;
+    systemId?: string;
   }): Promise<Role | undefined | Error> => {
     try {
       const rows= await (async () => {
-        const { id, name } = payload;
-        if (id !== undefined) {
+        const { id, systemId } = payload;
+        if (id !== undefined && systemId !== undefined) {
+          return await sql`SELECT * FROM roles WHERE id=${id} AND system_id=${systemId}`;
+        }if(id !== undefined){
           return await sql`SELECT * FROM roles WHERE id=${id}`;
-        }
-        if (name !== undefined) {
-          return await sql`SELECT * FROM roles WHERE name=${name}`;
         }
         return []
       })()
-      const row = first(rows.map(to));
-      if (row === undefined) {
-        return;
-      }
-      return row;
+      return first(rows.map(to));
     } catch (err) {
       return err;
     }
@@ -92,8 +84,7 @@ export const Store = (sql: Sql<any>): RoleStore => {
   };
   const update = async (payload: Role): Promise<void | Error> => {
     try {
-      await sql`UPDATE roles SET ${sql(from(payload),...COLUMNS)} WHERE id = ${payload.id}`;
-    }catch (err) {
+      await sql`UPDATE roles SET ${sql(from(payload),...COLUMNS)} WHERE id = ${payload.id}`; }catch (err) {
       return err;
     }
   };

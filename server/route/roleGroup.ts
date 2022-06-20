@@ -3,7 +3,6 @@ import { Store, Lock } from "@csea/core";
 import { FastifyPlugin } from "fastify";
 import {
   CreateFn,
-  UpdateFn,
   FindFn,
   FilterFn,
   DeleteFn,
@@ -14,17 +13,12 @@ export const Routes = (props: {
   lock: Lock;
 }): FastifyPlugin<{ prefix: string }> => {
   const create = CreateFn(props)
-  const update = UpdateFn(props)
   const delete_ = DeleteFn(props)
   const find = FindFn(props)
   const filter = FilterFn(props)
   return function (app, opts, done) {
     app.post<{ Body: Parameters<CreateFn>[0] }>("/create", {}, async (req, reply) => {
       const res = await create(req.body);
-      reply.send(res);
-    });
-    app.post<{ Body: Parameters<UpdateFn>[0] }>("/update", {}, async (req, reply) => {
-      const res = await update(req.body);
       reply.send(res);
     });
     app.post<{ Body: Parameters<DeleteFn>[0] }>("/delete", {}, async (req, reply) => {

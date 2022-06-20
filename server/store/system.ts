@@ -6,7 +6,6 @@ import { SystemStore } from "@csea/core";
 const COLUMNS = [
   "id",
   "name",
-  "code",
   "created_at",
 ] as const
 
@@ -15,7 +14,6 @@ export const Store = (sql: Sql<any>): SystemStore => {
     return System({
       id: r.id,
       name: r.name,
-      code: r.code,
       createdAt: r.created_at,
     });
   };
@@ -24,7 +22,6 @@ export const Store = (sql: Sql<any>): SystemStore => {
     return {
       id: r.id,
       name: r.name,
-      code: r.code,
       created_at: r.createdAt,
     };
   };
@@ -45,9 +42,6 @@ export const Store = (sql: Sql<any>): SystemStore => {
         return []
       })()
       const row = first(rows.map(to));
-      if (row === undefined) {
-        return;
-      }
       return row;
     } catch (err) {
       return err;
@@ -60,18 +54,10 @@ export const Store = (sql: Sql<any>): SystemStore => {
     try {
       const { ids } = payload;
       let rows = [];
-      const columns = [
-        "id",
-        "name",
-        "code",
-        "created_at",
-      ];
       if (ids !== undefined && ids.length > 0) {
-        rows = await sql`SELECT ${sql(
-          columns
-        )} FROM systems WHERE id IN (${ids})`;
+        rows = await sql`SELECT * FROM systems WHERE id IN (${ids})`;
       } else {
-        rows = await sql`SELECT ${sql(columns)} FROM systems`;
+        rows = await sql`SELECT * FROM systems`;
       }
       if(rows.length === 0){
         return []

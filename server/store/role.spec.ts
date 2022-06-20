@@ -16,7 +16,10 @@ describe("role", () => {
       throw e;
     });
   });
-  const role = Role({ id: uuid() });
+  const role = Role({ 
+    id: "test", 
+    systemId: "systemId"
+  });
   describe("crud", () => {
     test("insert", async () => {
       const err = await store.role.insert(role);
@@ -25,7 +28,10 @@ describe("role", () => {
       }
     });
     test("find", async () => {
-      const ret = await store.role.find({ id: role.id });
+      const ret = await store.role.find({ 
+        id: role.id, 
+        systemId: role.systemId
+      });
       if (ret instanceof Error) {
         throw ret;
       }

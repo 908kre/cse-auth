@@ -3,7 +3,9 @@ import { RoleGroup } from "@csea/core/roleGroup";
 import FindFn from "@csea/core/roleGroup/find";
 
 export type Payload = {
-  id: string;
+  groupId: string;
+  roleId: string;
+  post: string;
 };
 
 export type Fn = (payload: Payload) => Promise<void | Error>
@@ -16,7 +18,7 @@ export const Fn = (props: {
     return await props.lock.auto(async () => {
       const roleGroup = await find(payload)
       if(roleGroup instanceof Error) { return roleGroup }
-      let err = await props.store.roleGroup.delete({id: payload.id})
+      let err = await props.store.roleGroup.delete(payload)
       if(err instanceof Error){ return err}
     })
   }

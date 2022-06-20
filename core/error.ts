@@ -2,9 +2,15 @@ export enum ErrorKind {
   SystemNotFound = "SystemNotFound",
   SystemAlreadyExist = "SystemAlreadyExist",
   RoleNotFound = "RoleNotFound",
+  RoleAlreadyExist = "RoleAlreadyExist",
   RoleUserNotFound = "RoleUserNotFound",
+  RoleUserAlreadyExist = "RoleUserAlreadyExist",
   RoleGroupNotFound = "RoleGroupNotFound",
-  InvalidSystemNameFormat = "InvalidSystemNameFormat",
-  InvalidNameOrPassword = "InvalidNameOrPassword"
+  RoleGroupAlreadyExist = "RoleGroupAlreadyExist",
+  InvalidSystemIdFormat = "InvalidSystemIdFormat",
+  InvalidRoleIdFormat = "InvalidRoleIdFormat",
+  InvalidNameOrPassword = "InvalidNameOrPassword",
+  TokenNotFound = "TokenNotFound",
+  InvalidToken = "InvalidToken"
 }
 export default ErrorKind;

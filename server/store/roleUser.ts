@@ -3,16 +3,12 @@ import { first } from "lodash";
 import { RoleUser } from "@csea/core/roleUser";
 import { RoleUserStore } from "@csea/core";
 
-const COLUMNS = [
-  "id",
-  "role_id",
-  "created_at",
-] as const
+const COLUMNS = ["user_id", "role_id", "created_at"] as const;
 
 export const Store = (sql: Sql<any>): RoleUserStore => {
   const to = (r: Row): RoleUser => {
     return RoleUser({
-      id: r.id,
+      userId: r.user_id,
       roleId: r.role_id,
       createdAt: r.created_at,
     });
@@ -20,48 +16,45 @@ export const Store = (sql: Sql<any>): RoleUserStore => {
 
   const from = (r: RoleUser): Row => {
     return {
-      id: r.id,
+      user_id: r.userId,
       role_id: r.roleId,
       created_at: r.createdAt,
     };
   };
 
   const find = async (payload: {
-    id?: string;
+    userId?: string;
+    roleId?: string;
   }): Promise<RoleUser | undefined | Error> => {
     try {
-      const rows= await (async () => {
-        const { id } = payload;
-        if (id !== undefined) {
-          return await sql`SELECT * FROM role_users WHERE id=${id}`;
+      const rows = await (async () => {
+        const { userId, roleId } = payload;
+        if (userId !== undefined && roleId !== undefined) {
+          return await sql`SELECT * FROM role_users WHERE user_id=${userId} AND role_id=${roleId}`;
         }
-        return []
-      })()
-      const row = first(rows.map(to));
-      if (row === undefined) {
-        return;
-      }
-      return row;
+        return [];
+      })();
+      return first(rows.map(to));
     } catch (err) {
       return err;
     }
   };
 
   const filter = async (payload: {
-    ids?: string[];
+    userId?: string;
   }): Promise<RoleUser[] | Error> => {
     try {
-      const { ids } = payload;
+      const { userId } = payload;
       let rows = [];
-      if (ids !== undefined && ids.length > 0) {
-        rows = await sql`SELECT  * FROM role_users WHERE id IN (${ids})`;
+      if (userId) {
+        rows = await sql`SELECT  * FROM role_users WHERE user_id  = ${userId}`;
       } else {
         rows = await sql`SELECT * FROM role_users`;
       }
-      if(rows.length === 0){
-        return []
+      if (rows.length === 0) {
+        return [];
       }
-      const roleUsers = rows.map(to)
+      const roleUsers = rows.map(to);
       return roleUsers;
     } catch (err) {
       return err;
@@ -70,29 +63,16 @@ export const Store = (sql: Sql<any>): RoleUserStore => {
   const insert = async (payload: RoleUser): Promise<void | Error> => {
     try {
       await sql`
-      INSERT INTO role_users ${sql(
-        from(payload),...COLUMNS
-      )}`;
+      INSERT INTO role_users ${sql(from(payload), ...COLUMNS)}`;
     } catch (err) {
       return err;
     }
   };
-  const update = async (payload: RoleUser): Promise<void | Error> => {
-    try {
-      await sql`UPDATE role_users SET ${sql(from(payload),...COLUMNS)} WHERE id = ${payload.id}`;
-    }catch (err) {
-      return err;
-    }
-  };
 
-  const delete_ = async (payload: {
-    id?: string;
-  }) => {
+  const delete_ = async (payload: { userId: string; roleId: string }) => {
     try {
-      const { id } = payload;
-      if (id !== undefined) {
-        await sql`DELETE FROM role_users WHERE id=${id}`;
-      }
+      const { userId, roleId } = payload;
+      await sql`DELETE FROM role_users WHERE user_id=${userId} AND role_id=${roleId}`;
     } catch (err) {
       return err;
     }
@@ -109,9 +89,8 @@ export const Store = (sql: Sql<any>): RoleUserStore => {
     filter,
     find,
     insert,
-    update,
     clear,
     delete: delete_,
   };
 };
-export default Store
+export default Store;

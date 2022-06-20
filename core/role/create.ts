@@ -4,7 +4,6 @@ import { Role } from "@csea/core/role";
 export type Payload = {
   id?: string;
   name?: string;
-  code?: string;
   systemId?: string;
   charge?: string;
 };
@@ -17,6 +16,11 @@ export const Fn = (props: {
   return async (payload: Payload) => {
     return await props.lock.auto(async () => {
       const role = Role(payload)
+      const valErr = role.validate()
+      if(valErr instanceof Error) { return valErr }
+      if(await props.store.role.find({id: payload.id, systemId: payload.systemId})){
+        return new Error(ErrorKind.RoleAlreadyExist)
+      }
       const insertErr = await props.store.role.insert(role)
       if(insertErr instanceof Error) { return insertErr }
       return role 
