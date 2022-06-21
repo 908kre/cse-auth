@@ -1,11 +1,13 @@
 import { System } from "@csea/core/system";
+import { Role } from "@csea/core/role";
 import { useForm } from "react-hook-form";
-import { Payload } from "@csea/core/system/update";
-import { Payload as DeletePayload } from "@csea/core/system/delete";
+import { Payload } from "@csea/core/role/update";
+import { Payload as DeletePayload } from "@csea/core/role/delete";
 import { DeleteBtn } from "@csea/web/components/buttons";
 
-export const SystemForm = (props: {
-  system?: System;
+export const RoleForm = (props: {
+  role?: Role;
+  systemId: string;
   onSubmit: (req: Payload) => void;
   onDelete?: (req: DeletePayload) => void;
 }) => {
@@ -16,8 +18,10 @@ export const SystemForm = (props: {
     formState: { errors },
   } = useForm<Payload>({
     defaultValues: {
-      id: props.system?.id,
-      name: props.system?.name,
+      systemId: props.systemId,
+      id: props.role?.id,
+      name: props.role?.name,
+      charge: props.role?.charge
     },
   });
   const onSubmit = (data) => props.onSubmit?.(data);
@@ -25,18 +29,28 @@ export const SystemForm = (props: {
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
       <label className="label is-medium">
-        システム
+        ロール
       </label>
       <div className="p-1" style={{ borderTop: '0.5px solid #d3d3d3', width: "100%" }}/>
       <div className="field is-horizontal">
         <div className="field-label is-normal">
-          <label className="label">ID</label>
+          <label className="label">システムID</label>
+        </div>
+        <div className='field-body'>
+          <div className="field">
+            <div className='m-2'> { props.systemId } </div>
+          </div>
+        </div>
+      </div>
+      <div className="field is-horizontal">
+        <div className="field-label is-normal">
+          <label className="label">ロールID</label>
         </div>
         <div className='field-body'>
           <div className="field">
             {
-              props.system?.id ? (
-                <div className='m-2'> {props.system.id} </div>
+              props.role?.id ? (
+                <div className='m-2'> {props.role.id} </div>
               ) : (
                 <div className="control">
                   <input className="input" {...register("id", { required: true })} />
@@ -54,6 +68,18 @@ export const SystemForm = (props: {
           <div className="field">
             <div className="control">
               <input className="input" {...register("name", { required: true })} />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="field is-horizontal">
+        <div className="field-label is-normal">
+          <label className="label">Charge</label>
+        </div>
+        <div className='field-body'>
+          <div className="field">
+            <div className="control">
+              <input className="input" {...register("charge", { required: true })} />
             </div>
           </div>
         </div>
@@ -77,7 +103,7 @@ export const SystemForm = (props: {
               <div className="control">
                 {props.onDelete && (
                   <DeleteBtn
-                    onClick={() => props.system && props.onDelete?.(props.system)}
+                    onClick={() => props.role && props.onDelete?.(props.role)}
                   />
                 )}
               </div>
@@ -89,4 +115,4 @@ export const SystemForm = (props: {
   );
 };
 
-export default SystemForm;
+export default RoleForm;

@@ -2,6 +2,7 @@ import { Lock, ErrorKind, Store } from "@csea/core";
 import { Role } from "@csea/core/role";
 
 export type Payload = {
+  systemId?:string
 };
 
 export type Fn = (payload: Payload) => Promise<Role[] | Error>

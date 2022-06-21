@@ -29,7 +29,9 @@ export type RoleStore = {
     id?: string;
     systemId?: string;
   }) => Promise<Role | undefined | Error>;
-  filter: (payload: {}) => Promise<Role[] | Error>;
+  filter: (payload: {
+    systemId?:string
+  }) => Promise<Role[] | Error>;
   delete: (payload: { id: string }) => Promise<void | Error>;
   clear: () => Promise<void | Error>;
 };

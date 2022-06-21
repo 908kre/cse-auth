@@ -10,6 +10,8 @@ import Header  from "@csea/web/components/header";
 import { SystemsPage } from "@csea/web/pages/systems";
 import { SystemsCreatePage } from "@csea/web/pages/system-create";
 import { SystemsUpdatePage } from "@csea/web/pages/system-update";
+import { RoleCreatePage } from "@csea/web/pages/role-create";
+import { RoleUpdatePage } from "@csea/web/pages/role-update";
 import { LoginPage } from "@csea/web/pages/login";
 import { useLogin } from "@csea/web/hooks/login";
 
@@ -46,6 +48,14 @@ export default function App() {
                 <Route
                   path={"/system/update/:id"}
                   element={<SystemsUpdatePage />}
+                />
+                <Route
+                  path={"/system/:id/role/create"}
+                  element={<RoleCreatePage />}
+                />
+                <Route
+                  path={"/system/:id/role/:roleid"}
+                  element={<RoleUpdatePage />}
                 />
               </>
             )}

@@ -7,6 +7,7 @@ import { SystemTable } from "@csea/web/components/system-table";
 
 const api = Api();
 export const SystemsPage = () => {
+  console.log("aaaaaaa")
   const navigate = useNavigate();
   const { data: systems } = useSWR("/system", () => api.system.filter({}));
   if (systems === undefined || systems instanceof Error) {

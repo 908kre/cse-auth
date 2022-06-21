@@ -12,7 +12,7 @@ export const SystemsCreatePage = () => {
     <SystemForm
       onSubmit={async (data) => {
         const err = await api.system.create(data);
-        navigate(`/system`);
+        navigate(`/system/update/${data.id}`);
       }}
     />
   );
