@@ -16,7 +16,7 @@ export const RoleUpdatePage = () => {
   console.log(roleid)
   const { data: role } = useSWR(`/role/${id}`, () => api.role.find({ id: roleid ?? "", systemId: id ?? "" }));
 
-  const { data: users } = useSWR("/user", () => api.roleUser.filter({}));
+  const { data: users } = useSWR("/user", () => api.roleUser.filter({roleId: roleid ?? ""}));
   if (role === undefined || role instanceof Error || users === undefined || users instanceof Error) {
     return <Loading />;
   }
@@ -41,13 +41,12 @@ export const RoleUpdatePage = () => {
         ユーザー
       </label>
       <div className="p-1" style={{ borderTop: '0.5px solid #d3d3d3', width: "100%" }}/>
-      <UserForm onSubmit={
-        ({userId}) => console.log(userId)
-      }/>
+      <UserForm onSubmit={async ({userId}) => {
+        const err = await api.roleUser.create({ userId:userId, roleId:role.id ?? ""})
+        mutate("/user")
+      }}/>
       <UserTable
         rows={users}
-        onCreate={() => {
-        }}
       /> 
     </div>
   );
