@@ -6,8 +6,10 @@ import { Loading } from "@csea/web/components/loading";
 import { RoleForm } from "@csea/web/components/role-form";
 import Form  from "@csea/web/components/form";
 import UserTable  from "@csea/web/components/user-table";
+import useToast from "@csea/web/hooks/toast"
 
 const api = Api();
+const toast = useToast();
 export const RoleUpdatePage = () => {
   const { mutate } = useSWRConfig();
   const navigate = useNavigate();
@@ -57,7 +59,9 @@ export const RoleUpdatePage = () => {
         placeholder={"ユーザーID"}
         onSubmit={async ({value}) => {
           const err = await api.roleUser.create({ userId:value, roleId:role.id ?? ""})
+          if(err instanceof Error) {return toast.error(err.message)}
           mutate("/user")
+          toast.info('成功しました')
       }}/>
       <UserTable
         rows={users}

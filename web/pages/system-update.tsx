@@ -6,8 +6,10 @@ import { Loading } from "@csea/web/components/loading";
 import { SystemForm } from "@csea/web/components/system-form";
 import RoleTable  from "@csea/web/components/role-table";
 import Form  from "@csea/web/components/form";
+import useToast from "@csea/web/hooks/toast"
 
 const api = Api();
+const toast = useToast();
 export const SystemUpdatePage = () => {
   const { mutate } = useSWRConfig();
   const navigate = useNavigate();
@@ -25,13 +27,17 @@ export const SystemUpdatePage = () => {
       <SystemForm
         system={system}
         onSubmit={async (data) => {
-          await api.system.update(data);
+          const err = await api.system.update(data);
+          if(err instanceof Error) {return toast.error(err.message)}
           mutate("/system");
+          toast.info('成功しました')
           navigate(`/system`);
         }}
         onDelete={async (data) => {
-          await api.system.delete(data);
+          const err = await api.system.delete(data);
+          if(err instanceof Error) {return toast.error(err.message)}
           mutate("/system");
+          toast.info('成功しました')
           navigate(`/system`);
         }}
       />
@@ -42,7 +48,9 @@ export const SystemUpdatePage = () => {
       <Form 
         placeholder={"ロールID"}
         onSubmit={ async ({value}) => {
-          await api.role.create({id: value, systemId: system.id})
+          const err = await api.role.create({id: value, systemId: system.id})
+          if(err instanceof Error) {return toast.error(err.message)}
+          toast.info('成功しました')
           mutate("/role");
         }}
       />

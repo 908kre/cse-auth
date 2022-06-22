@@ -5,6 +5,10 @@ import {
   Route,
   useNavigate,
 } from "react-router-dom";
+
+import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from 'react-toastify';
+
 import { PageLayout } from "@csea/web/components/page-layout";
 import Header  from "@csea/web/components/header";
 import { SystemsPage } from "@csea/web/pages/systems";
@@ -57,6 +61,7 @@ export default function App() {
               </>
             )}
           </Routes>
+          <ToastContainer position="bottom-right" />
         </Suspense>
       }
     />
