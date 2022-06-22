@@ -12,7 +12,7 @@ export default {
 export const Primary = () => (
   <RoleForm
     systemId={ "systemId:" + nanoid()}
-    role={Role({ id: nanoid(), name: "test", charge: "test" })}
+    role={Role({ id: nanoid()})}
     onSubmit={action("submit")}
     onDelete={action("delete")}
   />

@@ -8,24 +8,18 @@ export { default as DeleteFn } from "@csea/core/role/delete";
 
 export type Role = {
   id: string;
-  name: string;
   systemId: string;
-  charge: string;
   createdAt: Date;
   validate: () => void | Error;
 };
 
 export const Role = (args?: {
   id?: string;
-  name?: string;
   systemId?: string;
-  charge?: string;
   createdAt?: Date;
 }): Role => {
   const id = args?.id ?? "";
-  const name = args?.name ?? "";
   const systemId = args?.systemId ?? "";
-  const charge = args?.charge ?? "";
   const createdAt = args?.createdAt ?? new Date();
   const validate = () => {
     if (id === "") {
@@ -34,9 +28,7 @@ export const Role = (args?: {
   };
   return {
     id,
-    name,
     systemId,
-    charge,
     createdAt,
     validate,
   };

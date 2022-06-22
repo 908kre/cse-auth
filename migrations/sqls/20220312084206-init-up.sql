@@ -7,8 +7,6 @@ CREATE TABLE systems (
 CREATE TABLE roles (
     id             text        NOT NULL,
     system_id      text        NOT NULL,
-    name           text        not null,
-    charge         text        NOT NULL,
     created_at     timestamp NOT NULL,
     UNIQUE (id, system_id)
 );

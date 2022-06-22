@@ -13,6 +13,7 @@ export const Header = () => {
       </div>
       <div className="navbar-brand">
         <a className="navbar-item" onClick={() => navigate("/system")}>システム</a>
+        <a className="navbar-item" onClick={() => navigate("/role")}>ロール</a>
       </div>
     </nav>
   );

@@ -5,9 +5,10 @@ import useSWR, { useSWRConfig } from "swr";
 import { Loading } from "@csea/web/components/loading";
 import { SystemForm } from "@csea/web/components/system-form";
 import RoleTable  from "@csea/web/components/role-table";
+import Form  from "@csea/web/components/form";
 
 const api = Api();
-export const SystemsUpdatePage = () => {
+export const SystemUpdatePage = () => {
   const { mutate } = useSWRConfig();
   const navigate = useNavigate();
   let { id } = useParams();
@@ -38,11 +39,15 @@ export const SystemsUpdatePage = () => {
         ロール
       </label>
       <div className="p-1" style={{ borderTop: '0.5px solid #d3d3d3', width: "100%" }}/>
+      <Form 
+        placeholder={"ロールID"}
+        onSubmit={ async ({value}) => {
+          await api.role.create({id: value, systemId: system.id})
+          mutate("/role");
+        }}
+      />
       <RoleTable
         rows={roles}
-        onCreate={() => {
-          navigate(`/system/${system.id}/role/create`);
-        }}
         onEdit={({id, systemId}) => {
           navigate(`/system/${system.id}/role/${id}`);
         }}

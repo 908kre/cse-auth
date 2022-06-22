@@ -15,8 +15,7 @@ export const Primary = () => (
     rows={range(100).map((i) =>
       Role({
         id: "id:" + nanoid(),
-        name: "name:" + nanoid(),
-        charge: "charge:" + nanoid()
+        systemId: "systemId:" + nanoid(),
       })
     )}
     onEdit={action("onEdit")}

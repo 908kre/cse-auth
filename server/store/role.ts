@@ -5,9 +5,7 @@ import { RoleStore } from "@csea/core";
 
 const COLUMNS = [
   "id",
-  "name",
   "system_id",
-  "charge",
   "created_at",
 ] as const
 
@@ -15,9 +13,7 @@ export const Store = (sql: Sql<any>): RoleStore => {
   const to = (r: Row): Role => {
     return Role({
       id: r.id,
-      name: r.name,
       systemId: r.system_id,
-      charge: r.charge,
       createdAt: r.created_at,
     });
   };
@@ -25,9 +21,7 @@ export const Store = (sql: Sql<any>): RoleStore => {
   const from = (r: Role): Row => {
     return {
       id: r.id,
-      name: r.name,
       system_id: r.systemId,
-      charge: r.charge,
       created_at: r.createdAt,
     };
   };

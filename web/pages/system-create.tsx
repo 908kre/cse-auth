@@ -6,7 +6,7 @@ import { Loading } from "@csea/web/components/loading";
 import { SystemForm } from "@csea/web/components/system-form";
 
 const api = Api();
-export const SystemsCreatePage = () => {
+export const SystemCreatePage = () => {
   const navigate = useNavigate();
   return (
     <SystemForm

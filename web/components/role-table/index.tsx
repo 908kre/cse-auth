@@ -8,26 +8,9 @@ export const RoleTable = (props: {
   onCreate?: () => void;
 }) => {
   const columns = [
-    { key: "id", name: "ID" },
-    { key: "name", name: "名前" },
-    {
-      key: "charge",
-      name: "Charge",
-      headerRenderer: ({ column }) => {
-        return (
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <span>{column.name}</span>
-            <CreateBtn onClick={() => props.onCreate?.()} />
-          </div>
-        );
-      },
-    },
+    { key: "systemId", name: "システムID" },
+    { key: "id", name: "ロールID" },
+    { key: "action", name: "操作"},
   ];
   return (
     <DataGrid

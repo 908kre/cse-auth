@@ -37,18 +37,6 @@ describe("role", () => {
       }
       expect(ret?.id).toBe(role.id);
     });
-    test("update", async () => {
-      role.name = uuid();
-      const err = await store.role.update(role);
-      if (err instanceof Error) {
-        throw err;
-      }
-      const ret = await store.role.find({ id: role.id });
-      if (ret instanceof Error) {
-        throw ret;
-      }
-      expect(ret?.name).toEqual(role.name);
-    });
     test("delete", async () => {
       const ret = await store.role.delete({ id: role.id });
       if (ret instanceof Error) {
