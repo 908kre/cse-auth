@@ -42,12 +42,17 @@ export const Store = (sql: Sql<any>): RoleUserStore => {
 
   const filter = async (payload: {
     userId?: string;
+    roleId?: string;
   }): Promise<RoleUser[] | Error> => {
     try {
-      const { userId } = payload;
+      const { userId, roleId } = payload;
       let rows = [];
-      if (userId) {
+      if(userId !== undefined && roleId !== undefined){
+        rows = await sql`SELECT  * FROM role_users WHERE user_id=${userId} AND role_id=${roleId}`;
+      }if (userId !== undefined) {
         rows = await sql`SELECT  * FROM role_users WHERE user_id  = ${userId}`;
+      }if( roleId !== undefined){
+        rows = await sql`SELECT  * FROM role_users WHERE role_id  = ${roleId}`;
       } else {
         rows = await sql`SELECT * FROM role_users`;
       }

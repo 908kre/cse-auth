@@ -42,7 +42,7 @@ export type RoleUserStore = {
     userId: string;
     roleId: string;
   }) => Promise<RoleUser | undefined | Error>;
-  filter: (payload: { userId?: string }) => Promise<RoleUser[] | Error>;
+  filter: (payload: { userId?: string, roleId?: string }) => Promise<RoleUser[] | Error>;
   delete: (payload: {
     userId: string;
     roleId: string;
