@@ -32,7 +32,7 @@ export const RoleUpdatePage = () => {
           mutate("/role")
         }}
         onDelete={async (data) => {
-          await api.system.delete(data);
+          await api.role.delete(data);
           navigate(`/system/update/${id}`);
           mutate("/role")
         }}
@@ -41,6 +41,9 @@ export const RoleUpdatePage = () => {
         ユーザー
       </label>
       <div className="p-1" style={{ borderTop: '0.5px solid #d3d3d3', width: "100%" }}/>
+      <UserForm onSubmit={
+        ({userId}) => console.log(userId)
+      }/>
       <UserTable
         rows={users}
         onCreate={() => {
