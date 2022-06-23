@@ -30,6 +30,7 @@ export const LoginPage = (props: {
                   <label className="label">{"user"}</label>
                   <div className="control has-icons-left">
                     <input
+                      placeholder="e.g AAA000000"
                       className="input"
                       {...register("id", { required: true })}
                     />
@@ -42,6 +43,7 @@ export const LoginPage = (props: {
                   <label className="label">{"password"}</label>
                   <div className="control has-icons-left">
                     <input
+                      type="password"
                       placeholder="*******"
                       className="input"
                       {...register("password", { required: true })}

@@ -24,7 +24,7 @@ export const useLogin = (props?: { onLogin?: VoidFunction }) => {
   const logIn = async (req) => {
     const token = await api.signIn(req);
     if (token instanceof Error) {
-      return token;
+      return toast.error(token.message);
     }
     setToken(token);
     api.setToken(token);

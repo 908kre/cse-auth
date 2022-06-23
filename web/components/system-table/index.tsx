@@ -34,6 +34,7 @@ export const SystemTable = (props: {
       rows={props.rows}
       onRowClick={(_, x) => props.onEdit?.(x)}
       defaultColumnOptions={{
+        sortable: true,
         resizable: true,
       }}
     />

@@ -22,3 +22,10 @@ export const Primary = () => (
     onCreate={action("onCreate")}
   />
 );
+export const Enpty = () => (
+  <SystemTable
+    rows={[]}
+    onEdit={action("onEdit")}
+    onCreate={action("onCreate")}
+  />
+);
