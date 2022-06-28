@@ -4,10 +4,13 @@ import { HashRouter as Router } from "react-router-dom";
 import App from "./App";
 import "./style";
 import { HashRouter } from "react-router-dom";
+import { CookiesProvider } from "react-cookie";
 
 render(
-  <Router>
-    <App />
-  </Router>,
+  <CookiesProvider>
+    <Router>
+      <App />
+    </Router>
+  </CookiesProvider>,
   document.getElementById("app")
 );

@@ -1,7 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-export const Header = () => {
+export const Header = (props: {
+  onLogout?: VoidFunction
+}) => {
   const navigate = useNavigate()
   return (
     <nav className="navbar is-dark" aria-label="main navigation">
@@ -14,6 +16,7 @@ export const Header = () => {
       <div className="navbar-brand">
         <a className="navbar-item" onClick={() => navigate("/system")}>システム</a>
         <a className="navbar-item" onClick={() => navigate("/role")}>ロール</a>
+        <a className="navbar-item" onClick={() => props.onLogout?.()}>ログアウト</a>
       </div>
     </nav>
   );

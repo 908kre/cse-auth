@@ -4,6 +4,7 @@ import {
   Routes,
   Route,
   useNavigate,
+  Navigate,
 } from "react-router-dom";
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -17,49 +18,45 @@ import { SystemUpdatePage } from "@csea/web/pages/system-update";
 import { RoleUpdatePage } from "@csea/web/pages/role-update";
 import { RolesPage } from "@csea/web/pages/roles";
 import { LoginPage } from "@csea/web/pages/login";
-import { useLogin } from "@csea/web/hooks/login";
+import { useLogin, LoginHook } from "@csea/web/hooks/login";
+
 
 export default function App() {
   const navigate = useNavigate();
-  const { isLoggedIn, logInInfo, logIn } = useLogin({
-    onLogin: () => {
-      navigate("/system");
-    },
-  });
+  const { isLoggedIn, logInInfo, logIn, logOut } = useLogin();
+  if(!isLoggedIn){
+    return <LoginPage
+      id={logInInfo.id}
+      password={logInInfo.password}
+      onSubmit={logIn}
+    />
+  }
   return (
     <PageLayout
-      header= { <Header/>}
+      header= { <Header
+        onLogout={logOut}
+      />}
       content={
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
+            <Route path={"/system"} element={<SystemsPage />} />
+            <Route path={"/role"} element={<RolesPage />} />
             <Route
-              path={"/login"}
-              element={
-                <LoginPage
-                  id={logInInfo.id}
-                  password={logInInfo.password}
-                  onSubmit={logIn}
-                />
-              }
+              path={"/system/create"}
+              element={<SystemCreatePage />}
             />
-            {isLoggedIn && (
-              <>
-                <Route path={"/system"} element={<SystemsPage />} />
-                <Route path={"/role"} element={<RolesPage />} />
-                <Route
-                  path={"/system/create"}
-                  element={<SystemCreatePage />}
-                />
-                <Route
-                  path={"/system/update/:id"}
-                  element={<SystemUpdatePage />}
-                />
-                <Route
-                  path={"/system/:id/role/:roleid"}
-                  element={<RoleUpdatePage />}
-                />
-              </>
-            )}
+            <Route
+              path={"/system/update/:id"}
+              element={<SystemUpdatePage />}
+            />
+            <Route
+              path={"/system/:id/role/:roleid"}
+              element={<RoleUpdatePage />}
+            />
+            <Route
+              path="*"
+              element={<Navigate to="/system" replace />}
+            />
           </Routes>
           <ToastContainer position="bottom-right" />
         </Suspense>
