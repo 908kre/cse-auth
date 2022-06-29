@@ -17,8 +17,11 @@ export const SystemUpdatePage = () => {
   const { data: system } = useSWR(`/system/${id}`, () =>
     api.system.find({ id: id ?? "" })
   );
-  const { data: roles } = useSWR("/role", () => api.role.filter({systemId: id}));
-  if (system === undefined || system instanceof Error || roles === undefined || roles instanceof Error) {
+  const { data: roles } = useSWR("/system/role", () => api.role.filter({systemId: id}));
+  const { data: roleUsers } = useSWR("/system/role-user", () => api.roleUser.filter({}));
+
+  if (system === undefined || system instanceof Error || roles === undefined || roles instanceof Error || 
+      roleUsers === undefined || roleUsers instanceof Error) {
     return <Loading />;
   }
 
@@ -56,6 +59,7 @@ export const SystemUpdatePage = () => {
       />
       <RoleTable
         rows={roles}
+        roleUsers={roleUsers}
         onEdit={({id, systemId}) => {
           navigate(`/system/${system.id}/role/${id}`);
         }}

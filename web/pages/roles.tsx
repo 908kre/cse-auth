@@ -9,12 +9,14 @@ const api = Api();
 export const RolesPage = () => {
   const navigate = useNavigate();
   const { data: roles } = useSWR("/role", () => api.role.filter({}));
-  if (roles === undefined || roles instanceof Error) {
+  const { data: roleUsers } = useSWR("/role-user", () => api.roleUser.filter({}));
+  if (roles === undefined || roleUsers === undefined || roles instanceof Error || roleUsers instanceof Error) {
     return <Loading />;
   }
   return (
     <RoleTable
       rows={roles}
+      roleUsers={roleUsers}
       onCreate={() => {
         navigate("/system/create");
       }}

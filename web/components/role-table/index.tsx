@@ -22,10 +22,9 @@ export const RoleTable = (props: {
         if(rows){
           return <UserTags roleUsers={rows}/>
         }
-        return <div></div>
+        return  <div/>
       }
     },
-    { key: "action", name: "操作"},
   ];
   return (
     <DataGrid

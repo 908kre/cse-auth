@@ -1,10 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import useSWR, { useSWRConfig } from "swr";
 
 export const Header = (props: {
   onLogout?: VoidFunction
 }) => {
   const navigate = useNavigate()
+  const { mutate } = useSWRConfig();
   return (
     <nav className="navbar is-dark" aria-label="main navigation">
       <div className="navbar-brand">
