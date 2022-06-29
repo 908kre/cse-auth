@@ -5,6 +5,8 @@ import useSWR, { useSWRConfig } from "swr";
 import { Loading } from "@csea/web/components/loading";
 import { RoleForm } from "@csea/web/components/role-form";
 import Form  from "@csea/web/components/form";
+import GroupForm  from "@csea/web/components/group-form";
+import GroupTable  from "@csea/web/components/group-table";
 import UserTable  from "@csea/web/components/user-table";
 import useToast from "@csea/web/hooks/toast"
 
@@ -18,8 +20,12 @@ export const RoleUpdatePage = () => {
   console.log(roleid)
   const { data: role } = useSWR(`/role/${id}`, () => api.role.find({ id: roleid ?? "", systemId: id ?? "" }));
 
-  const { data: users } = useSWR("/user", () => api.roleUser.filter({roleId: roleid ?? ""}));
-  if (role === undefined || role instanceof Error || users === undefined || users instanceof Error) {
+  const { data: users } = useSWR("/role/user", () => api.roleUser.filter({roleId: roleid ?? ""}));
+  const { data: groups } = useSWR("/role/group", () => api.roleGroup.filter({roleId: roleid ?? ""}));
+  const loading = role === undefined || users === undefined || groups === undefined
+  const err = role instanceof Error || users instanceof Error || groups instanceof Error
+
+  if (loading || err) {
     return <Loading />;
   }
 
@@ -60,11 +66,25 @@ export const RoleUpdatePage = () => {
         onSubmit={async ({value}) => {
           const err = await api.roleUser.create({ userId:value, roleId:role.id ?? ""})
           if(err instanceof Error) {return toast.error(err.message)}
-          mutate("/user")
+          mutate("/role/user")
           toast.info('成功しました')
       }}/>
       <UserTable
         rows={users}
+      /> 
+      <label className="label is-medium">
+        グループ
+      </label>
+      <div className="p-1" style={{ borderTop: '0.5px solid #d3d3d3', width: "100%" }}/>
+      <GroupForm 
+        onSubmit={async ({groupId, post}) => {
+          const err = await api.roleGroup.create({ groupId:groupId, post: post, roleId:role.id ?? ""})
+          if(err instanceof Error) {return toast.error(err.message)}
+          mutate("/role/group")
+          toast.info('成功しました')
+      }}/>
+      <GroupTable
+        rows={groups}
       /> 
     </div>
   );
