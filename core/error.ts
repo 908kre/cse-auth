@@ -11,6 +11,7 @@ export enum ErrorKind {
   InvalidRoleIdFormat = "InvalidRoleIdFormat",
   InvalidNameOrPassword = "InvalidNameOrPassword",
   TokenNotFound = "TokenNotFound",
-  InvalidToken = "InvalidToken"
+  InvalidToken = "InvalidToken",
+  OwnerNotFound = "OwnerNotFound",
 }
 export default ErrorKind;

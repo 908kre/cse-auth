@@ -1,8 +1,5 @@
 import ErrorKind from "@csea/core/error";
 
-export type Owner = {
-  id: string;
-};
 
 export type User = {
   id: string;
@@ -32,4 +29,18 @@ export const User = (args?: {
     admin,
   };
 };
+
+export type Owner = {
+  id: string;
+};
+
+export const Owner = (args?: {
+  id?: string;
+}): Owner => {
+  const id = args?.id ?? "";
+  return {
+    id,
+  };
+};
+
 export default User;

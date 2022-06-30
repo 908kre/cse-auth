@@ -19,7 +19,7 @@ export const Store = (args: {
   const role = RoleStore(sql);
   const roleUser = RoleUserStore(sql);
   const roleGroup = RoleGroupStore(sql);
-  const user = UserStore();
+  const user = UserStore(sql);
   return {
     system,
     role,

@@ -3,7 +3,7 @@ import { System } from "@csea/core/system";
 import { Role } from "@csea/core/role";
 import { RoleUser } from "@csea/core/roleUser";
 import { RoleGroup } from "@csea/core/roleGroup";
-import { User } from "@csea/core/user";
+import { User, Owner } from "@csea/core/user";
 
 export const TOKEN_KEY = "x-auth-token";
 
@@ -69,7 +69,9 @@ export type RoleGroupStore = {
 
 export type UserStore = {
   find: (payload: { id: string; password: string }) => Promise<User | Error>;
-  update: (payload: Pick<User, "id" | "admin">) => Promise<User | Error>;
+  update: (payload: Pick<User, "id">) => Promise<User | Error>;
+  isAdmin:(payload:{id:string;}) => Promise<boolean | Error>
+  filter: (payload: {}) => Promise<Owner[] | Error>;
 };
 
 export type Lock = {

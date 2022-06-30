@@ -1,9 +1,9 @@
 import { UserStore, Auth } from "..";
 import { User } from ".";
+
 export type SetAdminFn = (req: {
   id: string;
   token?: string;
-  admin: boolean;
 }) => Promise<User | Error>;
 
 export const SetAdminFn = (props: {
