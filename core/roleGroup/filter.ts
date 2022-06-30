@@ -2,6 +2,7 @@ import { Lock, ErrorKind, Store, Auth } from "@csea/core";
 import { RoleGroup } from "@csea/core/roleGroup";
 
 export type Payload = {
+  roleId?: string
   groupId?:string;
   token?: string;
 };

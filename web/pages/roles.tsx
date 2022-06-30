@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate, createSearchParams } from "react-router-dom";
-import Api from "@csea/api";
+import { Api } from "@csea/api";
 import useSWR, { useSWRConfig } from "swr";
 import { Loading } from "@csea/web/components/loading";
 import { RoleTable } from "@csea/web/components/role-table";
 
-const api = Api();
-export const RolesPage = () => {
+export const RolesPage = (props: {
+  api: Api
+}) => {
+  const { api } = props
   const navigate = useNavigate();
   const { data: roles } = useSWR("/role", () => api.role.filter({}));
   const { data: roleUsers } = useSWR("/role-user", () => api.roleUser.filter({}));

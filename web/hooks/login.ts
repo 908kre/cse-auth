@@ -4,9 +4,7 @@ import useSWR, { useSWRConfig } from "swr";
 import { SignInFn } from "@csea/core/auth";
 import useToast from "@csea/web/hooks/toast"
 import { useCookies } from "react-cookie";
-
-
-import Api from "@csea/api";
+import { Api }  from "@csea/api";
 
 type LogInInfo = {
   id: string;
@@ -19,8 +17,10 @@ export type LoginHook = {
   logIn:(req:LogInInfo) => Promise<void|Error>
   logOut:() => void
 } 
-export const useLogin = (props?: { onLogin?: VoidFunction }):LoginHook => {
-  const api = Api();
+export const useLogin = (props: { 
+  api: Api,
+  onLogin?: VoidFunction 
+}):LoginHook => {
   const [cookies, setCookie, removeCookie] = useCookies(["token"]);
   const toast = useToast();
   const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false);
@@ -38,8 +38,8 @@ export const useLogin = (props?: { onLogin?: VoidFunction }):LoginHook => {
   }, [])
 
   const verify = async (token:string) => {
-    api.setToken(token);
-    const claims = await api.verify();
+    props.api.setToken(token);
+    const claims = await props.api.verify();
     if (claims instanceof Error) {
       return toast.error(claims.message);
     }
@@ -48,7 +48,7 @@ export const useLogin = (props?: { onLogin?: VoidFunction }):LoginHook => {
   }
 
   const logIn = async (req) => {
-    const token = await api.signIn(req);
+    const token = await props.api.signIn(req);
     if (token instanceof Error) {
       return toast.error(token.message);
     }
@@ -71,6 +71,6 @@ export const useLogin = (props?: { onLogin?: VoidFunction }):LoginHook => {
     logInInfo,
     claims,
     logIn,
-    logOut
+    logOut,
   };
 };

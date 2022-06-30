@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, createSearchParams, useParams } from "react-router-dom";
-import Api from "@csea/api";
+import { Api } from "@csea/api";
 import { Owner } from "@csea/core/user";
 import useSWR, { useSWRConfig } from "swr";
 import { Loading } from "@csea/web/components/loading";
@@ -11,9 +11,11 @@ import DataGrid from "react-data-grid";
 import { DeleteBtn } from "../components/buttons";
 import { useForm } from "react-hook-form";
 
-const api = Api();
 const toast = useToast();
-export const OwnerConfigPage = () => {
+export const OwnerConfigPage = (props: {
+  api: Api
+}) => {
+  const { api } = props
   const { mutate } = useSWRConfig();
   const navigate = useNavigate();
   const { data: owners } = useSWR("/owner", () => api.user.filter({}));

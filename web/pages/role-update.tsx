@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import Api from "@csea/api";
+import { Api } from "@csea/api";
 import useSWR, { useSWRConfig } from "swr";
 import { Loading } from "@csea/web/components/loading";
-import { RoleForm } from "@csea/web/components/role-form";
 import Form  from "@csea/web/components/form";
 import GroupForm  from "@csea/web/components/group-form";
 import GroupTable  from "@csea/web/components/group-table";
@@ -12,9 +11,11 @@ import { DeleteBtn } from "@csea/web/components/buttons";
 import useToast from "@csea/web/hooks/toast"
 import { Row } from "react-data-grid";
 
-const api = Api();
 const toast = useToast();
-export const RoleUpdatePage = () => {
+export const RoleUpdatePage = (props:{
+  api: Api
+}) => {
+  const { api } = props
   const { mutate } = useSWRConfig();
   const navigate = useNavigate();
   let { id, roleid } = useParams();

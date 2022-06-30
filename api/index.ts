@@ -16,7 +16,7 @@ export function toError(err: any): Error {
   }
 }
 
-export type RootApi = {
+export type Api = {
   setUrl: (url: string) => void;
   signIn: SignInFn;
   verify: () => Promise<Claims | Error>;
@@ -29,7 +29,7 @@ export type RootApi = {
   user: ReturnType<typeof UserApi>;
 };
 
-export const RootApi = (): RootApi => {
+export const Api = (): Api => {
   const http = axios.create();
   const prefix = "api/v1";
   const system = SystemApi({ http, prefix: `${prefix}/system` });
@@ -79,4 +79,3 @@ export const RootApi = (): RootApi => {
     roleGroup,
   };
 };
-export default RootApi;

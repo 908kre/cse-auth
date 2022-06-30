@@ -9,6 +9,7 @@ import {
 
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
+import { Api } from "@csea/api";
 
 import { PageLayout } from "@csea/web/components/page-layout";
 import Header  from "@csea/web/components/header";
@@ -24,7 +25,10 @@ import { useLogin, LoginHook } from "@csea/web/hooks/login";
 
 export default function App() {
   const navigate = useNavigate();
-  const { isLoggedIn, logInInfo, logIn, logOut } = useLogin();
+  const api = Api()
+  const { isLoggedIn, logInInfo, logIn, logOut } = useLogin({
+    api,
+  });
   if(!isLoggedIn){
     return <LoginPage
       id={logInInfo.id}
@@ -40,23 +44,23 @@ export default function App() {
       content={
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
-            <Route path={"/system"} element={<SystemsPage />} />
-            <Route path={"/role"} element={<RolesPage />} />
+            <Route path={"/system"} element={<SystemsPage api={api} />} />
+            <Route path={"/role"} element={<RolesPage api={api}/>} />
             <Route
               path={"/system/create"}
-              element={<SystemCreatePage />}
+              element={<SystemCreatePage api={api}/>}
             />
             <Route
               path={"/system/update/:id"}
-              element={<SystemUpdatePage />}
+              element={<SystemUpdatePage api={api}/>}
             />
             <Route
               path={"/system/:id/role/:roleid"}
-              element={<RoleUpdatePage />}
+              element={<RoleUpdatePage api={api} />}
             />
             <Route
               path={"/owner"}
-              element={<OwnerConfigPage />}
+              element={<OwnerConfigPage api={api} />}
             />
             <Route
               path="*"

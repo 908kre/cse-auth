@@ -11,6 +11,7 @@ export type Claims = {
   exp: number;
   userId: string;
   roles: string[];
+  isAdmin: boolean;
 };
 
 export type SystemStore = {

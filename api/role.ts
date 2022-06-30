@@ -3,7 +3,6 @@ import { toError } from ".";
 import Role from "@csea/core/role"
 import {
   CreateFn,
-  UpdateFn,
   DeleteFn,
   FindFn,
   FilterFn,
@@ -23,14 +22,6 @@ export const RoleApi = (arg: {
   const create:CreateFn = async (payload) => {
     try {
       const res = await http.post(`${prefix}/create`, payload);
-      return to(res.data);
-    } catch (err) {
-      return toError(err);
-    }
-  };
-  const update:UpdateFn = async (payload) => {
-    try {
-      const res = await http.post(`${prefix}/update`, payload);
       return to(res.data);
     } catch (err) {
       return toError(err);
@@ -61,7 +52,6 @@ export const RoleApi = (arg: {
   };
   return {
     create,
-    update,
     delete: delete_,
     find,
     filter,

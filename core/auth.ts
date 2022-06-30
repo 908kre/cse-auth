@@ -36,6 +36,7 @@ export const SignInFn = (
       exp: Math.floor(Date.now() / 1000) + 24 * (60 * 60),
       userId: user.id,
       roles: roles,
+      isAdmin: user.admin
     };
     const token = await props.auth.sign(claims);
     if(token instanceof Error){
@@ -81,6 +82,7 @@ export const SignIn = (
       exp: Math.floor(Date.now() / 1000) + 24 * (60 * 60),
       userId: user.id,
       roles: roles,
+      isAdmin:user.admin
     };
     const token = await props.auth.sign(claims);
     if(token instanceof Error){
