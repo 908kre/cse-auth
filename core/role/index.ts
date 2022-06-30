@@ -1,7 +1,6 @@
 import { nanoid } from "nanoid";
 import ErrorKind from "@csea/core/error";
 export { default as CreateFn } from "@csea/core/role/create";
-export { default as UpdateFn } from "@csea/core/role/update";
 export { default as FindFn } from "@csea/core/role/find";
 export { default as FilterFn } from "@csea/core/role/filter";
 export { default as DeleteFn } from "@csea/core/role/delete";

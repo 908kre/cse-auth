@@ -80,10 +80,24 @@ export type UserStore = {
 export type Lock = {
   auto: <T>(fn: () => Promise<T>) => Promise<T>;
 };
+export type Log =
+  | string
+  | ({
+      message?: any;
+    } & Record<string, any>)
+  | Error;
+
+export type Logger = {
+  debug: (x: Log) => void;
+  info: (x: Log) => void;
+  warn: (x: Log) => void;
+  error: (x: Log) => void;
+};
+
 
 export type Auth = {
   sign: (claims: Claims) => Promise<string | Error>;
-  verify: (token?: string) => Promise<Claims | Error>;
+  verify: (req: {token?: string}) => Promise<Claims | Error>;
 };
 
 export type Crypt = {
@@ -98,3 +112,40 @@ export type Store = {
   roleGroup: RoleGroupStore;
   user: UserStore;
 };
+
+export enum ReqKind {
+  SignIn="SignIn",
+  Test="Test"
+}
+export enum ReqStatus {
+  Running = 'Running',
+  Done = 'Done',
+  Failed = 'Failed',
+}
+export type ReqInput =
+  | {
+      kind: ReqKind.SignIn;
+      payload: {
+        id: string;
+        password: string;
+      };
+    } 
+  | {
+      kind: ReqKind.Test;
+      payload: any;
+    } 
+
+export type ReqOutput =
+  | {
+      kind: ReqKind.SignIn;
+      payload: string|Error;
+    } 
+  | {
+      kind: ReqKind.Test;
+      payload: any;
+    } 
+
+export type ReqFn<K extends ReqKind> = {
+  kind: ReqKind,
+  run: (req: (ReqInput & { kind: K })['payload']) => Promise<(ReqOutput & { kind: K })['payload']>
+}

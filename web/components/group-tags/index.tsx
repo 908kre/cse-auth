@@ -9,7 +9,7 @@ export const GroupTags = (props: {
     >
       {
         props.roleGroups.map( x => (
-          <div className="tags has-addons m-1"
+          <div key= {x.groupId + x.post} className="tags has-addons m-1"
             style={{ 
               display: "flex",
               flexWrap: "nowrap",

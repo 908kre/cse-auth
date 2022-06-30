@@ -13,7 +13,7 @@ export const SetAdminFn = (props: {
   auth?: Auth;
 }): SetAdminFn => {
   return async (req) => {
-    const claims = await props.auth?.verify(req.token);
+    const claims = await props.auth?.verify(req);
     if (claims instanceof Error) {
       return claims;
     }

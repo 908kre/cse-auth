@@ -19,7 +19,6 @@ export const RoleUpdatePage = () => {
   const navigate = useNavigate();
   let { id, roleid } = useParams();
 
-  console.log(roleid)
   const { data: role } = useSWR(`/role/${id}`, () => api.role.find({ id: roleid ?? "", systemId: id ?? "" }));
 
   const { data: users } = useSWR("/role/user", () => api.roleUser.filter({roleId: roleid ?? ""}));

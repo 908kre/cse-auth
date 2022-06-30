@@ -1,23 +1,31 @@
-import { SignInFn } from "@csea/core/auth";
+import { SignIn } from "@csea/core/auth";
 import { FastifyPlugin } from "fastify";
-import { Lock, Store, Auth, TOKEN_KEY } from "@csea/core";
+import { Lock, Store, Auth, TOKEN_KEY, ReqKind, ReqInput } from "@csea/core";
+import { Runner } from "@csea/core/runner";
 import { JwtAuth } from "../auth";
 
 export const Routes = (props: {
   store: Store;
   lock: Lock;
   auth: Auth;
+  runner: Runner;
   secret: string;
 }): FastifyPlugin<{ prefix: string }> => {
-  const signIn = SignInFn(props);
+  const signIn = SignIn({
+    ...props,
+    kind: ReqKind.SignIn
+  });
   return function (app, opts, done) {
     app.post<{
-      Body: Parameters<SignInFn>[0];
-    }>("/sign-in", {}, async (request) => {
-      return await signIn(request.body);
+      Body: (ReqInput & { kind: ReqKind.SignIn }) ['payload'];
+    }>("/sign-in", {}, async (req, reply) => {
+      const res = await props.runner(signIn, req.body);
+      reply.send(res);
     });
-    app.get("/verify", {}, async (request) => {
-      return await props.auth.verify(request.headers[TOKEN_KEY]?.toString());
+    app.get("/verify", {}, async (req, reply) => {
+      const token = req.headers[TOKEN_KEY]?.toString()
+      const res =  await props.auth.verify({ token });
+      reply.send(res);
     });
     done();
   };

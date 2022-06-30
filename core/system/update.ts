@@ -1,18 +1,24 @@
-import { Lock, ErrorKind, Store } from "@csea/core";
+import { Lock, ErrorKind, Store, Auth } from "@csea/core";
 import { System } from "@csea/core/system";
 import FindFn from "@csea/core/system/find";
 
 export type Payload = {
   id: string;
   name: string;
+  token?:string
 };
 
 export type Fn = (payload: Payload) => Promise<System | Error>
 export const Fn = (props: {
   store: Store;
   lock: Lock;
+  auth?: Auth;
 }):Fn => {
   return async (payload: Payload) => {
+    const claims = await props.auth?.verify(payload);
+    if (claims instanceof Error) {
+      return claims;
+    }
     return await props.lock.auto(async () => {
       const system = await props.store.system.find(payload)
       if(system instanceof Error) { return system }

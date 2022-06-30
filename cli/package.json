@@ -17,7 +17,7 @@
   "dependencies": {
     "@csea/core": "0.1.0",
     "@csea/server": "0.1.0",
-    "pino": "^7.10.0",
+    "pino": "^8.1.0",
     "yargs": "^17.4.1"
   },
   "jest": {

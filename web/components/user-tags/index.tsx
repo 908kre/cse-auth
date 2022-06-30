@@ -9,7 +9,7 @@ export const UserTags = (props: {
     >
       {
         props.roleUsers.map( x => (
-          <div className= 'tag m-1'>
+          <div key={x.userId} className= 'tag m-1'>
             {x.userId}
           </div>
         )) 

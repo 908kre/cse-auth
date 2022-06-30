@@ -9,7 +9,6 @@ const api = Api();
 export const SystemsPage = () => {
   const navigate = useNavigate();
   const { data: systems } = useSWR("/system", () => api.system.filter({}));
-  console.log(systems)
   if (systems === undefined || systems instanceof Error) {
     return <Loading />;
   }

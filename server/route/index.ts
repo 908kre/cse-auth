@@ -3,6 +3,7 @@ import path from "path";
 import fastifyStatic from "fastify-static";
 
 import { Lock, Store, Auth } from "@csea/core";
+import { Runner } from "@csea/core/runner";
 import SystemRoutes from "./system";
 import RoleRoutes from "./role";
 import RoleUserRoutes from "./roleUser";
@@ -14,6 +15,7 @@ export const App = (props: {
   store: Store;
   lock: Lock;
   auth: Auth;
+  runner: Runner,
   secret: string;
 }) => {
   const app = fastify({
