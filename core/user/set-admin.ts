@@ -4,7 +4,7 @@ import { User } from ".";
 export type SetAdminFn = (req: {
   id: string;
   token?: string;
-}) => Promise<User | Error>;
+}) => Promise<void | Error>;
 
 export const SetAdminFn = (props: {
   store: {
@@ -17,6 +17,12 @@ export const SetAdminFn = (props: {
     if (claims instanceof Error) {
       return claims;
     }
-    return await props.store.user.update(req);
+    const err = await props.store.user.isAdmin(req);
+    if (err instanceof Error) { return err }
+    if(err === true){
+      return await props.store.user.delete(req);
+    }else{
+      return await props.store.user.insert(req);
+    }
   };
 };

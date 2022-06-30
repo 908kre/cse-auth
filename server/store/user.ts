@@ -58,6 +58,37 @@ export const Store = (sql: Sql<any>): UserStore => {
       return err;
     }
   };
+  const insert = async (payload: Owner): Promise<void | Error> => {
+    try {
+      await sql`
+      INSERT INTO owners ${sql(
+        from(payload),...COLUMNS
+      )}`;
+    } catch (err) {
+      return err;
+    }
+  };
+
+  const delete_ = async (payload: {
+    id?: string;
+  }) => {
+    try {
+      const { id } = payload;
+      if (id !== undefined) {
+        await sql`DELETE FROM owners WHERE id=${id}`;
+      }
+    } catch (err) {
+      return err;
+    }
+  };
+
+  const clear = async (): Promise<void> => {
+    try {
+      await sql`TRUNCATE TABLE owners`;
+    } catch (err) {
+      return err;
+    }
+  };
 
   const update = async (payload: { id: string }) => {
     return User({
@@ -72,6 +103,9 @@ export const Store = (sql: Sql<any>): UserStore => {
     find,
     update,
     filter,
+    insert,
+    delete: delete_,
+    clear,
     isAdmin
   };
 };
