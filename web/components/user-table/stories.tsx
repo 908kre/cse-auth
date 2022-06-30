@@ -18,5 +18,6 @@ export const Primary = () => (
         roleId: "roleId:" + nanoid(),
       })
     )}
+    onDelete={action("onDelete")}
   />
 );

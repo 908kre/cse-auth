@@ -10,6 +10,7 @@ import GroupTable  from "@csea/web/components/group-table";
 import UserTable  from "@csea/web/components/user-table";
 import { DeleteBtn } from "@csea/web/components/buttons";
 import useToast from "@csea/web/hooks/toast"
+import { Row } from "react-data-grid";
 
 const api = Api();
 const toast = useToast();
@@ -81,6 +82,12 @@ export const RoleUpdatePage = () => {
       }}/>
       <UserTable
         rows={users}
+        onDelete={async (value) => {
+          const err = await api.roleUser.delete({userId:value, roleId:role.id ?? ""})
+          if(err instanceof Error) {return toast.error(err.message)}
+          mutate("/role/user")
+          toast.info('成功しました')
+      }}
       /> 
       <label className="label is-medium">
         グループ
@@ -95,6 +102,12 @@ export const RoleUpdatePage = () => {
       }}/>
       <GroupTable
         rows={groups}
+        onDelete={async (groupId, post) => {
+          const err = await api.roleGroup.delete({ groupId:groupId, post: post, roleId:role.id ?? ""})
+          if(err instanceof Error) {return toast.error(err.message)}
+          mutate("/role/group")
+          toast.info('成功しました')
+        }}
       /> 
     </div>
   );
