@@ -23,14 +23,22 @@ const from = (r: Owner): Row => {
 export const Store = (sql: Sql<any>): UserStore => {
   const find = async (payload: { id: string; password: string }) => {
     const { id, password } = payload
-    if( id === 'test' && password === "test"){
+    if( id === 'admin' && password === "admin"){
       return User({
         id: "AAA111633",
-        name: "higuchi fumito",
+        name: "higuchi",
         groupId: "1490",
         post: "0000",
         admin: true,
       });
+    }else if( id === 'test' && password === "test"){
+      return User({
+        id: "AAA110800",
+        name: "yao",
+        groupId: "1490",
+        post: "0000",
+        admin: false,
+      })
     }
     return new Error(ErrorKind.InvalidNameOrPassword)
   };

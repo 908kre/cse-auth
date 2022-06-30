@@ -63,7 +63,7 @@ export const Store = (sql: Sql<any>): RoleStore => {
       if(systemId !== undefined){
         rows = await sql`SELECT  * FROM roles WHERE system_id = ${systemId}`;
       }
-      else {
+      else if(ids === undefined && systemId === undefined) {
         rows = await sql`SELECT * FROM roles`;
       }
       if(rows.length === 0){

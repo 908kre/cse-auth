@@ -35,8 +35,10 @@ export const SignInFn = (
     const claims: Claims = {
       exp: Math.floor(Date.now() / 1000) + 24 * (60 * 60),
       userId: user.id,
+      groupId: user.groupId,
+      post: user.post,
       roles: roles,
-      isAdmin: user.admin
+      admin: user.admin
     };
     const token = await props.auth.sign(claims);
     if(token instanceof Error){
@@ -81,8 +83,10 @@ export const SignIn = (
     const claims: Claims = {
       exp: Math.floor(Date.now() / 1000) + 24 * (60 * 60),
       userId: user.id,
+      groupId: user.groupId,
+      post: user.post,
       roles: roles,
-      isAdmin:user.admin
+      admin:user.admin
     };
     const token = await props.auth.sign(claims);
     if(token instanceof Error){

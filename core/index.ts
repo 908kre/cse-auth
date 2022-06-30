@@ -10,8 +10,10 @@ export const TOKEN_KEY = "x-auth-token";
 export type Claims = {
   exp: number;
   userId: string;
+  groupId: string;
+  post: string;
   roles: string[];
-  isAdmin: boolean;
+  admin: boolean;
 };
 
 export type SystemStore = {
@@ -32,6 +34,7 @@ export type RoleStore = {
     name?:string;
   }) => Promise<Role | undefined | Error>;
   filter: (payload: {
+    ids?:string[]
     systemId?:string
   }) => Promise<Role[] | Error>;
   delete: (payload: { id: string }) => Promise<void | Error>;
@@ -59,7 +62,11 @@ export type RoleGroupStore = {
     roleId: string;
     post: string;
   }) => Promise<RoleGroup | undefined | Error>;
-  filter: (payload: { groupId?: string }) => Promise<RoleGroup[] | Error>;
+  filter: (payload: { 
+    groupId?: string
+    post?: string;
+    roleId?: string;
+  }) => Promise<RoleGroup[] | Error>;
   delete: (payload: {
     groupId: string;
     roleId: string;

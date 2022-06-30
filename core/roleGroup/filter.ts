@@ -4,6 +4,7 @@ import { RoleGroup } from "@csea/core/roleGroup";
 export type Payload = {
   roleId?: string
   groupId?:string;
+  post?: string;
   token?: string;
 };
 

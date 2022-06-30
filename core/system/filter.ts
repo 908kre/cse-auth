@@ -16,6 +16,12 @@ export const Fn = (props: {
     if (claims instanceof Error) {
       return claims;
     }
+    if (claims === undefined || (claims && claims.admin === true)) {
+      const systems = await props.store.system.filter(req)
+      if(systems instanceof Error){return systems}
+      return systems
+    }
+    
     const systems = await props.store.system.filter(req)
     if(systems instanceof Error){return systems}
     return systems

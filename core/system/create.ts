@@ -22,7 +22,7 @@ export const Fn = (props: {
       const system = System(payload)
       const valErr = system.validate()
       if(valErr instanceof Error) { return valErr }
-      if(await props.store.system.find({id: payload.id})){
+      if(await props.store.system.find(payload)){
         return new Error(ErrorKind.SystemAlreadyExist)
       }
       const insertErr = await props.store.system.insert(system)

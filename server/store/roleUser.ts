@@ -50,10 +50,10 @@ export const Store = (sql: Sql<any>): RoleUserStore => {
       if(userId !== undefined && roleId !== undefined){
         rows = await sql`SELECT  * FROM role_users WHERE user_id=${userId} AND role_id=${roleId}`;
       }if (userId !== undefined) {
-        rows = await sql`SELECT  * FROM role_users WHERE user_id  = ${userId}`;
+        rows = await sql`SELECT  * FROM role_users WHERE user_id=${userId}`;
       }if( roleId !== undefined){
-        rows = await sql`SELECT  * FROM role_users WHERE role_id  = ${roleId}`;
-      } else {
+        rows = await sql`SELECT  * FROM role_users WHERE role_id=${roleId}`;
+      }else if(roleId === undefined && userId === undefined){
         rows = await sql`SELECT * FROM role_users`;
       }
       if (rows.length === 0) {
