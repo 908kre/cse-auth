@@ -5,6 +5,7 @@ import { RoleStore } from "@csea/core";
 
 const COLUMNS = [
   "id",
+  "name",
   "system_id",
   "created_at",
 ] as const
@@ -13,6 +14,7 @@ export const Store = (sql: Sql<any>): RoleStore => {
   const to = (r: Row): Role => {
     return Role({
       id: r.id,
+      name: r.name,
       systemId: r.system_id,
       createdAt: r.created_at,
     });
@@ -21,6 +23,7 @@ export const Store = (sql: Sql<any>): RoleStore => {
   const from = (r: Role): Row => {
     return {
       id: r.id,
+      name: r.name,
       system_id: r.systemId,
       created_at: r.createdAt,
     };
@@ -29,12 +32,13 @@ export const Store = (sql: Sql<any>): RoleStore => {
   const find = async (payload: {
     id?: string;
     systemId?: string;
+    name?: string;
   }): Promise<Role | undefined | Error> => {
     try {
       const rows= await (async () => {
-        const { id, systemId } = payload;
-        if (id !== undefined && systemId !== undefined) {
-          return await sql`SELECT * FROM roles WHERE id=${id} AND system_id=${systemId}`;
+        const { id, systemId, name } = payload;
+        if (name !== undefined && systemId !== undefined) {
+          return await sql`SELECT * FROM roles WHERE name=${name} AND system_id=${systemId}`;
         }if(id !== undefined){
           return await sql`SELECT * FROM roles WHERE id=${id}`;
         }

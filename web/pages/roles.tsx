@@ -10,13 +10,17 @@ export const RolesPage = () => {
   const navigate = useNavigate();
   const { data: roles } = useSWR("/role", () => api.role.filter({}));
   const { data: roleUsers } = useSWR("/role-user", () => api.roleUser.filter({}));
-  if (roles === undefined || roleUsers === undefined || roles instanceof Error || roleUsers instanceof Error) {
+  const { data: roleGroups } = useSWR("/role-group", () => api.roleGroup.filter({}));
+  const loading = (roles === undefined || roleUsers === undefined || roleGroups === undefined)
+  const err = (roles instanceof Error || roleUsers instanceof Error || roleGroups instanceof Error)
+  if (loading || err ) {
     return <Loading />;
   }
   return (
     <RoleTable
       rows={roles}
       roleUsers={roleUsers}
+      roleGroups={roleGroups}
       onCreate={() => {
         navigate("/system/create");
       }}

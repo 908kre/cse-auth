@@ -2,7 +2,7 @@ import { Lock, ErrorKind, Store } from "@csea/core";
 import { Role } from "@csea/core/role";
 
 export type Payload = {
-  id?: string;
+  name?: string;
   systemId?: string;
 };
 
@@ -16,7 +16,7 @@ export const Fn = (props: {
       const role = Role(payload)
       const valErr = role.validate()
       if(valErr instanceof Error) { return valErr }
-      if(await props.store.role.find({id: payload.id, systemId: payload.systemId})){
+      if(await props.store.role.find({name: payload.name, systemId: payload.systemId})){
         return new Error(ErrorKind.RoleAlreadyExist)
       }
       const insertErr = await props.store.role.insert(role)

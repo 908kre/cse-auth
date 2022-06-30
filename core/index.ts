@@ -28,6 +28,7 @@ export type RoleStore = {
   find: (payload: {
     id?: string;
     systemId?: string;
+    name?:string;
   }) => Promise<Role | undefined | Error>;
   filter: (payload: {
     systemId?:string

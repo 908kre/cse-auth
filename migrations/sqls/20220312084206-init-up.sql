@@ -5,10 +5,11 @@ CREATE TABLE systems (
 );
 
 CREATE TABLE roles (
-    id             text        NOT NULL,
+    id             text        NOT NULL PRIMARY KEY,
+    name           text        NOT NULL,
     system_id      text        NOT NULL,
     created_at     timestamp NOT NULL,
-    UNIQUE (id, system_id)
+    UNIQUE (name, system_id)
 );
 
 CREATE TABLE role_users (
@@ -24,4 +25,8 @@ CREATE TABLE role_groups (
     post           text        NOT NULL,
     created_at     timestamp   NOT NULL,
     UNIQUE (group_id, role_id, post)
+);
+
+CREATE TABLE owners (
+    id       text       NOT NULL PRIMARY KEY
 );

@@ -4,6 +4,7 @@ import FindFn from "@csea/core/role/find";
 
 export type Payload = {
   id: string;
+  name: string;
   systemId: string;
 };
 

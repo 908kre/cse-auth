@@ -51,10 +51,10 @@ export const SystemUpdatePage = () => {
       <Form 
         placeholder={"ロールID"}
         onSubmit={ async ({value}) => {
-          const err = await api.role.create({id: value, systemId: system.id})
+          const err = await api.role.create({name: value, systemId: system.id})
           if(err instanceof Error) {return toast.error(err.message)}
-          toast.info('成功しました')
           mutate("/role");
+          toast.info('成功しました')
         }}
       />
       <RoleTable

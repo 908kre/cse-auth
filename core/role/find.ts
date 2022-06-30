@@ -3,6 +3,7 @@ import { Role } from "@csea/core/role";
 
 export type Payload = {
   id?: string;
+  name?: string;
   systemId?:string;
 };
 

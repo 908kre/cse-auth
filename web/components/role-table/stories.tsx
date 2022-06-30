@@ -2,6 +2,7 @@ import React from "react";
 import RoleTable from ".";
 import { Role } from "@csea/core/role";
 import { RoleUser } from "@csea/core/roleUser";
+import { RoleGroup } from "@csea/core/roleGroup";
 import { nanoid } from "nanoid";
 import { range } from "lodash";
 import { action } from "@storybook/addon-actions";
@@ -34,6 +35,11 @@ export const Info = () => (
       RoleUser({ roleId: "role-0", userId: "AAA110800"}),
       RoleUser({ roleId: "role-0", userId: "AAA111633"}),
       RoleUser({ roleId: "role-1", userId: "AAA111633"}),
+    ]}
+    roleGroups={[
+      RoleGroup({ roleId: "role-0", groupId: "1490", post: "000"}),
+      RoleGroup({ roleId: "role-0", groupId: "1480", post: "000"}),
+      RoleGroup({ roleId: "role-1", groupId: "1490", post: "001"}),
     ]}
     onEdit={action("onEdit")}
     onCreate={action("onCreate")}

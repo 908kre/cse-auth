@@ -8,6 +8,7 @@ import Form  from "@csea/web/components/form";
 import GroupForm  from "@csea/web/components/group-form";
 import GroupTable  from "@csea/web/components/group-table";
 import UserTable  from "@csea/web/components/user-table";
+import { DeleteBtn } from "@csea/web/components/buttons";
 import useToast from "@csea/web/hooks/toast"
 
 const api = Api();
@@ -55,6 +56,15 @@ export const RoleUpdatePage = () => {
               <div className='m-2'> {role.id} </div>
             </div>
           </div>
+        </div>
+        <div className="control">
+          <DeleteBtn onClick={async () => {
+            const err = await api.role.delete({id:role.id});
+            if(err instanceof Error) {return toast.error(err.message)}
+            mutate("/role");
+            toast.info('成功しました')
+            navigate(`/role`);
+          }}/>
         </div>
       </div>
       <label className="label is-medium">
