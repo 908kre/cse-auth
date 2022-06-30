@@ -3,6 +3,7 @@ import SystemApi from "./system";
 import RoleApi from "./role";
 import RoleUserApi from "./roleUser";
 import RoleGroupApi from "./roleGroup";
+import UserApi from "./user";
 import { SignInFn } from "@csea/core/auth";
 import { TOKEN_KEY, Claims } from "@csea/core";
 
@@ -25,6 +26,7 @@ export type RootApi = {
   role: ReturnType<typeof RoleApi>;
   roleUser: ReturnType<typeof RoleUserApi>;
   roleGroup: ReturnType<typeof RoleGroupApi>;
+  user: ReturnType<typeof UserApi>;
 };
 
 export const RootApi = (): RootApi => {
@@ -34,6 +36,7 @@ export const RootApi = (): RootApi => {
   const role = RoleApi({ http, prefix: `${prefix}/role` });
   const roleUser = RoleUserApi({ http, prefix: `${prefix}/role-user` });
   const roleGroup = RoleGroupApi({ http, prefix: `${prefix}/role-group` });
+  const user = UserApi({ http, prefix: `${prefix}/user` });
 
   const signIn: SignInFn = async (payload) => {
     try {
@@ -71,6 +74,7 @@ export const RootApi = (): RootApi => {
     unsetToken,
     system,
     role,
+    user,
     roleUser,
     roleGroup,
   };

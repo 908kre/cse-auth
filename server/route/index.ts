@@ -7,6 +7,7 @@ import SystemRoutes from "./system";
 import RoleRoutes from "./role";
 import RoleUserRoutes from "./roleUser";
 import RoleGroupRoutes from "./roleGroup";
+import UserRoutes from "./user";
 import AuthRoutes from "./auth";
 
 export const App = (props: {
@@ -35,6 +36,9 @@ export const App = (props: {
   });
   app.register(RoleGroupRoutes(props), {
     prefix: `${prefix}/role-group`,
+  });
+  app.register(UserRoutes(props), {
+    prefix: `${prefix}/user`,
   });
   app.register(AuthRoutes(props), { prefix: `${prefix}/auth` });
   app.ready(async () => {

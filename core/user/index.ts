@@ -1,4 +1,6 @@
 import ErrorKind from "@csea/core/error";
+export { default as FilterFn } from "@csea/core/user/filter";
+export { SetAdminFn } from "@csea/core/user/set-admin";
 
 
 export type User = {

@@ -55,10 +55,8 @@ describe("role", () => {
   const id = uuid();
   test("create", async () => {
     const res = await api.role.create({
-      id: id,
       name: uuid(),
       systemId: uuid(),
-      charge: uuid(),
     });
     if (res instanceof Error) {
 
@@ -69,7 +67,7 @@ describe("role", () => {
       id: id,
     });
     if (res instanceof Error) {
-      expect(res.message).toBe(ErrorKind.SystemNotFound);
+      expect(res.message).toBe(ErrorKind.RoleNotFound);
     }
   });
   test("update", async () => {
@@ -77,7 +75,6 @@ describe("role", () => {
       id: uuid(),
       name: uuid(),
       systemId: uuid(),
-      charge: uuid(),
     });
     if (res instanceof Error) {
       expect(res.message).toBe(ErrorKind.RoleNotFound);
@@ -106,7 +103,7 @@ describe("roleUser", () => {
   test("create", async () => {
     const res = await api.roleUser.create({
       userId: id,
-      roleId: uuid(),
+      roleId: roleId,
     });
     if (res instanceof Error) {
 
@@ -141,9 +138,9 @@ describe("roleUser", () => {
 describe("roleGroup", () => {
   test("create", async () => {
     const res = await api.roleGroup.create({
-      groupId: uuid(),
-      roleId: uuid(),
-      post: uuid(),
+      groupId: "groupId",
+      roleId: "roleId",
+      post: "post",
     });
     if (res instanceof Error) {
       throw res
@@ -151,9 +148,9 @@ describe("roleGroup", () => {
   });
   test("delete", async () => {
     const res = await api.roleGroup.delete({
-      groupId: uuid(),
-      roleId: uuid(),
-      post: uuid(),
+      groupId: "groupId",
+      roleId: "roleId",
+      post: "post",
     });
     if (res instanceof Error) {
       throw res
@@ -174,6 +171,22 @@ describe("roleGroup", () => {
     });
     if (res instanceof Error) {
       expect(res.message).toBe(ErrorKind.RoleGroupNotFound);
+    }
+  });
+});
+
+describe("user", () => {
+  test("filter", async () => {
+    const res = await api.user.filter({
+    });
+    if (res instanceof Error) {
+      throw res;
+    }
+  });
+  test("set-admin", async () => {
+    const res = await api.user.setAdmin({id: "test"});
+    if (res instanceof Error) {
+      throw res;
     }
   });
 });
