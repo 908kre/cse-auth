@@ -16,7 +16,7 @@ export const RoleTable = (props: {
   const { roleUsers, roleGroups } = props;
   const columns = [
     { key: "systemId", name: "システムID", width: "15%" },
-    { key: "id", name: "ロールID", width: "15%" },
+    { key: "name", name: "ロールコード", width: "15%" },
     { 
       key: "user",
       name: "ユーザー",

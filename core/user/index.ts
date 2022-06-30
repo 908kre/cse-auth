@@ -1,5 +1,9 @@
 import ErrorKind from "@csea/core/error";
 
+export type Owner = {
+  id: string;
+};
+
 export type User = {
   id: string;
   name: string;

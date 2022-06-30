@@ -49,12 +49,12 @@ export const RoleUpdatePage = () => {
       </div>
       <div className="field is-horizontal">
         <div className="field-label is-normal">
-          <label className="label">ロールID</label>
+          <label className="label">ロールコード</label>
         </div>
         <div className='field-body'>
           <div className="field">
             <div className="control">
-              <div className='m-2'> {role.id} </div>
+              <div className='m-2'> {role.name} </div>
             </div>
           </div>
         </div>

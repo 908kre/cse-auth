@@ -53,7 +53,7 @@ export const SystemUpdatePage = () => {
         onSubmit={ async ({value}) => {
           const err = await api.role.create({name: value, systemId: system.id})
           if(err instanceof Error) {return toast.error(err.message)}
-          mutate("/role");
+          mutate("/system/role");
           toast.info('成功しました')
         }}
       />
