@@ -35,6 +35,7 @@ export const Header = (props: {
           <a className="navbar-item" onClick={() => navigate("/role")}>ロール</a>
         </div>
         <div className="navbar-end">
+          <a className="navbar-item" onClick={() => navigate("/owner")}>設定</a>
           <a className="navbar-item" onClick={() => props.onLogout?.()}>ログアウト</a>
         </div>
       </div>

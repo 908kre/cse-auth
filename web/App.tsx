@@ -18,6 +18,7 @@ import { SystemUpdatePage } from "@csea/web/pages/system-update";
 import { RoleUpdatePage } from "@csea/web/pages/role-update";
 import { RolesPage } from "@csea/web/pages/roles";
 import { LoginPage } from "@csea/web/pages/login";
+import { OwnerConfigPage } from "@csea/web/pages/owner-config";
 import { useLogin, LoginHook } from "@csea/web/hooks/login";
 
 
@@ -52,6 +53,10 @@ export default function App() {
             <Route
               path={"/system/:id/role/:roleid"}
               element={<RoleUpdatePage />}
+            />
+            <Route
+              path={"/owner"}
+              element={<OwnerConfigPage />}
             />
             <Route
               path="*"
