@@ -7,6 +7,7 @@ import {
   FilterFn,
   DeleteFn,
 } from "@csea/core/roleGroup";
+import { getToken } from "@csea/server/utils"
 import { TOKEN_KEY } from "@csea/core"
 
 export const Routes = (props: {
@@ -20,7 +21,7 @@ export const Routes = (props: {
   const filter = FilterFn(props)
   return function (app, opts, done) {
     app.post<{ Body: Parameters<CreateFn>[0] }>("/create", {}, async (req, reply) => {
-      const token = req.headers[TOKEN_KEY]?.toString()
+      const token = getToken(req)
       const res = await create({
         ...req.body,
         token
@@ -28,7 +29,7 @@ export const Routes = (props: {
       reply.send(res);
     });
     app.post<{ Body: Parameters<DeleteFn>[0] }>("/delete", {}, async (req, reply) => {
-      const token = req.headers[TOKEN_KEY]?.toString()
+      const token = getToken(req)
       const res = await delete_({
         ...req.body,
         token
@@ -36,7 +37,7 @@ export const Routes = (props: {
       reply.send(res);
     });
     app.post<{ Body: Parameters<FindFn>[0] }>("/find", {}, async (req, reply) => {
-      const token = req.headers[TOKEN_KEY]?.toString()
+      const token = getToken(req)
       const res = await find({
         ...req.body,
         token
@@ -44,7 +45,7 @@ export const Routes = (props: {
       reply.send(res);
     });
     app.post<{ Body: Parameters<FilterFn>[0] }>("/filter", {}, async (req, reply) => {
-      const token = req.headers[TOKEN_KEY]?.toString()
+      const token = getToken(req)
       const res = await filter({
         ...req.body,
         token

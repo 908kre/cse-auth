@@ -5,6 +5,7 @@ import {
   FilterFn,
   SetAdminFn,
 } from "@csea/core/user";
+import { getToken } from "@csea/server/utils"
 import { TOKEN_KEY } from "@csea/core"
 
 export const Routes = (props: {
@@ -17,7 +18,7 @@ export const Routes = (props: {
 
   return function (app, opts, done) {
     app.post<{ Body: Parameters<SetAdminFn>[0] }>("/set-admin", {}, async (req, reply) => {
-      const token = req.headers[TOKEN_KEY]?.toString()
+      const token = getToken(req)
       const res = await setAdmin({
         ...req.body,
         token
@@ -25,7 +26,7 @@ export const Routes = (props: {
       reply.send(res);
     });
     app.post<{ Body: Parameters<FilterFn>[0] }>("/filter", {}, async (req, reply) => {
-      const token = req.headers[TOKEN_KEY]?.toString()
+      const token = getToken(req)
       const res = await filter({
         ...req.body,
         token
