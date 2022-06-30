@@ -1,8 +1,8 @@
-import { RootApi } from ".";
+import { Api } from ".";
 import { ErrorKind } from "@csea/core";
 import { v4 as uuid } from "uuid";
 
-const api = RootApi();
+const api = Api();
 api.setUrl(`http://server`);
 
 
@@ -65,16 +65,6 @@ describe("role", () => {
   test("delete", async () => {
     const res = await api.role.delete({
       id: id,
-    });
-    if (res instanceof Error) {
-      expect(res.message).toBe(ErrorKind.RoleNotFound);
-    }
-  });
-  test("update", async () => {
-    const res = await api.role.update({
-      id: uuid(),
-      name: uuid(),
-      systemId: uuid(),
     });
     if (res instanceof Error) {
       expect(res.message).toBe(ErrorKind.RoleNotFound);

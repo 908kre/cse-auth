@@ -4,6 +4,7 @@ import useSWR, { useSWRConfig } from "swr";
 import { SignInFn } from "@csea/core/auth";
 import useToast from "@csea/web/hooks/toast"
 import { useCookies } from "react-cookie";
+import { TOKEN_KEY } from "@csea/core"
 import { Api }  from "@csea/api";
 
 type LogInInfo = {
@@ -21,7 +22,7 @@ export const useLogin = (props: {
   api: Api,
   onLogin?: VoidFunction 
 }):LoginHook => {
-  const [cookies, setCookie, removeCookie] = useCookies(["token"]);
+  const [cookies, setCookie, removeCookie] = useCookies([TOKEN_KEY]);
   const toast = useToast();
   const [isLoggedIn, setIsLoggedIn] = React.useState<boolean>(false);
   const [logInInfo, setLogInInfo] = React.useState<LogInInfo>({
@@ -32,8 +33,8 @@ export const useLogin = (props: {
   const [claims, setClaims] = React.useState<Claims | undefined>(undefined);
 
   React.useEffect(() => {
-    if(cookies['token']){
-      verify(cookies['token'])
+    if(cookies[TOKEN_KEY]){
+      verify(cookies[TOKEN_KEY])
     }
   }, [])
 
@@ -52,7 +53,7 @@ export const useLogin = (props: {
     if (token instanceof Error) {
       return toast.error(token.message);
     }
-    setCookie("token", token);
+    setCookie(TOKEN_KEY, token);
     setToken(token);
     await verify(token)
     props?.onLogin?.();
@@ -60,7 +61,7 @@ export const useLogin = (props: {
   };
 
   const logOut = () => {
-    removeCookie("token");
+    removeCookie(TOKEN_KEY);
     setClaims(undefined);
     setIsLoggedIn(false);
   };

@@ -1,0 +1,14 @@
+{"level":30,"time":1656611055139,"pid":165,"hostname":"f37c2945bd03","status":"Running","kind":"SignIn"}
+{"level":30,"time":1656611055206,"pid":165,"hostname":"f37c2945bd03","status":"Done","kind":"SignIn","elapsed":66.18584199994802,"payload":{"id":"test","password":"test"}}
+{"level":30,"time":1656611216607,"pid":294,"hostname":"f37c2945bd03","status":"Running","kind":"SignIn"}
+{"level":30,"time":1656611216676,"pid":294,"hostname":"f37c2945bd03","status":"Done","kind":"SignIn","elapsed":64.48599500022829,"payload":{"id":"test","password":"test"}}
+{"level":30,"time":1656611272390,"pid":389,"hostname":"f37c2945bd03","status":"Running","kind":"SignIn"}
+{"level":30,"time":1656611272457,"pid":389,"hostname":"f37c2945bd03","status":"Done","kind":"SignIn","elapsed":65.53104799985886,"payload":{"id":"test"}}
+{"level":30,"time":1656611370723,"pid":534,"hostname":"f37c2945bd03","status":"Running","kind":"SignIn"}
+{"level":30,"time":1656611370795,"pid":534,"hostname":"f37c2945bd03","status":"Done","kind":"SignIn","elapsed":70.99373999983072,"payload":{"id":"test"}}
+{"level":30,"time":1656611464645,"pid":641,"hostname":"f37c2945bd03","status":"Running","kind":"SignIn"}
+{"level":30,"time":1656611464713,"pid":641,"hostname":"f37c2945bd03","kind":"SignIn","user":{"id":"AAA111633","name":"higuchi fumito","groupId":"1490","post":"1490","admin":true}}
+{"level":30,"time":1656611464713,"pid":641,"hostname":"f37c2945bd03","status":"Done","kind":"SignIn","elapsed":66.51383099891245,"payload":{"id":"test"}}
+{"level":30,"time":"2022-06-30T17:53:24.991Z","pid":714,"hostname":"f37c2945bd03","status":"Running","kind":"SignIn"}
+{"level":30,"time":"2022-06-30T17:53:25.066Z","pid":714,"hostname":"f37c2945bd03","kind":"SignIn","user":{"id":"AAA111633","name":"higuchi fumito","groupId":"1490","post":"1490","admin":true}}
+{"level":30,"time":"2022-06-30T17:53:25.066Z","pid":714,"hostname":"f37c2945bd03","status":"Done","kind":"SignIn","elapsed":73.39706599898636,"payload":{"id":"test"}}

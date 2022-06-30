@@ -8,6 +8,8 @@ import { SystemTable } from "@csea/web/components/system-table";
 export const SystemsPage = (props: {
   api: Api
 }) => {
+  const { api } = props
+  console.log(api)
   const navigate = useNavigate();
   const { data: systems } = useSWR("/system", () => props.api.system.filter({}));
   if (systems === undefined || systems instanceof Error) {

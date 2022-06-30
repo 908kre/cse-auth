@@ -1,4 +1,6 @@
 *.env
+*.log
+*.js
 node_modules
 .pnp.*
 .yarn/*

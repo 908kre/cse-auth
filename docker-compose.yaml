@@ -41,7 +41,7 @@ services:
 
   server:
     <<: *app
-    command: yarn workspace @csea/cli cli start
+    command: yarn workspace @csea/cli nodemon --exec "yarn cli start"
     ports:
       - "${SERVER_PORT}:80"
     environment:

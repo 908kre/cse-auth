@@ -88,6 +88,10 @@ export const SignIn = (
     if(token instanceof Error){
       return token
     }
+    props.logger?.info({
+      kind,
+      user,
+    })
     return token
   }
   return {

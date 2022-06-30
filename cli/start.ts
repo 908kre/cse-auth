@@ -23,9 +23,17 @@ export default {
     const lock = Lock({ dir: "/tmp" });
     const secret = Math.random().toString(32).substring(2);
     const auth = JwtAuth({ secret });
-    const logger = pino()
+    const logger = pino({
+      timestamp: () => `,"time":"${new Date(Date.now()).toISOString()}"`,
+      formatters: {
+        log: (object: Record<string, any>) => {
+          delete object.payload?.password
+          return object
+        }
+      }
+    }, pino.destination("./cse.log"))
     const runner = Runner({ logger })
-    const app = App({ store, lock, secret, auth, runner });
+    const app = App({ store, lock, secret, auth, runner, logger });
     app.listen(argv.port, "0.0.0.0", (err, address) => {
       if (err) {
         console.error(err);

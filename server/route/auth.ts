@@ -1,6 +1,6 @@
 import { SignIn } from "@csea/core/auth";
 import { FastifyPlugin } from "fastify";
-import { Lock, Store, Auth, TOKEN_KEY, ReqKind, ReqInput } from "@csea/core";
+import { Lock, Store, Auth, TOKEN_KEY, ReqKind, ReqInput ,Logger } from "@csea/core";
 import { Runner } from "@csea/core/runner";
 import { JwtAuth } from "../auth";
 
@@ -8,6 +8,7 @@ export const Routes = (props: {
   store: Store;
   lock: Lock;
   auth: Auth;
+  logger: Logger
   runner: Runner;
   secret: string;
 }): FastifyPlugin<{ prefix: string }> => {

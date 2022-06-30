@@ -18,6 +18,7 @@
     "@csea/core": "0.1.0",
     "@csea/server": "0.1.0",
     "pino": "^8.1.0",
+    "pino-tee": "^0.3.0",
     "yargs": "^17.4.1"
   },
   "jest": {
@@ -30,7 +31,21 @@
   "devDependencies": {
     "@types/node": "^17.0.35",
     "jest": "^28.1.0",
+    "nodemon": "^2.0.18",
     "ts-node": "^10.7.0",
     "typescript": "^4.6.4"
+  },
+  "nodemonConfig": {
+    "watch": [
+      ".",
+      "../core",
+      "../server"
+    ],
+    "ignore": [
+      "./node_modules",
+      "./test-output"
+    ],
+    "ext": "ts",
+    "delay": "1500"
   }
 }
