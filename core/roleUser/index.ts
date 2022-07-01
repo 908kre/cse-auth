@@ -6,9 +6,10 @@ export { default as FilterFn } from "@csea/core/roleUser/filter"
 export { default as DeleteFn } from "@csea/core/roleUser/delete"
 
 export type RoleUser = {
-  userId: string
-  roleId:string
-  createdAt:Date
+  userId: string;
+  roleId:string;
+  createdAt:Date;
+  validate: () => void | Error;
 }
 
 export const RoleUser = (args?: {
@@ -19,11 +20,16 @@ export const RoleUser = (args?: {
   const userId = args?.userId ?? "" 
   const roleId = args?.roleId ?? ""
   const createdAt = args?.createdAt ?? new Date()
-
+  const validate = () => {
+    if (userId === "") {
+      return new Error(ErrorKind.InvalidUserIdFormat);
+    }
+  }
   const self = {
     userId,
     roleId,
     createdAt,
+    validate,
   }
   return self
 }
