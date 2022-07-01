@@ -26,7 +26,7 @@ import { useLogin, LoginHook } from "@csea/web/hooks/login";
 export default function App() {
   const navigate = useNavigate();
   const api = Api()
-  const { isLoggedIn, logInInfo, logIn, logOut } = useLogin({
+  const { isLoggedIn, logInInfo, logIn, logOut, claims } = useLogin({
     api,
   });
   if(!isLoggedIn){
@@ -39,12 +39,13 @@ export default function App() {
   return (
     <PageLayout
       header= { <Header
+        claims={claims}
         onLogout={logOut}
       />}
       content={
         <Suspense fallback={<div>Loading...</div>}>
           <Routes>
-            <Route path={"/system"} element={<SystemsPage api={api} />} />
+            <Route path={"/system"} element={<SystemsPage api={api} claims={claims} />} />
             <Route path={"/role"} element={<RolesPage api={api}/>} />
             <Route
               path={"/system/create"}

@@ -19,6 +19,9 @@ export const Fn = (props: {
       if (claims instanceof Error) {
         return claims;
       }
+      if (claims !== undefined && claims.admin === false) {
+        return new Error(ErrorKind.PermissionDenied)
+      }
       const system = System(payload)
       const valErr = system.validate()
       if(valErr instanceof Error) { return valErr }

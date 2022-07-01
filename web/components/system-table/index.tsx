@@ -1,11 +1,13 @@
 import DataGrid from "react-data-grid";
 import { System } from "@csea/core/system";
+import { Claims } from "@csea/core";
 import { CreateBtn } from "@csea/web/components/buttons";
 
 export const SystemTable = (props: {
   rows: System[];
   onEdit?: (row: System) => void;
   onCreate?: () => void;
+  claims?:Claims;
 }) => {
   const columns = [
     { key: "id", name: "ID" },
@@ -22,7 +24,9 @@ export const SystemTable = (props: {
             }}
           >
             <span>{column.name}</span>
-            <CreateBtn onClick={() => props.onCreate?.()} />
+            {
+              props.claims  && props.claims.admin ? <CreateBtn onClick={() => props.onCreate?.()} /> : <div></div>
+            }
           </div>
         );
       },

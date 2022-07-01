@@ -1,9 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { Claims } from "@csea/core";
 import useSWR, { useSWRConfig } from "swr";
 
 export const Header = (props: {
   onLogout?: VoidFunction
+  claims?: Claims
 }) => {
   const navigate = useNavigate()
   const [isActive, setIsActive] = React.useState(false);
@@ -35,7 +37,9 @@ export const Header = (props: {
           <a className="navbar-item" onClick={() => navigate("/role")}>ロール</a>
         </div>
         <div className="navbar-end">
-          <a className="navbar-item" onClick={() => navigate("/owner")}>設定</a>
+          {
+            props.claims && props.claims.admin ? <a className="navbar-item" onClick={() => navigate("/owner")}>設定</a> : null
+          }
           <a className="navbar-item" onClick={() => props.onLogout?.()}>ログアウト</a>
         </div>
       </div>

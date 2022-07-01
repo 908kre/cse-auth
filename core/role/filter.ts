@@ -19,7 +19,6 @@ export const Fn = (props: {
     if (claims instanceof Error) {
       return claims;
     }
-    console.log(claims)
     if (claims === undefined || (claims && claims.admin === true)) {
       const roles = await props.store.role.filter(payload)
       if(roles instanceof Error){return roles}
