@@ -1662,6 +1662,7 @@ __metadata:
     fastify-static: ^4.7.0
     jest: ^28.1.0
     jsonwebtoken: ^8.5.1
+    ldapjs: ^2.3.3
     ldapjs-client: ^0.1.1
     lodash: ^4.17.21
     postgres: ^2.0.0-beta.11
@@ -6066,6 +6067,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"backoff@npm:^2.5.0":
+  version: 2.5.0
+  resolution: "backoff@npm:2.5.0"
+  dependencies:
+    precond: 0.2
+  checksum: ccdcf2a26acd9379d0d4f09e3fb3b7ee34dee94f07ab74d1e38b38f89a3675d9f3cbebb142d9c61c655f4c9eb63f1d6ec28cebeb3dc9215efd8fe7cef92725b9
+  languageName: node
+  linkType: hard
+
 "bail@npm:^1.0.0":
   version: 1.0.5
   resolution: "bail@npm:1.0.5"
@@ -7484,6 +7494,13 @@ __metadata:
   version: 3.23.1
   resolution: "core-js@npm:3.23.1"
   checksum: 460328e0b743900d48fc744aab475f6dabdae498cc73f6d038321b0ae1488cb5e73d1670b5914abfe7dd84d0843a828b5d4dd3eba0a5b6a4450f0d7094cda2a5
+  languageName: node
+  linkType: hard
+
+"core-util-is@npm:1.0.2":
+  version: 1.0.2
+  resolution: "core-util-is@npm:1.0.2"
+  checksum: 7a4c925b497a2c91421e25bf76d6d8190f0b2359a9200dbeed136e63b2931d6294d3b1893eda378883ed363cd950f44a12a401384c609839ea616befb7927dab
   languageName: node
   linkType: hard
 
@@ -9167,6 +9184,13 @@ __metadata:
   bin:
     extract-zip: cli.js
   checksum: 011bab660d738614555773d381a6ba4815d98c1cfcdcdf027e154ebcc9fc8c9ef637b3ea5c9b2144013100071ee41722ed041fc9aacc60f6198ef747cac0c073
+  languageName: node
+  linkType: hard
+
+"extsprintf@npm:^1.2.0":
+  version: 1.4.1
+  resolution: "extsprintf@npm:1.4.1"
+  checksum: a2f29b241914a8d2bad64363de684821b6b1609d06ae68d5b539e4de6b28659715b5bea94a7265201603713b7027d35399d10b0548f09071c5513e65e8323d33
   languageName: node
   linkType: hard
 
@@ -13278,7 +13302,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ldap-filter@npm:0.3.3":
+"ldap-filter@npm:0.3.3, ldap-filter@npm:^0.3.3":
   version: 0.3.3
   resolution: "ldap-filter@npm:0.3.3"
   dependencies:
@@ -13295,6 +13319,22 @@ __metadata:
     assert-plus: ^1.0.0
     ldap-filter: 0.3.3
   checksum: 45465826c2305d1efce9642ef814abe7012cfa1430f026c28c82f45478492738f0da6bf107321a7260978b4198d09501e2a3d2a7820f1cbe7d73e86f1cba3db3
+  languageName: node
+  linkType: hard
+
+"ldapjs@npm:^2.3.3":
+  version: 2.3.3
+  resolution: "ldapjs@npm:2.3.3"
+  dependencies:
+    abstract-logging: ^2.0.0
+    asn1: ^0.2.4
+    assert-plus: ^1.0.0
+    backoff: ^2.5.0
+    ldap-filter: ^0.3.3
+    once: ^1.4.0
+    vasync: ^2.2.0
+    verror: ^1.8.1
+  checksum: 791cf22812805db3888dfc8aa8e4db8337e67387b318522c9965d40e678ecdb64950a6ea5930083590ec3377038620a3e63f90e985173ae6aca40e7f485290e0
   languageName: node
   linkType: hard
 
@@ -15898,6 +15938,13 @@ __metadata:
   version: 2.0.0-beta.11
   resolution: "postgres@npm:2.0.0-beta.11"
   checksum: 70329e86cc25f07123b776a022a0219be4a952d678649668192ce0a2eb9eba0f1834bba78954d4b0d91da9d7eaabede915d6880610bb0a9b99a0bec230c91e0f
+  languageName: node
+  linkType: hard
+
+"precond@npm:0.2":
+  version: 0.2.3
+  resolution: "precond@npm:0.2.3"
+  checksum: c613e7d68af3e0b43a294a994bf067cc2bc44b03fd17bc4fb133e30617a4f5b49414b08e9b392d52d7c6822d8a71f66a7fe93a8a1e7d02240177202cff3f63ef
   languageName: node
   linkType: hard
 
@@ -19847,6 +19894,37 @@ __metadata:
   version: 1.1.2
   resolution: "vary@npm:1.1.2"
   checksum: ae0123222c6df65b437669d63dfa8c36cee20a504101b2fcd97b8bf76f91259c17f9f2b4d70a1e3c6bbcee7f51b28392833adb6b2770b23b01abec84e369660b
+  languageName: node
+  linkType: hard
+
+"vasync@npm:^2.2.0":
+  version: 2.2.1
+  resolution: "vasync@npm:2.2.1"
+  dependencies:
+    verror: 1.10.0
+  checksum: dca14090436f1b30d4887737af47bc8333795a6d45e520e583ca2c4476d841bf68606cbc79071cfd980e3e42e630736d66a598b9100a505663442ae2e7c2f92f
+  languageName: node
+  linkType: hard
+
+"verror@npm:1.10.0":
+  version: 1.10.0
+  resolution: "verror@npm:1.10.0"
+  dependencies:
+    assert-plus: ^1.0.0
+    core-util-is: 1.0.2
+    extsprintf: ^1.2.0
+  checksum: c431df0bedf2088b227a4e051e0ff4ca54df2c114096b0c01e1cbaadb021c30a04d7dd5b41ab277bcd51246ca135bf931d4c4c796ecae7a4fef6d744ecef36ea
+  languageName: node
+  linkType: hard
+
+"verror@npm:^1.8.1":
+  version: 1.10.1
+  resolution: "verror@npm:1.10.1"
+  dependencies:
+    assert-plus: ^1.0.0
+    core-util-is: 1.0.2
+    extsprintf: ^1.2.0
+  checksum: 690a8d6ad5a4001672290e9719e3107c86269bc45fe19f844758eecf502e59f8aa9631b19b839f6d3dea562334884d22d1eb95ae7c863032075a9212c889e116
   languageName: node
   linkType: hard
 

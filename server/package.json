@@ -22,6 +22,7 @@
     "fastify-plugin": "^3.0.1",
     "fastify-static": "^4.7.0",
     "jsonwebtoken": "^8.5.1",
+    "ldapjs": "^2.3.3",
     "ldapjs-client": "^0.1.1",
     "lodash": "^4.17.21",
     "postgres": "^2.0.0-beta.11"
