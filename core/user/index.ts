@@ -34,14 +34,21 @@ export const User = (args?: {
 
 export type Owner = {
   id: string;
+  validate: () => void | Error;
 };
 
 export const Owner = (args?: {
   id?: string;
 }): Owner => {
   const id = args?.id ?? "";
+  const validate = () => {
+    if (id === "") {
+      return new Error(ErrorKind.InvalidOwnerIdFormat);
+    }
+  };
   return {
     id,
+    validate
   };
 };
 
