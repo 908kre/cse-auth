@@ -27,6 +27,15 @@ export const RoleGroup = (args?: {
     if (groupId === "" || post === "") {
       return new Error(ErrorKind.InvalidGroupIdFormat);
     }
+    // if (groupId.length != 4) {
+    //   return new Error(ErrorKind.InvalidGroupIdFormat);
+    // }
+    if (!/^[a-zA-Z0-9\-\.\_\@]+$/g.test(groupId)){
+      return new Error(ErrorKind.InvalidGroupIdFormat);
+    }
+    if (!/^[a-zA-Z0-9\-\.\_\@]+$/g.test(post)){
+      return new Error(ErrorKind.InvalidGroupIdFormat);
+    }
   };
   const self = {
     groupId,
