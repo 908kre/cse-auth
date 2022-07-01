@@ -81,7 +81,7 @@ export type UserStore = {
   update: (payload: Pick<User, "id">) => Promise<User | Error>;
   isAdmin:(payload:{id:string;}) => Promise<boolean | Error>
   filter: (payload: {}) => Promise<Owner[] | Error>;
-  insert: (payload:{id: string}) => Promise<void | Error>
+  insert: (payload:Owner) => Promise<void | Error>
   delete: (payload:{id: string}) => Promise<void | Error>
   clear: () => Promise<void | Error>;
 };

@@ -10,6 +10,7 @@ export enum ErrorKind {
   InvalidSystemIdFormat = "InvalidSystemIdFormat",
   InvalidRoleIdFormat = "InvalidRoleIdFormat",
   InvalidUserIdFormat = "InvalidUserIdFormat",
+  InvalidOwnerIdFormat = "InvalidOwnerIdFormat",
   InvalidGroupIdFormat = "InvalidGroupIdorPostFormat",
   InvalidNameOrPassword = "InvalidNameOrPassword",
   TokenNotFound = "TokenNotFound",
