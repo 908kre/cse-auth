@@ -21,6 +21,8 @@ export const Fn = (props: {
         return claims;
       }
       const roleGroup = RoleGroup(payload)
+      const valErr = roleGroup.validate()
+      if(valErr instanceof Error) { return valErr }
       if(await props.store.roleGroup.find(payload)){
         return new Error(ErrorKind.RoleGroupAlreadyExist)
       }

@@ -20,6 +20,8 @@ export const Fn = (props: {
         return claims;
       }
       const roleUser = RoleUser(payload)
+      const valErr = roleUser.validate()
+      if(valErr instanceof Error) { return valErr }
       if(await props.store.roleUser.find(payload)){
         return new Error(ErrorKind.RoleUserAlreadyExist)
       }

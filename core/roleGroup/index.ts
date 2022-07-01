@@ -6,10 +6,11 @@ export { default as FilterFn } from "@csea/core/roleGroup/filter"
 export { default as DeleteFn } from "@csea/core/roleGroup/delete"
 
 export type RoleGroup = {
-  groupId: string
-  roleId:string
+  groupId: string;
+  roleId:string;
   post:string;
-  createdAt:Date
+  createdAt:Date;
+  validate: () => void | Error;
 }
 
 export const RoleGroup = (args?: {
@@ -22,12 +23,17 @@ export const RoleGroup = (args?: {
   const roleId = args?.roleId ?? ""
   const post = args?.post ?? ""
   const createdAt = args?.createdAt ?? new Date()
-
+  const validate = () => {
+    if (groupId === "" || post === "") {
+      return new Error(ErrorKind.InvalidGroupIdFormat);
+    }
+  };
   const self = {
     groupId,
     roleId,
     post,
     createdAt,
+    validate,
   }
   return self
 }
