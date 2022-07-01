@@ -13,7 +13,7 @@ export const Routes = (props: {
   lock: Lock;
   auth: Auth;
 }): FastifyPlugin<{ prefix: string }> => {
-  const setAdmin = SetAdminFn({store: props.store})
+  const setAdmin = SetAdminFn(props)
   const filter = FilterFn(props)
 
   return function (app, opts, done) {
