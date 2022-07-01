@@ -99,3 +99,17 @@
 {"level":30,"time":"2022-06-30T21:44:14.929Z","pid":60,"hostname":"5fbf684d40e4","status":"Running","kind":"SignIn"}
 {"level":30,"time":"2022-06-30T21:44:14.934Z","pid":60,"hostname":"5fbf684d40e4","kind":"SignIn","user":{"id":"AAA110800","name":"yao","groupId":"1490","post":"1490","admin":false}}
 {"level":30,"time":"2022-06-30T21:44:14.935Z","pid":60,"hostname":"5fbf684d40e4","status":"Done","kind":"SignIn","elapsed":4.932666999287903,"payload":{"id":"test"}}
+{"level":30,"time":"2022-07-01T06:35:54.635Z","pid":59,"hostname":"0a91ebe8ecdf","status":"Running","kind":"SignIn"}
+{"level":30,"time":"2022-07-01T06:35:54.747Z","pid":59,"hostname":"0a91ebe8ecdf","kind":"SignIn","user":{"id":"AAA111633","name":"higuchi","groupId":"1490","post":"1490","admin":true}}
+{"level":30,"time":"2022-07-01T06:35:54.748Z","pid":59,"hostname":"0a91ebe8ecdf","status":"Done","kind":"SignIn","elapsed":111.39574813842773,"payload":{"id":"admin"}}
+{"level":30,"time":"2022-07-01T06:36:15.655Z","pid":59,"hostname":"0a91ebe8ecdf","status":"Running","kind":"SignIn"}
+{"level":30,"time":"2022-07-01T06:36:15.663Z","pid":59,"hostname":"0a91ebe8ecdf","kind":"SignIn","user":{"id":"AAA110800","name":"yao","groupId":"1490","post":"1490","admin":false}}
+{"level":30,"time":"2022-07-01T06:36:15.663Z","pid":59,"hostname":"0a91ebe8ecdf","status":"Done","kind":"SignIn","elapsed":7.8694257736206055,"payload":{"id":"test"}}
+{"level":30,"time":"2022-07-01T06:36:34.672Z","pid":59,"hostname":"0a91ebe8ecdf","status":"Running","kind":"SignIn"}
+{"level":50,"time":"2022-07-01T06:36:34.678Z","pid":59,"hostname":"0a91ebe8ecdf","status":"Failed","kind":"SignIn","reason":"Error: InvalidNameOrPassword","elapsed":0.2489156723022461,"payload":{"id":"admin"},"stack":"Error: InvalidNameOrPassword\n    at Object.find (/app/server/store/user.ts:43:12)\n    at Object.run (/app/core/auth.ts:64:41)\n    at Object.runner (/app/core/runner.ts:14:29)\n    at Object.<anonymous> (/app/server/route/auth.ts:23:31)\n    at preHandlerCallback (/app/node_modules/fastify/lib/handleRequest.js:126:28)\n    at preValidationCallback (/app/node_modules/fastify/lib/handleRequest.js:109:5)\n    at handler (/app/node_modules/fastify/lib/handleRequest.js:72:7)\n    at /app/node_modules/fastify/lib/contentTypeParser.js:174:9\n    at AsyncResource.runInAsyncScope (node:async_hooks:202:9)\n    at done (/app/node_modules/fastify/lib/contentTypeParser.js:169:14)"}
+{"level":30,"time":"2022-07-01T06:36:39.749Z","pid":59,"hostname":"0a91ebe8ecdf","status":"Running","kind":"SignIn"}
+{"level":30,"time":"2022-07-01T06:36:39.753Z","pid":59,"hostname":"0a91ebe8ecdf","kind":"SignIn","user":{"id":"AAA111633","name":"higuchi","groupId":"1490","post":"1490","admin":true}}
+{"level":30,"time":"2022-07-01T06:36:39.753Z","pid":59,"hostname":"0a91ebe8ecdf","status":"Done","kind":"SignIn","elapsed":3.874741554260254,"payload":{"id":"admin"}}
+{"level":30,"time":"2022-07-01T06:37:08.800Z","pid":59,"hostname":"0a91ebe8ecdf","status":"Running","kind":"SignIn"}
+{"level":30,"time":"2022-07-01T06:37:08.803Z","pid":59,"hostname":"0a91ebe8ecdf","kind":"SignIn","user":{"id":"AAA110800","name":"yao","groupId":"1490","post":"1490","admin":false}}
+{"level":30,"time":"2022-07-01T06:37:08.803Z","pid":59,"hostname":"0a91ebe8ecdf","status":"Done","kind":"SignIn","elapsed":3.061285972595215,"payload":{"id":"test"}}
