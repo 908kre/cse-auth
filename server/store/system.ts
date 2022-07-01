@@ -56,7 +56,7 @@ export const Store = (sql: Sql<any>): SystemStore => {
       let rows = [];
       if (ids !== undefined && ids.length > 0) {
         rows = await sql`SELECT * FROM systems WHERE id IN (${ids})`;
-      } else {
+      } else if(ids === undefined) {
         rows = await sql`SELECT * FROM systems`;
       }
       if(rows.length === 0){

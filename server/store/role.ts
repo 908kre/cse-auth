@@ -53,17 +53,21 @@ export const Store = (sql: Sql<any>): RoleStore => {
   const filter = async (payload: {
     ids?: string[];
     systemId?: string;
+    systemIds?: string[];
   }): Promise<Role[] | Error> => {
     try {
-      const { ids, systemId } = payload;
+      const { ids, systemId, systemIds } = payload;
       let rows = [];
       if (ids !== undefined && ids.length > 0) {
         rows = await sql`SELECT  * FROM roles WHERE id IN (${ids})`;
       } 
+      if (systemIds !== undefined && systemIds.length > 0) {
+        rows = await sql`SELECT  * FROM roles WHERE system_id IN (${systemIds})`;
+      } 
       if(systemId !== undefined){
         rows = await sql`SELECT  * FROM roles WHERE system_id = ${systemId}`;
       }
-      else if(ids === undefined && systemId === undefined) {
+      else if(ids === undefined && systemId === undefined && systemIds === undefined) {
         rows = await sql`SELECT * FROM roles`;
       }
       if(rows.length === 0){

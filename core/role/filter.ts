@@ -5,6 +5,7 @@ import { uniq } from "lodash";
 export type Payload = {
   ids?:string[]
   systemId?:string
+  systemIds?:string[]
   token?: string;
 };
 
@@ -28,7 +29,6 @@ export const Fn = (props: {
     if(roleUser instanceof Error){return roleUser}
     const roleGroup = await props.store.roleGroup.filter({groupId: claims.groupId, post: claims.post})
     if(roleGroup instanceof Error){return roleGroup}
-    console.log(roleUser)
 
     const uIds = roleUser.map(x => x.roleId)
     const gIds = roleGroup.map(x => x.roleId)
@@ -36,7 +36,9 @@ export const Fn = (props: {
     
     const roles = await props.store.role.filter({ids: ids})
     if(roles instanceof Error){return roles}
-    return roles
+    const systemIds = uniq(roles.map(x => x.systemId))
+    const rows = await props.store.role.filter({systemIds: systemIds})
+    return rows
   }
 }
 
