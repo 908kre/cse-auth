@@ -121,7 +121,7 @@ export const RoleUpdatePage = (props:{
       /> 
       <ConfirmModal
         title="警告"
-        message={`本当に${role.name}システム権限を削除しますか？`}
+        message={`本当にロール：${role.name}を削除しますか？`}
         isActive={isActive}
         onClose={() => setIsActive(false)}
         onSubmit={() => deleteRole({ id: role.id })}
