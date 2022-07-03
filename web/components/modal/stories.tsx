@@ -1,21 +1,28 @@
 import React from "react";
-import Component from "./";
-import Mock from "@alfs-appraisal/web/components/Mock";
+import { ConfirmModal } from ".";
+import { action } from "@storybook/addon-actions";
 
 export default {
-  title: "Modal",
-  component: Component,
-  args: {
-    isActive: true,
-  },
+  title: "ConfirmModal",
+  component: ConfirmModal,
 };
 
-export const Default = (args) => <Component {...args} >
-  <Mock 
-    name={"400x300"}
-    style={{
-      height: 300,
-      width: 400,
-    }}
-  />
-</Component>;
+export const Default = (props) => {
+  const [isActive, setIsActive] = React.useState(true);
+
+  return (
+    <div>
+      <div className="button" onClick={() => setIsActive(!isActive)}>
+        button{" "}
+      </div>
+
+      <ConfirmModal
+        isActive={isActive}
+        message={"ユーザーを削除しますか？"}
+        title={"警告"}
+        onSubmit={action("submit")}
+        onClose={() => setIsActive(false)}
+      />
+    </div>
+  );
+};
