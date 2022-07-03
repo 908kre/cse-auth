@@ -9,6 +9,7 @@ import GroupTable  from "@csea/web/components/group-table";
 import UserTable  from "@csea/web/components/user-table";
 import { DeleteBtn } from "@csea/web/components/buttons";
 import useToast from "@csea/web/hooks/toast"
+import { ConfirmModal } from "@csea/web/components/confirm-modal";
 import { Row } from "react-data-grid";
 
 const toast = useToast();
@@ -24,12 +25,25 @@ export const RoleUpdatePage = (props:{
 
   const { data: users } = useSWR("/role/user", () => api.roleUser.filter({roleId: roleid ?? ""}));
   const { data: groups } = useSWR("/role/group", () => api.roleGroup.filter({roleId: roleid ?? ""}));
+  const [isActive, setIsActive] = React.useState(false);
+
   const loading = role === undefined || users === undefined || groups === undefined
   const err = role instanceof Error || users instanceof Error || groups instanceof Error
 
   if (loading || err) {
     return <Loading />;
   }
+
+  const deleteRole = async (req: { id: string }) => {
+    const { id } = req;
+    const err = await props.api.role.delete({ id });
+    if (err instanceof Error) {
+      return toast.error(err.message);
+    }
+    mutate("/role");
+    toast.info('成功しました')
+    navigate(`/role`);
+  };
 
   return (
     <div>
@@ -60,11 +74,7 @@ export const RoleUpdatePage = (props:{
         </div>
         <div className="control">
           <DeleteBtn onClick={async () => {
-            const err = await api.role.delete({id:role.id});
-            if(err instanceof Error) {return toast.error(err.message)}
-            mutate("/role");
-            toast.info('成功しました')
-            navigate(`/role`);
+            setIsActive(true);
           }}/>
         </div>
       </div>
@@ -109,6 +119,13 @@ export const RoleUpdatePage = (props:{
           toast.info('成功しました')
         }}
       /> 
+      <ConfirmModal
+        title="警告"
+        message={`本当に${role.name}システム権限を削除しますか？`}
+        isActive={isActive}
+        onClose={() => setIsActive(false)}
+        onSubmit={() => deleteRole({ id: role.id })}
+      />
     </div>
   );
 };
