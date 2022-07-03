@@ -19,13 +19,15 @@ export const RoleUpdatePage = (props:{
   const { api } = props
   const { mutate } = useSWRConfig();
   const navigate = useNavigate();
-  let { id, roleid } = useParams();
+  let { id, roleid, userid, groupid, post } = useParams();
 
   const { data: role } = useSWR(`/role/${id}`, () => api.role.find({ id: roleid ?? "", systemId: id ?? "" }));
 
   const { data: users } = useSWR("/role/user", () => api.roleUser.filter({roleId: roleid ?? ""}));
   const { data: groups } = useSWR("/role/group", () => api.roleGroup.filter({roleId: roleid ?? ""}));
   const [isActive, setIsActive] = React.useState(false);
+  const [isUserActive, setIsUserActive] = React.useState(false);
+  const [isGroupActive, setIsGroupActive] = React.useState(false);
 
   const loading = role === undefined || users === undefined || groups === undefined
   const err = role instanceof Error || users instanceof Error || groups instanceof Error
@@ -43,6 +45,28 @@ export const RoleUpdatePage = (props:{
     mutate("/role");
     toast.info('成功しました')
     navigate(`/role`);
+  };
+
+  const deleteUser = async (req: { roleId: string, userId: string }) => {
+    const { roleId, userId } = req;
+    const err = await props.api.roleUser.delete({ roleId, userId });
+    if (err instanceof Error) {
+      return toast.error(err.message);
+    }
+    mutate("/role/user");
+    navigate(`/system/${id}/role/${roleid}`);
+    toast.info('成功しました')
+  };
+
+  const deleteGroup = async (req: { roleId: string, groupId: string, post: string }) => {
+    console.log(req)
+    const err = await props.api.roleGroup.delete(req);
+    if (err instanceof Error) {
+      return toast.error(err.message);
+    }
+    mutate("/role/group");
+    navigate(`/system/${id}/role/${roleid}`);
+    toast.info('成功しました')
   };
 
   return (
@@ -93,11 +117,10 @@ export const RoleUpdatePage = (props:{
       <UserTable
         rows={users}
         onDelete={async (value) => {
-          const err = await api.roleUser.delete({userId:value, roleId:role.id ?? ""})
-          if(err instanceof Error) {return toast.error(err.message)}
-          mutate("/role/user")
+          setIsUserActive(true);
+          navigate(`/system/${id}/role/${roleid}/${value}`);
           toast.info('成功しました')
-      }}
+        }}
       /> 
       <label className="label is-medium">
         グループ
@@ -113,10 +136,8 @@ export const RoleUpdatePage = (props:{
       <GroupTable
         rows={groups}
         onDelete={async (groupId, post) => {
-          const err = await api.roleGroup.delete({ groupId:groupId, post: post, roleId:role.id ?? ""})
-          if(err instanceof Error) {return toast.error(err.message)}
-          mutate("/role/group")
-          toast.info('成功しました')
+          setIsGroupActive(true);
+          navigate(`/system/${id}/role/${roleid}/${groupId}/${post}`);
         }}
       /> 
       <ConfirmModal
@@ -125,6 +146,20 @@ export const RoleUpdatePage = (props:{
         isActive={isActive}
         onClose={() => setIsActive(false)}
         onSubmit={() => deleteRole({ id: role.id })}
+      />
+      <ConfirmModal
+        title="警告"
+        message={`本当にユーザーを削除しますか？`}
+        isActive={isUserActive}
+        onClose={() => setIsUserActive(false)}
+        onSubmit={() => deleteUser({ roleId: role.id, userId: userid ?? "" })}
+      />
+      <ConfirmModal
+        title="警告"
+        message={`本当にグループを削除しますか？`}
+        isActive={isGroupActive}
+        onClose={() => setIsGroupActive(false)}
+        onSubmit={() => deleteGroup({ roleId: role.id, groupId: groupid ?? "", post: post ?? "" })}
       />
     </div>
   );
