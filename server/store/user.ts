@@ -23,7 +23,10 @@ const from = (r: Owner): Row => {
 export const Store = (sql: Sql<any>): UserStore => {
   const find = async (payload: { id: string; password: string }) => {
     const { id, password } = payload
+    console.log(id)
+    console.log(password)
     if( id === 'admin' && password === "admin"){
+      console.log("ok")
       return User({
         id: "AAA111633",
         name: "higuchi",
