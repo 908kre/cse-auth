@@ -25,7 +25,7 @@ export const DeleteBtn = (props) => {
 
 export const SubmitBtn = (props) => {
   return (
-    <div className="button is-small is-info" {...props}>
+    <div className="button is-info" {...props}>
       Submit
     </div>
   );
@@ -33,7 +33,7 @@ export const SubmitBtn = (props) => {
 
 export const CancelBtn = (props) => {
   return (
-    <button className="button is-small" {...props}>
+    <button className="button" {...props}>
       Cancel
     </button>
   );

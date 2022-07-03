@@ -20,7 +20,13 @@ export const ConfirmModal = (props: {
         <div className="modal-card">
           <header className="modal-card-head">{props.title}</header>
           <section className="modal-card-body">{props.message}</section>
-          <footer className="modal-card-foot">
+          <footer
+            className="modal-card-foot"
+            style={{
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
             <SubmitBtn
               onClick={() => {
                 props.onSubmit?.();
