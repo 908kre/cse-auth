@@ -1,6 +1,6 @@
 import DataGrid from "react-data-grid";
 import { System } from "@csea/core/system";
-import { Claims } from "@csea/core";
+import { Claims } from "@csea/core/auth";
 import { CreateBtn } from "@csea/web/components/buttons";
 
 export const SystemTable = (props: {

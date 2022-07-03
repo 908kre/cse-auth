@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Claims } from "@csea/core";
+import { Claims } from "@csea/core/auth";
 import useSWR, { useSWRConfig } from "swr";
 
 export const Header = (props: {

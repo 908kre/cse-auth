@@ -1,18 +1,19 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import { SignInFn } from "@csea/core/auth";
+import { ReqInput, ReqKind } from "@csea/core";
+type Payload = (ReqInput & { kind: ReqKind.SignIn })['payload']
 
 export const LoginPage = (props: {
   id: string;
   password: string;
-  onSubmit: (req: Parameters<SignInFn>[0]) => void;
+  onSubmit: (req: Payload) => void;
 }) => {
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
-  } = useForm<Parameters<SignInFn>[0]>({
+  } = useForm<Payload>({
     defaultValues: {
       id: props.id,
       password: props.password,
