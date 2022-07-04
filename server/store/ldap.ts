@@ -6,15 +6,16 @@ export type Ldap = {
 
 export const Store = ():Ldap => {
   const find = async (payload:{id:string, password?:string}) => {
-    const client = new ldap({ url: "ldap://ldap-test.global.canon.co.jp:389" });
+    const client = new ldap({ url: "ldap://192.168.56.121:636" });
     try {
-      const c = await client.bind('cn=wjjz041,ou=System,o=Canon', 'Fpalm041');
+      const c = await client.bind('cn=AAA111111,ou=People,dc=canon,dc=jp', 'smafa_test1');
       const options = {
       };
-      const entries = await client.search(`uid="111633",o=AAA,ou=People,o=Canon`, options);
-      console.log(entries[0])
-      await client.unbind()
+      // const entries = await client.search(`uid="AAA111633",o=AAA,ou=People,o=Canon`, options);
+      // console.log(entries)
+      // await client.unbind()
     } catch (err) {
+      console.log(err)
       await client.unbind()
     }
   }

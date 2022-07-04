@@ -1,7 +1,6 @@
 import React from "react";
-import { Claims } from "@csea/core";
+import { Claims } from "@csea/core/auth";
 import useSWR, { useSWRConfig } from "swr";
-import { SignInFn } from "@csea/core/auth";
 import useToast from "@csea/web/hooks/toast"
 import { useCookies } from "react-cookie";
 import { TOKEN_KEY } from "@csea/core"

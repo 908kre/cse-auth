@@ -60,6 +60,14 @@ export default function App() {
               element={<RoleUpdatePage api={api} />}
             />
             <Route
+              path={"/system/:id/role/:roleid/:userid"}
+              element={<RoleUpdatePage api={api} />}
+            />
+            <Route
+              path={"/system/:id/role/:roleid/:groupid/:post"}
+              element={<RoleUpdatePage api={api} />}
+            />
+            <Route
               path={"/owner"}
               element={<OwnerConfigPage api={api} />}
             />

@@ -25,10 +25,11 @@ A automated currency exchange system with machine learning
 docker-compose build app
 ```
 
-3. Install node dependecies
+3. Install & build node dependecies
 
 ```
 docker compose run --rm app yarn install
+docker compose run --rm app yarn build
 ```
 # cse-auth
 # cse-auth

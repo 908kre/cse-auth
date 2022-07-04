@@ -22,6 +22,16 @@ export const Fn = (props: {
       }
       const role = await find(payload)
       if(role instanceof Error) { return role }
+      const users = await props.store.roleUser.filter({roleId: payload.id})
+      if(users instanceof Error){ return users }
+      const groups = await props.store.roleGroup.filter({roleId: payload.id})
+      if(groups instanceof Error){ return groups }
+      for(const u of users){
+        await props.store.roleUser.delete({userId: u.userId, roleId: u.roleId})
+      }
+      for(const g of groups){
+        await props.store.roleGroup.delete({groupId: g.groupId, roleId: g.roleId, post: g.post})
+      }
       let err = await props.store.role.delete({id: payload.id})
       if(err instanceof Error){ return err}
     })

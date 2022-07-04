@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
-import { Claims, ErrorKind } from "@csea/core";
+import { ErrorKind } from "@csea/core";
+import { Claims } from "@csea/core/auth";
 
 export const JwtAuth = (args: { 
   secret: string ,

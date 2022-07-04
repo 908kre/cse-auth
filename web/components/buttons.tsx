@@ -22,3 +22,19 @@ export const DeleteBtn = (props) => {
     </a>
   );
 };
+
+export const SubmitBtn = (props) => {
+  return (
+    <div className="button is-info" {...props}>
+      Submit
+    </div>
+  );
+};
+
+export const CancelBtn = (props) => {
+  return (
+    <button className="button" {...props}>
+      Cancel
+    </button>
+  );
+};

@@ -3,9 +3,10 @@ import SystemApi from "./system";
 import RoleApi from "./role";
 import RoleUserApi from "./roleUser";
 import RoleGroupApi from "./roleGroup";
+import { ReqFn, ReqKind } from "@csea/core";
 import UserApi from "./user";
-import { SignInFn } from "@csea/core/auth";
-import { TOKEN_KEY, Claims } from "@csea/core";
+import { Claims } from "@csea/core/auth";
+import { TOKEN_KEY } from "@csea/core";
 
 export function toError(err: any): Error {
   const message = err.response?.data?.message;
@@ -18,7 +19,7 @@ export function toError(err: any): Error {
 
 export type Api = {
   setUrl: (url: string) => void;
-  signIn: SignInFn;
+  signIn: ReqFn<ReqKind.SignIn>['run'];
   verify: () => Promise<Claims | Error>;
   setToken: (token: string) => void;
   unsetToken: () => void;
@@ -38,7 +39,7 @@ export const Api = (): Api => {
   const roleGroup = RoleGroupApi({ http, prefix: `${prefix}/role-group` });
   const user = UserApi({ http, prefix: `${prefix}/user` });
 
-  const signIn: SignInFn = async (payload) => {
+  const signIn:ReqFn<ReqKind.SignIn>['run'] = async (payload) => {
     try {
       const res = await http.post(`${prefix}/auth/sign-in`, payload);
       return res.data;

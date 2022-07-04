@@ -4,17 +4,10 @@ import { Role } from "@csea/core/role";
 import { RoleUser } from "@csea/core/roleUser";
 import { RoleGroup } from "@csea/core/roleGroup";
 import { User, Owner } from "@csea/core/user";
+import { Claims } from "@csea/core/auth"
 
 export const TOKEN_KEY = "x-auth-token";
 
-export type Claims = {
-  exp: number;
-  userId: string;
-  groupId: string;
-  post: string;
-  roles: string[];
-  admin: boolean;
-};
 
 export type SystemStore = {
   insert: (payload: System) => Promise<void | Error>;
@@ -137,6 +130,7 @@ export type ReqInput =
       payload: {
         id: string;
         password: string;
+        systemId?:string;
       };
     } 
   | {

@@ -2,7 +2,6 @@ version: '2.4'
 
 x-env: &env
   SERVER_PORT: &SERVER_PORT ${SERVER_PORT:?}
-  STORYBOOK_PORT: &STORYBOOK_PORT ${STORYBOOK_PORT:?}
   # internal
   DATABASE_URL: postgres://app:app@db/app
 
@@ -20,20 +19,9 @@ x-app: &app
     - DATABASE_URL=postgres://app:app@db/app
 
 services:
-  app:
-    <<: *app
-    environment:
-      <<: *env
-
-  storybook:
-    <<: *app
-    command: yarn web storybook -p ${STORYBOOK_PORT}
-    ports:
-      - "$STORYBOOK_PORT:$STORYBOOK_PORT"
-
   server:
     <<: *app
-    command: bash -c 'yarn db-migrate up && yarn workspace @csea/cli nodemon --exec "yarn cli start"'
+    command: bash -c 'wait-for-it db:5432 -- yarn db-migrate up && csea start'
     ports:
       - "${SERVER_PORT}:80"
     environment:
@@ -41,6 +29,8 @@ services:
 
   db:
     image: "postgres:14"
+    volumes:
+      - ./db-data:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: app
       POSTGRES_USER: app
