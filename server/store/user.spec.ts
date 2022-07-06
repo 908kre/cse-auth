@@ -1,4 +1,5 @@
 import { Store } from ".";
+import { ErrorKind } from "@csea/core";
 import { Owner } from "@csea/core/user";
 import { v4 as uuid } from "uuid";
 
@@ -17,14 +18,27 @@ test('oracle', async () => {
   }
 })
 
-describe("role", () => {
+test('ldap', async () => {
+  const err = await store.user.findLdap({ id: 'AXA097046',password: 'smafa_test2'  });
+  if(err instanceof Error){
+    throw err
+  }
+})
+test('ldap-err', async () => {
+  const err = await store.user.findLdap({ id: 'AXA097046',password: 'smafa'  });
+  if(err instanceof Error){
+    expect(err.message).toBe(ErrorKind.InvalidIdOrPassword);
+  }
+})
+
+describe("user", () => {
   beforeAll(async () => {
     await store.user.clear().catch((e) => {
       throw e;
     });
   });
   const owner = Owner({ 
-    id: "test", 
+    id: "AXA097046", 
   });
   describe("crud", () => {
     test("insert", async () => {
@@ -39,6 +53,20 @@ describe("role", () => {
         throw err;
       }
       expect(err).toEqual(true);
+    });
+    test("find", async () => {
+      const err = await store.user.find({id: "AXA097046", password:"smafa_test2"});
+      if (err instanceof Error) {
+        throw err;
+      }
+      expect(err.id).toEqual("AXA097046");
+    });
+    test("find-err", async () => {
+      const err = await store.user.find({id: "AXA097046", password:"smafa"});
+      if (err instanceof Error) {
+        console.log(err)
+        expect(err.message).toBe(ErrorKind.InvalidIdOrPassword);
+      }
     });
     test("delete", async () => {
       const ret = await store.user.delete({ id: owner.id });

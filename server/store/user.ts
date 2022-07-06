@@ -3,6 +3,7 @@ import { first } from "lodash";
 import { UserStore } from "@csea/core";
 import { User, Owner } from "@csea/core/user";
 import ErrorKind from "@csea/core/error";
+import ldap from "ldapjs-client"
 import oracledb from "oracledb";
 
 const COLUMNS = [
@@ -48,7 +49,7 @@ export const Store = (sql: Sql<any>): UserStore => {
         name: res.rows[0][2],
         groupId: res.rows[0][3].trim(),
         post: res.rows[0][4].trim(),
-        admin: true,
+        admin: false,
       });
     } catch (e) {
       console.log(e.message)
@@ -65,29 +66,35 @@ export const Store = (sql: Sql<any>): UserStore => {
     }
   }
 
+  const findLdap = async (payload: {id:string, password:string}) => {
+    const { id, password } = payload
+    const tlsOptions = { 'rejectUnauthorized': false }
+    const client = new ldap({ url: "ldaps://172.18.209.227:636", tlsOptions });
+    try {
+      const c = await client.bind(`cn=${id},ou=People,dc=canon,dc=jp`, password);
+      const options = {};
+      const entries = await client.search(`cn=${id},ou=People,dc=canon,dc=jp`, options);
+      await client.unbind()
+    } catch (err) {
+      await client.unbind()
+      if (err instanceof Error) { return new Error(ErrorKind.InvalidIdOrPassword) }
+    }
+  };
+
   const find = async (payload: { id: string; password: string }) => {
     const { id, password } = payload
-    console.log(id)
-    console.log(password)
-    if( id === 'admin' && password === "admin"){
-      console.log("ok")
-      return User({
-        id: "AAA111633",
-        name: "higuchi",
-        groupId: "1490",
-        post: "0000",
-        admin: true,
-      });
-    }else if( id === 'test' && password === "test"){
-      return User({
-        id: "AAA110800",
-        name: "yao",
-        groupId: "1490",
-        post: "0000",
-        admin: false,
-      })
+    const err = await findLdap(payload)
+    if(err instanceof Error) {return err}
+
+    const user = await findGcip(payload)
+    if(user instanceof Error) {return user}
+
+    const admin = await isAdmin(payload)
+    if(admin instanceof Error) {return admin}
+    if(admin === true){
+      user.admin = true
     }
-    return new Error(ErrorKind.InvalidNameOrPassword)
+    return user
   };
 
   const filter = async (payload: {}) => {
@@ -156,6 +163,7 @@ export const Store = (sql: Sql<any>): UserStore => {
   };
   return {
     findGcip,
+    findLdap,
     find,
     update,
     filter,
