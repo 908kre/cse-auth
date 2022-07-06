@@ -21,7 +21,7 @@ export default {
       });
   },
 
-  handler: async (argv: { id: string; admin: boolean }) => {
+  handler: async (argv: { id: string }) => {
     const store = Store({ url: process.env.DATABASE_URL || "" });
     const fn = SetAdminFn({
       store,

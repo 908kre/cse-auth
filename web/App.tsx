@@ -30,11 +30,14 @@ export default function App() {
     api,
   });
   if(!isLoggedIn){
-    return <LoginPage
-      id={logInInfo.id}
-      password={logInInfo.password}
-      onSubmit={logIn}
-    />
+    return <>
+      <LoginPage
+        id={logInInfo.id}
+        password={logInInfo.password}
+        onSubmit={logIn}
+      />
+      <ToastContainer position="bottom-right" />
+    </>
   }
   return (
     <PageLayout
