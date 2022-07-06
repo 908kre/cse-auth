@@ -1663,6 +1663,7 @@ __metadata:
     jest: ^28.1.0
     jsonwebtoken: ^8.5.1
     lodash: ^4.17.21
+    oracledb: ^5.4.0
     postgres: ^2.0.0-beta.11
     ts-jest: ^28.0.2
     typescript: ^4.6.4
@@ -14847,6 +14848,13 @@ __metadata:
   bin:
     optipng: cli.js
   checksum: a11002998cf7ba932f4fd4a7b6c8c3dade036a0d39dcf6beb27a17d3b8f38c744687c9ca6f90a6b1ea101d95521647e0c060874cf470aa7e0829af642611e672
+  languageName: node
+  linkType: hard
+
+"oracledb@npm:^5.4.0":
+  version: 5.4.0
+  resolution: "oracledb@npm:5.4.0"
+  checksum: 54ecd09399a7b7fa69213229199e98d942bbf6112ae1d77e16f972ac53bbfa8cfda8182c263a2e118dbb49d882c2d481fbc4097b9fd7cb48660524c8f462b3a0
   languageName: node
   linkType: hard
 

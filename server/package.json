@@ -23,6 +23,7 @@
     "fastify-static": "^4.7.0",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.21",
+    "oracledb": "^5.4.0",
     "postgres": "^2.0.0-beta.11"
   },
   "devDependencies": {

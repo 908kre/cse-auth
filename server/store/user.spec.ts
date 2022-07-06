@@ -10,6 +10,13 @@ afterAll(async () => {
   });
 });
 
+test('oracle', async () => {
+  const err = await store.user.findGcip({ id: 'axa000001' });
+  if (err instanceof Error) {
+    throw err;
+  }
+})
+
 describe("role", () => {
   beforeAll(async () => {
     await store.user.clear().catch((e) => {
