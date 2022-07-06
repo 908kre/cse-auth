@@ -17,5 +17,6 @@ export enum ErrorKind {
   InvalidToken = "InvalidToken",
   OwnerNotFound = "OwnerNotFound",
   PermissionDenied = "PermissionDenied",
+  UserNotFound = "UserNotFound",
 }
 export default ErrorKind;

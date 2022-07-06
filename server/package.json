@@ -25,6 +25,7 @@
     "ldapjs": "^2.3.3",
     "ldapjs-client": "^0.1.1",
     "lodash": "^4.17.21",
+    "oracledb": "^5.4.0",
     "postgres": "^2.0.0-beta.11"
   },
   "devDependencies": {

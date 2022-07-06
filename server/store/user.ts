@@ -3,6 +3,7 @@ import { first } from "lodash";
 import { UserStore } from "@csea/core";
 import { User, Owner } from "@csea/core/user";
 import ErrorKind from "@csea/core/error";
+import oracledb from "oracledb";
 
 const COLUMNS = [
   "id",
@@ -21,6 +22,49 @@ const from = (r: Owner): Row => {
 };
 
 export const Store = (sql: Sql<any>): UserStore => {
+  const findGcip = async (payload: {id: string}) => {
+    const { id } = payload
+    let connection;
+    try {
+      connection = await oracledb.getConnection({
+        user: process.env.ORACLE_USER,
+        password: process.env.ORACLE_PASSWORD,
+        connectionString: process.env.ORACLE_CONFIG,
+      })
+      const companyCode: string = id.slice(0,3).toUpperCase()
+      const personCode: string = id.slice(3,10)
+      const query = `
+      SELECT cf_company, cd_person, nm_person_n, cd_dept, nm_position_n 
+      FROM WXAAV788 
+      WHERE cf_company='${companyCode}' 
+      AND cd_person='${personCode}'
+      `
+      const res = await connection.execute(query)
+      if (res.rows.length === 0) {
+        return new Error(ErrorKind.UserNotFound)
+      }
+      return User({
+        id: res.rows[0][0].trim() + res.rows[0][1].trim(),
+        name: res.rows[0][2],
+        groupId: res.rows[0][3].trim(),
+        post: res.rows[0][4].trim(),
+        admin: true,
+      });
+    } catch (e) {
+      console.log(e.message)
+      throw e
+    } finally {
+      if (connection) {
+        try {
+          await connection.close()
+        } catch (e) {
+          console.log(e.message)
+          throw e
+        }
+      }
+    }
+  }
+
   const find = async (payload: { id: string; password: string }) => {
     const { id, password } = payload
     console.log(id)
@@ -111,6 +155,7 @@ export const Store = (sql: Sql<any>): UserStore => {
     });
   };
   return {
+    findGcip,
     find,
     update,
     filter,
