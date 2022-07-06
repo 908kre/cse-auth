@@ -38,7 +38,7 @@ services:
 
   server:
     <<: *app
-    command: bash -c 'yarn db-migrate up && yarn workspace @csea/cli nodemon --exec "yarn cli start"'
+    command: bash -c 'yarn db-migrate up && yarn workspace @csea/cli nodemon --exec "yarn cli server start"'
     ports:
       - "${SERVER_PORT}:80"
     environment:
