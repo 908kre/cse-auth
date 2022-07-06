@@ -70,8 +70,6 @@ export type RoleGroupStore = {
 };
 
 export type UserStore = {
-  findGcip: (payload: { id: string }) => Promise<User | Error>;
-  findLdap: (payload: { id: string, password: string }) => Promise<void | Error>;
   find: (payload: { id: string; password: string }) => Promise<User | Error>;
   update: (payload: Pick<User, "id">) => Promise<User | Error>;
   isAdmin:(payload:{id:string;}) => Promise<boolean | Error>

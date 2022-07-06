@@ -11,25 +11,25 @@ afterAll(async () => {
   });
 });
 
-test('oracle', async () => {
-  const err = await store.user.findGcip({ id: 'axa000001' });
-  if (err instanceof Error) {
-    throw err;
-  }
-})
+// test('oracle', async () => {
+//   const err = await store.user.findGcip({ id: 'axa000001' });
+//   if (err instanceof Error) {
+//     throw err;
+//   }
+// })
 
-test('ldap', async () => {
-  const err = await store.user.findLdap({ id: 'AXA097046',password: 'smafa_test2'  });
-  if(err instanceof Error){
-    throw err
-  }
-})
-test('ldap-err', async () => {
-  const err = await store.user.findLdap({ id: 'AXA097046',password: 'smafa'  });
-  if(err instanceof Error){
-    expect(err.message).toBe(ErrorKind.InvalidIdOrPassword);
-  }
-})
+// test('ldap', async () => {
+//   const err = await store.user.findLdap({ id: 'AXA097046',password: 'smafa_test2'  });
+//   if(err instanceof Error){
+//     throw err
+//   }
+// })
+// test('ldap-err', async () => {
+//   const err = await store.user.findLdap({ id: 'AXA097046',password: 'smafa'  });
+//   if(err instanceof Error){
+//     expect(err.message).toBe(ErrorKind.InvalidIdOrPassword);
+//   }
+// })
 
 describe("user", () => {
   beforeAll(async () => {

@@ -162,8 +162,6 @@ export const Store = (sql: Sql<any>): UserStore => {
     });
   };
   return {
-    findGcip,
-    findLdap,
     find,
     update,
     filter,
