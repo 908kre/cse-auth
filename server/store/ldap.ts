@@ -12,7 +12,7 @@ export const Store = ():Ldap => {
       const c = await client.bind('cn=AXA097046,ou=People,dc=canon,dc=jp', 'smafa_test2');
       const options = {};
       const entries = await client.search(`cn=AXA097046,ou=People,dc=canon,dc=jp`, options);
-      await client.unbind()
+      console.log(entries)
     } catch (err) {
       await client.unbind()
     }
