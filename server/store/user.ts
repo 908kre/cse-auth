@@ -69,7 +69,7 @@ export const Store = (sql: Sql<any>): UserStore => {
   const findLdap = async (payload: {id:string, password:string}) => {
     const { id, password } = payload
     const tlsOptions = { 'rejectUnauthorized': false }
-    const client = new ldap({ url: "ldaps://172.18.209.227:636", tlsOptions });
+    const client = new ldap({ url: process.env.LDAP_URL, tlsOptions });
     try {
       const c = await client.bind(`cn=${id},ou=People,dc=canon,dc=jp`, password);
       const options = {};
