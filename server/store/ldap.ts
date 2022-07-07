@@ -6,16 +6,14 @@ export type Ldap = {
 
 export const Store = ():Ldap => {
   const find = async (payload:{id:string, password?:string}) => {
-    const client = new ldap({ url: "ldap://192.168.56.121:636" });
+    const tlsOptions = { 'rejectUnauthorized': false }
+    const client = new ldap({ url: "ldaps://172.18.209.227:636", tlsOptions });
     try {
-      const c = await client.bind('cn=AAA111111,ou=People,dc=canon,dc=jp', 'smafa_test1');
-      const options = {
-      };
-      // const entries = await client.search(`uid="AAA111633",o=AAA,ou=People,o=Canon`, options);
-      // console.log(entries)
-      // await client.unbind()
+      const c = await client.bind('cn=AXA097046,ou=People,dc=canon,dc=jp', 'smafa_test2');
+      const options = {};
+      const entries = await client.search(`cn=AXA097046,ou=People,dc=canon,dc=jp`, options);
+      console.log(entries)
     } catch (err) {
-      console.log(err)
       await client.unbind()
     }
   }

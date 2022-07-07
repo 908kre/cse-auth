@@ -3,6 +3,11 @@ version: '2.4'
 x-env: &env
   SERVER_PORT: &SERVER_PORT ${SERVER_PORT:?}
   STORYBOOK_PORT: &STORYBOOK_PORT ${STORYBOOK_PORT:?}
+  # optional
+  ORACLE_USER: &ORACLE_USER ${ORACLE_USER}
+  ORACLE_PASSWORD: &ORACLE_PASSWORD ${ORACLE_PASSWORD}
+  ORACLE_CONFIG: &ORACLE_CONFIG ${ORACLE_CONFIG}
+  LDAP_URL: &LDAP_URL ${LDAP_URL}
   # internal
   DATABASE_URL: postgres://app:app@db/app
 
@@ -33,7 +38,7 @@ services:
 
   server:
     <<: *app
-    command: bash -c 'yarn db-migrate up && yarn workspace @csea/cli nodemon --exec "yarn cli start"'
+    command: bash -c 'yarn db-migrate up && yarn workspace @csea/cli nodemon --exec "yarn cli server start"'
     ports:
       - "${SERVER_PORT}:80"
     environment:

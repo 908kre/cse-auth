@@ -4,7 +4,9 @@ import userSetAdmin from "./user.set-admin";
 
 const root = yargs
   .scriptName("csea")
-  .command(start)
+  .command('server', 'server', (yargs) => {
+    yargs.command(start).demandCommand();
+  })
   .command("user", "user", (yargs) => {
     yargs.command(userSetAdmin).demandCommand();
   });
