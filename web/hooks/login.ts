@@ -5,7 +5,7 @@ import useToast from "@csea/web/hooks/toast"
 import { useCookies } from "react-cookie";
 import { TOKEN_KEY } from "@csea/core"
 import { Api }  from "@csea/api";
-
+import { useNavigate } from "react-router-dom";
 type LogInInfo = {
   id: string;
   password: string;
@@ -30,7 +30,6 @@ export const useLogin = (props: {
   });
   const [token, setToken] = React.useState<string>("");
   const [claims, setClaims] = React.useState<Claims | undefined>(undefined);
-
   React.useEffect(() => {
     if(cookies[TOKEN_KEY]){
       verify(cookies[TOKEN_KEY])

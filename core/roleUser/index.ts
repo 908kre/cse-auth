@@ -24,6 +24,12 @@ export const RoleUser = (args?: {
     if (userId === "") {
       return new Error(ErrorKind.InvalidUserIdFormat);
     }
+    if (userId.length != 9) {
+      return new Error(ErrorKind.InvalidUserIdFormat);
+    }
+    if (!/^[a-zA-Z0-9\-\.\_\@]+$/g.test(userId)){
+      return new Error(ErrorKind.InvalidUserIdFormat);
+    }
   }
   const self = {
     userId,
