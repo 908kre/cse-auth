@@ -2,6 +2,7 @@
 *.log
 *.js
 node_modules
+db-data
 .pnp.*
 .yarn/*
 !.yarn/patches

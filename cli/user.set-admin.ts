@@ -1,7 +1,6 @@
 import { Argv } from "yargs";
 import { Store } from "@csea/server/store";
 import { Lock } from "@oniku/lockfile";
-import { JwtAuth } from "@csea/server/auth";
 import { SetAdminFn } from "@csea/core/user/set-admin";
 
 export default {
@@ -21,7 +20,7 @@ export default {
       });
   },
 
-  handler: async (argv: { id: string; admin: boolean }) => {
+  handler: async (argv: { id: string }) => {
     const store = Store({ url: process.env.DATABASE_URL || "" });
     const fn = SetAdminFn({
       store,
@@ -30,5 +29,6 @@ export default {
     if (err instanceof Error) {
       throw err;
     }
+    process.exit(0)
   },
 };
