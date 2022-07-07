@@ -6,7 +6,10 @@ export { SetAdminFn } from "@csea/core/user/set-admin";
 export type User = {
   id: string;
   name: string;
+  email: string;
+  companyName: string;
   groupId: string;
+  groupName: string;
   post: string;
   admin: boolean;
 };
@@ -14,19 +17,28 @@ export type User = {
 export const User = (args?: {
   id?: string;
   name?: string;
+  email?: string;
+  companyName?: string;
   groupId?: string;
+  groupName?: string;
   post?: string;
   admin?: boolean;
 }): User => {
   const id = args?.id ?? "";
   const name = args?.name ?? "";
+  const email = args?.email ?? "";
+  const companyName = args?.companyName ?? "";
   const groupId = args?.groupId ?? "";
-  const post = args?.groupId ?? "";
+  const groupName = args?.groupName ?? "";
+  const post = args?.post ?? "";
   const admin = args?.admin ?? false;
   return {
     id,
     name,
+    email,
+    companyName,
     groupId,
+    groupName,
     post,
     admin,
   };
