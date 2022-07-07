@@ -52,7 +52,7 @@ export const Store = (sql: Sql<any>): UserStore => {
         companyName: user[4].trim(),
         groupId: user[5].trim(),
         groupName: user[6].trim(),
-        post: user[6].trim(),
+        post: user[7].trim(),
         admin: false,
       });
     } catch (e) {

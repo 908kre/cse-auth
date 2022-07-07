@@ -30,7 +30,7 @@ export const User = (args?: {
   const companyName = args?.companyName ?? "";
   const groupId = args?.groupId ?? "";
   const groupName = args?.groupName ?? "";
-  const post = args?.groupId ?? "";
+  const post = args?.post ?? "";
   const admin = args?.admin ?? false;
   return {
     id,
