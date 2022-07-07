@@ -35,7 +35,7 @@ export const Store = (sql: Sql<any>): UserStore => {
       const companyCode: string = id.slice(0,3).toUpperCase()
       const personCode: string = id.slice(3,10)
       const query = `
-      SELECT cf_company, cd_person, nm_person_n, cd_dept, nm_position_n 
+      SELECT cf_company, cd_person, nm_person_n, nm_mail_address1, nm_company_n, cd_dept, nm_dept_n, nm_position_n 
       FROM WXAAV788 
       WHERE cf_company='${companyCode}' 
       AND cd_person='${personCode}'
@@ -44,11 +44,15 @@ export const Store = (sql: Sql<any>): UserStore => {
       if (res.rows.length === 0) {
         return new Error(ErrorKind.UserNotFound)
       }
+      const user = res.rows[0]
       return User({
-        id: res.rows[0][0].trim() + res.rows[0][1].trim(),
-        name: res.rows[0][2],
-        groupId: res.rows[0][3].trim(),
-        post: res.rows[0][4].trim(),
+        id: user[0].trim() + user[1].trim(),
+        name: user[2],
+        email: user[3],
+        companyName: user[4].trim(),
+        groupId: user[5].trim(),
+        groupName: user[6].trim(),
+        post: user[6].trim(),
         admin: false,
       });
     } catch (e) {
