@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import { Admin } from "@csea/core/auth";
 import { useForm } from "react-hook-form";
 import AdminSelector  from "@csea/web/components/admin-selector";
@@ -19,8 +20,10 @@ export const AdminForm = (props: {
     formState: { errors },
   } = useForm();
 
+  const [admin, setAdmin] = React.useState<Admin>(Admin.Maintainer);
+
   const onSubmit = (data) => {
-    props.onSubmit(data)
+    props.onSubmit({...data, admin})
     reset()
   }
 
@@ -30,9 +33,10 @@ export const AdminForm = (props: {
         <input 
           className="input" 
           type='text'
-          placeholder={"グループID"}
-          {...register("groupId")} 
+          placeholder={"ユーザーID"}
+          {...register("id")} 
         />
+        <AdminSelector value={admin} onChange={ setAdmin }/>
         <button type="submit" className="button is-link">
           Submit
         </button>

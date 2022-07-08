@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 import { action } from "@storybook/addon-actions";
 
 export default {
-  title: "GroupForm",
+  title: "AdminForm",
   component: Component,
 };
 
