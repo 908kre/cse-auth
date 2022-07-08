@@ -47,12 +47,12 @@ describe("user", () => {
         throw err;
       }
     });
-    test("is-admin", async () => {
-      const err = await store.user.isAdmin({id: owner.id});
-      if (err instanceof Error) {
+    test("is-find-owner", async () => {
+      const err = await store.user.findOwner({id: owner.id});
+      if (err instanceof Error || err === undefined) {
         throw err;
       }
-      expect(err).toEqual(true);
+      expect(err.id).toEqual(owner.id);
     });
     test("find", async () => {
       const err = await store.user.find({id: "AXA097046", password:"smafa_test2"});
@@ -73,11 +73,11 @@ describe("user", () => {
       if (ret instanceof Error) {
         throw ret;
       }
-      const isAdmin = await store.user.isAdmin({ id: owner.id });
-      if (isAdmin instanceof Error) {
-        throw isAdmin;
+      const err = await store.user.findOwner({ id: owner.id });
+      if (err instanceof Error) {
+        throw err;
       }
-      expect(isAdmin).toEqual(false);
+      expect(err).toEqual(undefined);
     });
     test("empty", async () => {
       await store.user.filter({}).catch((err) => {

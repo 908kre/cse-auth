@@ -6,7 +6,7 @@ export type Payload = {
   token?: string;
 };
 
-export type Fn = (payload: Payload) => Promise<boolean | Error>
+export type Fn = (payload: Payload) => Promise<Owner| undefined | Error>
 export const Fn = (props: {
   store: Store;
   auth?: Auth;
@@ -16,10 +16,9 @@ export const Fn = (props: {
     if (claims instanceof Error) {
       return claims;
     }
-    const owner = await props.store.user.isAdmin(payload)
+    const owner = await props.store.user.findOwner(payload)
     if(owner instanceof Error) { return owner }
-    if(owner === undefined) { return  false}
-    return true
+    return owner
   }
 }
 

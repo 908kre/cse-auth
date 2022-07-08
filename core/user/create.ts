@@ -1,14 +1,15 @@
 import { Lock, ErrorKind, Store, Auth } from "@csea/core";
 import { System } from "@csea/core/system";
 import { Admin } from "@csea/core/auth";
+import { Owner } from "@csea/core/user";
 
 export type Payload = {
-  id?: string;
-  name?: string;
+  id: string;
+  level: Admin;
   token?: string;
 };
 
-export type Fn = (payload: Payload) => Promise<System | Error>
+export type Fn = (payload: Payload) => Promise<Owner | Error>
 export const Fn = (props: {
   store: Store;
   lock: Lock;
@@ -23,15 +24,15 @@ export const Fn = (props: {
       if (claims !== undefined && claims.admin !== Admin.Owner) {
         return new Error(ErrorKind.PermissionDenied)
       }
-      const system = System(payload)
-      const valErr = system.validate()
+      const owner = Owner(payload)
+      const valErr = owner.validate()
       if(valErr instanceof Error) { return valErr }
-      if(await props.store.system.find(payload)){
+      if(await props.store.user.findOwner(payload)){
         return new Error(ErrorKind.SystemAlreadyExist)
       }
-      const insertErr = await props.store.system.insert(system)
+      const insertErr = await props.store.user.insert(owner)
       if(insertErr instanceof Error) { return insertErr }
-      return system 
+      return owner
     })
   }
 }

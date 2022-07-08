@@ -1,6 +1,12 @@
 import { Lock, ErrorKind, Store, Auth, Crypt, Logger, ReqFn, ReqKind } from ".";
 import { uniq } from "lodash";
 
+export enum Admin {
+  Owner = 2,
+  Maintainer = 1,
+  Guest = 0,
+}
+
 export type Claims = {
   exp: number;
   userId: string;
@@ -8,17 +14,18 @@ export type Claims = {
   groupId:string;
   post:string;
   roles: string[];
-  admin: boolean;
+  admin: Admin;
 };
+
 
 export const Claims =  (props: Omit<Claims, "exp"|"roles"|"admin"> & {
   roles?:string[],
-  admin?: boolean,
+  admin?: Admin,
   exp?: number,
 }):Claims => {
   const { userId, systemId, groupId, post } = props
   const  exp = props.exp ?? Math.floor(Date.now() / 1000) + 24 * (60 * 60)
-  const admin = props.admin ?? false
+  const admin = props.admin ?? Admin.Guest 
   const roles = props.roles ?? []
 
   return {
@@ -28,7 +35,7 @@ export const Claims =  (props: Omit<Claims, "exp"|"roles"|"admin"> & {
     systemId,
     post,
     roles,
-    admin,
+    admin
   }
 }
 
