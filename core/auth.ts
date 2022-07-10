@@ -58,7 +58,7 @@ export const SignIn = (
       return user;
     }
     const userRoles = await props.store.roleUser.filter({ 
-      userId: req.id 
+      userId: user.id 
     });
     if (userRoles instanceof Error) {
       return userRoles;

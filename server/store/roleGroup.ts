@@ -61,10 +61,10 @@ export const Store = (sql: Sql<any>): RoleGroupStore => {
       let rows = [];
       if(roleId !== undefined){
         rows = await sql`SELECT * FROM role_groups WHERE role_id = ${roleId}`;
-      }if(groupId !== undefined && post!==undefined){
-        rows = await sql`SELECT * FROM role_groups WHERE group_id = ${groupId} AND post=${post}`;
       }if (groupId !== undefined) {
         rows = await sql`SELECT * FROM role_groups WHERE group_id = ${groupId} AND post=''`;
+      }if(groupId !== undefined && post!==undefined){
+        rows = await sql`SELECT * FROM role_groups WHERE group_id = ${groupId} AND post=${post}`;
       } else if(roleId ===undefined && groupId ===undefined && post===undefined){
         rows = await sql`SELECT * FROM role_groups`;
       }
