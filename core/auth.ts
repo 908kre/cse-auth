@@ -10,11 +10,15 @@ export enum Admin {
 export type Claims = {
   exp: number;
   userId: string;
-  systemId?: string;
   groupId:string;
   post:string;
   roles: string[];
   admin: Admin;
+  name?:string;
+  email?:string;
+  companyName?:string;
+  groupName?:string;
+  systemId?: string;
 };
 
 
@@ -59,24 +63,42 @@ export const SignIn = (
     if (userRoles instanceof Error) {
       return userRoles;
     }
+    console.log(userRoles)
     const groupRoles = await props.store.roleGroup.filter({
       groupId: user.groupId,
     });
     if (groupRoles instanceof Error) {
       return groupRoles;
     }
+    console.log(groupRoles)
+
+    const groups = await props.store.roleGroup.filter({
+      groupId: user.groupId,
+      post: user.post,
+    });
+    console.log(groups)
+    if (groups instanceof Error) {
+      return groups;
+    }
+
     const us = userRoles.map((x) => x.roleId);
     const gs = groupRoles.map((x) => x.roleId);
-    const roles = await props.store.role.filter({ids: uniq([...us, ...gs])})
+    const gps = groups.map((x) => x.roleId);
+    const roles = await props.store.role.filter({ids: uniq([...us, ...gs, ...gps])})
     if (roles instanceof Error){
       return roles
     }
+      // roles: roles.filter(x => x.systemId === req.systemId).map(x => x.name),
     const claims = Claims({
       userId: user.id,
       groupId: user.groupId,
       post: user.post,
+      roles: roles.map(x => x.name),
       systemId: req.systemId,
-      roles: roles.filter(x => x.systemId === req.systemId).map(x => x.name),
+      name:user.name,
+      email:user.email,
+      companyName:user.companyName,
+      groupName:user.groupName,
       admin:user.admin
     });
     const token = await props.auth.sign(claims);

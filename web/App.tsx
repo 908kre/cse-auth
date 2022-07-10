@@ -67,6 +67,10 @@ export default function App() {
               element={<RoleUpdatePage api={api} />}
             />
             <Route
+              path={"/system/:id/role/:roleid/:groupid/"}
+              element={<RoleUpdatePage api={api} />}
+            />
+            <Route
               path={"/system/:id/role/:roleid/:groupid/:post"}
               element={<RoleUpdatePage api={api} />}
             />

@@ -58,14 +58,12 @@ export const Store = (sql: Sql<any>): UserStore => {
         post: user[7].trim(),
       });
     } catch (e) {
-      console.log(e.message)
       throw e
     } finally {
       if (connection) {
         try {
           await connection.close()
         } catch (e) {
-          console.log(e.message)
           throw e
         }
       }

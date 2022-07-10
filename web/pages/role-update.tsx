@@ -59,7 +59,6 @@ export const RoleUpdatePage = (props:{
   };
 
   const deleteGroup = async (req: { roleId: string, groupId: string, post: string }) => {
-    console.log(req)
     const err = await props.api.roleGroup.delete(req);
     if (err instanceof Error) {
       return toast.error(err.message);

@@ -6,7 +6,7 @@ import AdminSelector  from "@csea/web/components/admin-selector";
 
 export type Payload = {
   id: string;
-  admin: Admin;
+  level: Admin;
 };
 
 export const AdminForm = (props: {
@@ -23,7 +23,7 @@ export const AdminForm = (props: {
   const [admin, setAdmin] = React.useState<Admin>(Admin.Maintainer);
 
   const onSubmit = (data) => {
-    props.onSubmit({...data, admin})
+    props.onSubmit({...data, level:admin})
     reset()
   }
 

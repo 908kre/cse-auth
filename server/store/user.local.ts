@@ -34,6 +34,9 @@ export const Store = (sql: Sql<any>): UserStore => {
         name:"higuchi fumito",
         groupId: "1490",
         post: "0000",
+        companyName:"Canon.Inc",
+        groupName:"jigi33",
+        email:"higuchi.fumito@mail.canon",
         admin: Admin.Owner
       })
     }else if(id === "test" && password === "test"){
@@ -42,6 +45,9 @@ export const Store = (sql: Sql<any>): UserStore => {
         name: "yao",
         groupId: "1490",
         post: "0000",
+        companyName:"Canon.Inc",
+        groupName:"jigi33",
+        email:"yao@mail.canon",
         admin: Admin.Maintainer,
       })
     }else if(id === "guest" && password === "guest"){

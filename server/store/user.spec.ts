@@ -64,7 +64,6 @@ describe("user", () => {
     test("find-err", async () => {
       const err = await store.user.find({id: "AXA097046", password:"smafa"});
       if (err instanceof Error) {
-        console.log(err)
         expect(err.message).toBe(ErrorKind.InvalidIdOrPassword);
       }
     });

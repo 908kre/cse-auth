@@ -41,6 +41,8 @@ services:
     command: bash -c 'yarn db-migrate up && yarn workspace @csea/cli nodemon --exec "yarn cli server start"'
     ports:
       - "${SERVER_PORT}:80"
+    depends_on:
+      - "db"
     environment:
       <<: *env
 

@@ -24,7 +24,7 @@ export const RoleGroup = (args?: {
   const post = args?.post ?? ""
   const createdAt = args?.createdAt ?? new Date()
   const validate = () => {
-    if (groupId === "" || post === "") {
+    if (groupId === "") {
       return new Error(ErrorKind.InvalidGroupIdFormat);
     }
     // if (groupId.length != 4) {
@@ -33,9 +33,9 @@ export const RoleGroup = (args?: {
     if (!/^[a-zA-Z0-9\-\.\_\@]+$/g.test(groupId)){
       return new Error(ErrorKind.InvalidGroupIdFormat);
     }
-    if (!/^[a-zA-Z0-9\-\.\_\@]+$/g.test(post)){
-      return new Error(ErrorKind.InvalidGroupIdFormat);
-    }
+    // if (!/^[a-zA-Z0-9\-\.\_\@]+$/g.test(post)){
+    //   return new Error(ErrorKind.InvalidGroupIdFormat);
+    // }
   };
   const self = {
     groupId,
