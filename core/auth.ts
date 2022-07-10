@@ -88,12 +88,18 @@ export const SignIn = (
     if (roles instanceof Error){
       return roles
     }
-      // roles: roles.filter(x => x.systemId === req.systemId).map(x => x.name),
+    let systemRoles:string[] = []
+    if(req.systemId){
+      systemRoles = roles.filter(x => x.systemId === req.systemId).map(x => x.name)
+    }else {
+      systemRoles = roles.map(x => x.name)
+    }
+
     const claims = Claims({
       userId: user.id,
       groupId: user.groupId,
       post: user.post,
-      roles: roles.map(x => x.name),
+      roles: systemRoles,
       systemId: req.systemId,
       name:user.name,
       email:user.email,

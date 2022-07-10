@@ -24,6 +24,9 @@ export const SystemUpdatePage = (props: { api: Api }) => {
   const { data: roleUsers } = useSWR("/system/role-user", () =>
     props.api.roleUser.filter({})
   );
+  const { data: roleGroups } = useSWR("/system/role-group", () =>
+    props.api.roleGroup.filter({})
+  );
 
   if (
     system === undefined ||
@@ -85,6 +88,7 @@ export const SystemUpdatePage = (props: { api: Api }) => {
       <RoleTable
         rows={roles}
         roleUsers={roleUsers}
+        roleGroups={roleUsers}
         onEdit={({ id, systemId }) => {
           navigate(`/system/${system.id}/role/${id}`);
         }}
