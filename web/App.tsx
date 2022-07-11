@@ -26,7 +26,7 @@ import { useLogin, LoginHook } from "@csea/web/hooks/login";
 export default function App() {
   const navigate = useNavigate();
   const api = Api()
-  const { isLoggedIn, logInInfo, logIn, logOut, claims } = useLogin({
+  const { isLoggedIn, logInInfo, logInAuth, logOut, claims } = useLogin({
     api,
   });
   if(!isLoggedIn){
@@ -34,7 +34,7 @@ export default function App() {
       <LoginPage
         id={logInInfo.id}
         password={logInInfo.password}
-        onSubmit={logIn}
+        onSubmit={logInAuth}
       />
       <ToastContainer position="bottom-right" />
     </>

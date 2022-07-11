@@ -34,7 +34,9 @@ export const SystemUpdatePage = (props: { api: Api }) => {
     roles === undefined ||
     roles instanceof Error ||
     roleUsers === undefined ||
-    roleUsers instanceof Error
+    roleUsers instanceof Error ||
+    roleGroups === undefined ||
+    roleGroups instanceof Error
   ) {
     return <Loading />;
   }
@@ -88,7 +90,7 @@ export const SystemUpdatePage = (props: { api: Api }) => {
       <RoleTable
         rows={roles}
         roleUsers={roleUsers}
-        roleGroups={roleUsers}
+        roleGroups={roleGroups}
         onEdit={({ id, systemId }) => {
           navigate(`/system/${system.id}/role/${id}`);
         }}
