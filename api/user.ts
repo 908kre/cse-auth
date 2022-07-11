@@ -3,7 +3,9 @@ import { toError } from ".";
 import { Owner } from "@csea/core/user"
 import {
   FilterFn,
-  SetAdminFn,
+  CreateFn,
+  DeleteFn,
+  UpdateFn,
 } from "@csea/core/user";
 
 export const UserApi = (arg: {
@@ -24,17 +26,35 @@ export const UserApi = (arg: {
       return toError(err);
     }
   };
-  const setAdmin:SetAdminFn = async (payload) => {
+  const create:CreateFn = async (payload) => {
     try {
-      const res = await http.post(`${prefix}/set-admin`, payload);
+      const res = await http.post(`${prefix}/create`, payload);
+      return res.data;
+    } catch (err) {
+      return toError(err);
+    }
+  };
+  const update:UpdateFn = async (payload) => {
+    try {
+      const res = await http.post(`${prefix}/update`, payload);
+      return res.data;
+    } catch (err) {
+      return toError(err);
+    }
+  };
+  const delete_:DeleteFn = async (payload) => {
+    try {
+      const res = await http.post(`${prefix}/delete`, payload);
       return res.data;
     } catch (err) {
       return toError(err);
     }
   };
   return {
+    create,
+    update,
+    delete:delete_,
     filter,
-    setAdmin
   };
 };
 export default UserApi

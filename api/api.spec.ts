@@ -173,10 +173,4 @@ describe("user", () => {
       throw res;
     }
   });
-  test("set-admin", async () => {
-    const res = await api.user.setAdmin({id: "test"});
-    if (res instanceof Error) {
-      throw res;
-    }
-  });
 });

@@ -1,6 +1,7 @@
 import { SignIn, } from "./auth";
 import { ReqKind  } from "."
 import { User } from "@csea/core/user";
+import { Admin } from "@csea/core/auth";
 describe("auth", () => {
 
   const auth = {
@@ -32,7 +33,7 @@ describe("auth", () => {
         name: "higuchi fumito",
         groupId: "1490",
         post: "0000",
-        admin: true,
+        admin: Admin.Owner,
       })
     )
     const signIn = SignIn({

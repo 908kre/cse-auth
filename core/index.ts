@@ -71,11 +71,11 @@ export type RoleGroupStore = {
 
 export type UserStore = {
   find: (payload: { id: string; password: string }) => Promise<User | Error>;
-  update: (payload: Pick<User, "id">) => Promise<User | Error>;
-  isAdmin:(payload:{id:string;}) => Promise<boolean | Error>
   filter: (payload: {}) => Promise<Owner[] | Error>;
   insert: (payload:Owner) => Promise<void | Error>
+  update: (payload:Owner) => Promise<void | Error>;
   delete: (payload:{id: string}) => Promise<void | Error>
+  findOwner:(payload:{id:string;}) => Promise<Owner | undefined | Error>
   clear: () => Promise<void | Error>;
 };
 

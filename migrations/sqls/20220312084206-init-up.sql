@@ -27,6 +27,8 @@ CREATE TABLE role_groups (
     UNIQUE (group_id, role_id, post)
 );
 
+
 CREATE TABLE owners (
-    id       text       NOT NULL PRIMARY KEY
+    id       text     NOT NULL PRIMARY KEY,
+    level     smallint NOT NULL
 );

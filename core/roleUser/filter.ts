@@ -18,7 +18,6 @@ export const Fn = (props: {
       return claims;
     }
     const roleUsers = await props.store.roleUser.filter(payload)
-    console.log("core filter-------------------")
     if(roleUsers instanceof Error){return roleUsers}
     return roleUsers
   }

@@ -11,7 +11,6 @@ export const SystemsPage = (props: {
   claims?: Claims
 }) => {
   const { api } = props
-  console.log(api)
   const navigate = useNavigate();
   const { data: systems } = useSWR("/system", () => props.api.system.filter({}));
   if (systems === undefined || systems instanceof Error) {

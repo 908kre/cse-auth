@@ -52,14 +52,20 @@ export const Store = (sql: Sql<any>): RoleGroupStore => {
   };
 
   const filter = async (payload: {
+    roleId?:string;
     groupId?: string;
+    post?: string;
   }): Promise<RoleGroup[] | Error> => {
     try {
-      const { groupId } = payload;
+      const { groupId, post, roleId } = payload;
       let rows = [];
-      if (groupId) {
-        rows = await sql`SELECT * FROM role_groups WHERE group_id = ${groupId}`;
-      } else {
+      if(roleId !== undefined){
+        rows = await sql`SELECT * FROM role_groups WHERE role_id = ${roleId}`;
+      }if (groupId !== undefined) {
+        rows = await sql`SELECT * FROM role_groups WHERE group_id = ${groupId} AND post=''`;
+      }if(groupId !== undefined && post!==undefined){
+        rows = await sql`SELECT * FROM role_groups WHERE group_id = ${groupId} AND post=${post}`;
+      } else if(roleId ===undefined && groupId ===undefined && post===undefined){
         rows = await sql`SELECT * FROM role_groups`;
       }
       if (rows.length === 0) {

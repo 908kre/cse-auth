@@ -1,9 +1,9 @@
 import React from "react";
-import { Claims } from "@csea/core/auth";
+import { Claims, Admin } from "@csea/core/auth";
 import useSWR, { useSWRConfig } from "swr";
 import useToast from "@csea/web/hooks/toast"
 import { useCookies } from "react-cookie";
-import { TOKEN_KEY } from "@csea/core"
+import { TOKEN_KEY, ErrorKind } from "@csea/core"
 import { Api }  from "@csea/api";
 import { useNavigate } from "react-router-dom";
 type LogInInfo = {
@@ -15,6 +15,7 @@ export type LoginHook = {
   logInInfo:LogInInfo
   claims?:Claims
   logIn:(req:LogInInfo) => Promise<void|Error>
+  logInAuth:(req:LogInInfo) => Promise<void|Error>
   logOut:() => void
 } 
 export const useLogin = (props: { 
@@ -44,6 +45,7 @@ export const useLogin = (props: {
     }
     setClaims(claims);
     setIsLoggedIn(true);
+    return claims
   }
 
   const logIn = async (req) => {
@@ -64,12 +66,31 @@ export const useLogin = (props: {
     setIsLoggedIn(false);
   };
 
+  const logInAuth = async (req) => {
+    const token = await props.api.signIn(req);
+    if (token instanceof Error) {
+      return toast.error(token.message);
+    }
+    setCookie(TOKEN_KEY, token);
+    setToken(token);
+    const claims = await verify(token)
+    if(claims instanceof Error){ 
+      return toast.error(claims.message)
+    }
+    if(claims && claims.admin === Admin.Guest){
+      logOut()
+      return toast.error(ErrorKind.PermissionDenied)
+    }
+    props?.onLogin?.();
+    toast.info('成功しました')
+  };
 
   return {
     isLoggedIn,
     logInInfo,
     claims,
     logIn,
+    logInAuth,
     logOut,
   };
 };

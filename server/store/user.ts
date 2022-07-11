@@ -8,17 +8,20 @@ import oracledb from "oracledb";
 
 const COLUMNS = [
   "id",
+  "level"
 ] as const
 
 const to = (r: Row): Owner => {
   return Owner({
     id: r.id,
+    level: r.level
   });
 };
 
 const from = (r: Owner): Row => {
   return {
     id: r.id,
+    level: r.level
   };
 };
 
@@ -35,7 +38,7 @@ export const Store = (sql: Sql<any>): UserStore => {
       const companyCode: string = id.slice(0,3).toUpperCase()
       const personCode: string = id.slice(3,10)
       const query = `
-      SELECT cf_company, cd_person, nm_person_n, cd_dept, nm_position_n 
+      SELECT cf_company, cd_person, nm_person_n, nm_mail_address1, nm_company_n, cd_dept, nm_dept_n, nm_position_n 
       FROM WXAAV788 
       WHERE cf_company='${companyCode}' 
       AND cd_person='${personCode}'
@@ -44,22 +47,23 @@ export const Store = (sql: Sql<any>): UserStore => {
       if (res.rows.length === 0) {
         return new Error(ErrorKind.UserNotFound)
       }
+      const user = res.rows[0]
       return User({
-        id: res.rows[0][0].trim() + res.rows[0][1].trim(),
-        name: res.rows[0][2],
-        groupId: res.rows[0][3].trim(),
-        post: res.rows[0][4].trim(),
-        admin: false,
+        id: user[0].trim() + user[1].trim(),
+        name: user[2],
+        email: user[3],
+        companyName: user[4].trim(),
+        groupId: user[0].trim() + user[5].trim(),
+        groupName: user[6].trim(),
+        post: user[7].trim(),
       });
     } catch (e) {
-      console.log(e.message)
       throw e
     } finally {
       if (connection) {
         try {
           await connection.close()
         } catch (e) {
-          console.log(e.message)
           throw e
         }
       }
@@ -89,10 +93,10 @@ export const Store = (sql: Sql<any>): UserStore => {
     const user = await findGcip(payload)
     if(user instanceof Error) {return user}
 
-    const admin = await isAdmin(payload)
-    if(admin instanceof Error) {return admin}
-    if(admin === true){
-      user.admin = true
+    const owner = await findOwner(payload)
+    if(owner instanceof Error) {return owner}
+    if(owner){
+      user.admin = owner.level
     }
     return user
   };
@@ -108,24 +112,13 @@ export const Store = (sql: Sql<any>): UserStore => {
     }
   };
 
-  const isAdmin = async (payload: {id:string}) => {
+  const findOwner = async (payload: {id:string}) => {
     const { id } = payload
     try {
       let rows = [];
       rows = await sql`SELECT * FROM owners WHERE id=${id}`;
       const owner = first(rows.map(to))
-      if(owner !== undefined){ return true }
-      return false;
-    } catch (err) {
-      return err;
-    }
-  };
-  const insert = async (payload: Owner): Promise<void | Error> => {
-    try {
-      await sql`
-      INSERT INTO owners ${sql(
-        from(payload),...COLUMNS
-      )}`;
+      return owner;
     } catch (err) {
       return err;
     }
@@ -144,6 +137,25 @@ export const Store = (sql: Sql<any>): UserStore => {
     }
   };
 
+  const insert = async (payload: Owner): Promise<void | Error> => {
+    try {
+      await sql`
+      INSERT INTO owners ${sql(
+        from(payload),...COLUMNS
+      )}`;
+    } catch (err) {
+      return err;
+    }
+  };
+
+  const update = async (payload: Owner): Promise<void | Error> => {
+    try {
+      await sql`UPDATE owners SET ${sql(from(payload),...COLUMNS)} WHERE id = ${payload.id}`;
+    }catch (err) {
+      return err;
+    }
+  };
+
   const clear = async (): Promise<void> => {
     try {
       await sql`TRUNCATE TABLE owners`;
@@ -152,23 +164,14 @@ export const Store = (sql: Sql<any>): UserStore => {
     }
   };
 
-  const update = async (payload: { id: string }) => {
-    return User({
-      id: "AAA111633",
-      name: "higuchi fumito",
-      groupId: "1490",
-      post: "0000",
-      admin: true,
-    });
-  };
   return {
     find,
     update,
     filter,
+    clear,
+    findOwner,
     insert,
     delete: delete_,
-    clear,
-    isAdmin
   };
 };
 export default Store;

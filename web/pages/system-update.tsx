@@ -24,6 +24,9 @@ export const SystemUpdatePage = (props: { api: Api }) => {
   const { data: roleUsers } = useSWR("/system/role-user", () =>
     props.api.roleUser.filter({})
   );
+  const { data: roleGroups } = useSWR("/system/role-group", () =>
+    props.api.roleGroup.filter({})
+  );
 
   if (
     system === undefined ||
@@ -31,7 +34,9 @@ export const SystemUpdatePage = (props: { api: Api }) => {
     roles === undefined ||
     roles instanceof Error ||
     roleUsers === undefined ||
-    roleUsers instanceof Error
+    roleUsers instanceof Error ||
+    roleGroups === undefined ||
+    roleGroups instanceof Error
   ) {
     return <Loading />;
   }
@@ -85,6 +90,7 @@ export const SystemUpdatePage = (props: { api: Api }) => {
       <RoleTable
         rows={roles}
         roleUsers={roleUsers}
+        roleGroups={roleGroups}
         onEdit={({ id, systemId }) => {
           navigate(`/system/${system.id}/role/${id}`);
         }}
