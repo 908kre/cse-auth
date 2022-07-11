@@ -94,11 +94,11 @@ export const RoleUpdatePage = (props:{
               <div className='m-2'> {role.name} </div>
             </div>
           </div>
-        </div>
-        <div className="control">
-          <DeleteBtn onClick={async () => {
-            setIsActive(true);
-          }}/>
+          <div className="control">
+            <DeleteBtn onClick={async () => {
+              setIsActive(true);
+            }}/>
+          </div>
         </div>
       </div>
       <label className="label is-medium">
