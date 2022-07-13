@@ -4,6 +4,7 @@ import { Role } from "@csea/core/role";
 import { RoleUser } from "@csea/core/roleUser";
 import { RoleGroup } from "@csea/core/roleGroup";
 import { User, Owner } from "@csea/core/user";
+import { Maintainer } from "@csea/core/maintainer";
 import { Claims } from "@csea/core/auth"
 
 export const TOKEN_KEY = "x-auth-token";
@@ -73,9 +74,16 @@ export type UserStore = {
   find: (payload: { id: string; password: string }) => Promise<User | Error>;
   filter: (payload: {}) => Promise<Owner[] | Error>;
   insert: (payload:Owner) => Promise<void | Error>
-  update: (payload:Owner) => Promise<void | Error>;
   delete: (payload:{id: string}) => Promise<void | Error>
-  findOwner:(payload:{id:string;}) => Promise<Owner | undefined | Error>
+  isAdmin:(payload:{id:string;}) => Promise<boolean| Error>
+  clear: () => Promise<void | Error>;
+};
+
+export type MaintainerStore = {
+  find: (payload: { id: string; systemId: string }) => Promise<Maintainer | undefined | Error>;
+  filter: (payload: {}) => Promise<Maintainer[] | Error>;
+  insert: (payload:Maintainer) => Promise<void | Error>
+  delete: (payload:{id: string, systemId:string}) => Promise<void | Error>
   clear: () => Promise<void | Error>;
 };
 
@@ -112,6 +120,7 @@ export type Store = {
   role: RoleStore;
   roleUser: RoleUserStore;
   roleGroup: RoleGroupStore;
+  maintainer: MaintainerStore;
   user: UserStore;
 };
 

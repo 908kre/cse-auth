@@ -1,12 +1,11 @@
 import { Lock, ErrorKind, Store, Auth } from "@csea/core";
-import { Owner } from "@csea/core/user";
+import { Maintainer } from "@csea/core/maintainer";
 
 export type Payload = {
-  id: string;
   token?: string;
 };
 
-export type Fn = (payload: Payload) => Promise<Owner| undefined | Error>
+export type Fn = (payload: Payload) => Promise<Maintainer[] | Error>
 export const Fn = (props: {
   store: Store;
   auth?: Auth;
@@ -16,9 +15,9 @@ export const Fn = (props: {
     if (claims instanceof Error) {
       return claims;
     }
-    const owner = await props.store.user.findOwner(payload)
-    if(owner instanceof Error) { return owner }
-    return owner
+    const roleUsers = await props.store.maintainer.filter(payload)
+    if(roleUsers instanceof Error){return roleUsers}
+    return roleUsers
   }
 }
 

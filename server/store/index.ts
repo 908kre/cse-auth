@@ -4,6 +4,7 @@ import RoleStore from "./role";
 import RoleUserStore from "./roleUser";
 import RoleGroupStore from "./roleGroup";
 import UserStore from "./user";
+import MaintainerStore from "./maintainer";
 import UserStoreLocal from "./user.local";
 
 export const Store = (args: { 
@@ -20,6 +21,7 @@ export const Store = (args: {
   const role = RoleStore(sql);
   const roleUser = RoleUserStore(sql);
   const roleGroup = RoleGroupStore(sql);
+  const maintainer = MaintainerStore(sql);
   const user = (() => {
     if(process.env.LDAP_URL) {
       return UserStore(sql);
@@ -32,6 +34,7 @@ export const Store = (args: {
     role,
     roleUser,
     roleGroup,
+    maintainer,
     user,
     close,
   };

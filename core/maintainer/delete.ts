@@ -1,10 +1,10 @@
 import { Lock, ErrorKind, Store, Auth } from "@csea/core";
-import { RoleGroup } from "@csea/core/roleGroup";
-import FindFn from "@csea/core/user/find-owner";
+import { Maintainer } from "@csea/core/maintainer";
 
 export type Payload = {
-  id:string;
-  token?: string;
+  id: string;
+  systemId: string;
+  token?:string
 };
 
 export type Fn = (payload: Payload) => Promise<void | Error>
@@ -13,17 +13,17 @@ export const Fn = (props: {
   lock: Lock;
   auth?: Auth;
 }):Fn => {
-  const find = FindFn(props)
   return async (payload: Payload) => {
     return await props.lock.auto(async () => {
       const claims = await props.auth?.verify(payload);
       if (claims instanceof Error) {
         return claims;
       }
-      const owner = await find(payload)
-      if(owner instanceof Error) { return owner }
-      let err = await props.store.user.delete(payload)
-      if(err instanceof Error){ return err}
+      const maintainer = await props.store.maintainer.find(payload)
+      if(maintainer instanceof Error) { return maintainer }
+      if(maintainer === undefined) { return new Error(ErrorKind.MaintainerNotFound) }
+      let err = await props.store.maintainer.delete(payload)
+      if(err instanceof Error){ return err }
     })
   }
 }

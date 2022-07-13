@@ -1,6 +1,5 @@
 import { Lock, ErrorKind, Store, Auth } from "@csea/core";
 import { Role } from "@csea/core/role";
-import { Admin } from "@csea/core/auth";
 import { uniq } from "lodash";
 
 export type Payload = {
@@ -20,7 +19,7 @@ export const Fn = (props: {
     if (claims instanceof Error) {
       return claims;
     }
-    if (claims === undefined || (claims && claims.admin === Admin.Owner)) {
+    if (claims === undefined || (claims && claims.admin === true)) {
       const roles = await props.store.role.filter(payload)
       if(roles instanceof Error){return roles}
       return roles

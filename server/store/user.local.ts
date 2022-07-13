@@ -2,30 +2,25 @@ import { Row, Sql } from "postgres";
 import { first } from "lodash";
 import { UserStore } from "@csea/core";
 import { User, Owner } from "@csea/core/user";
-import { Admin } from "@csea/core/auth";
 import ErrorKind from "@csea/core/error";
 
 const COLUMNS = [
   "id",
-  "level"
 ] as const
 
 const to = (r: Row): Owner => {
   return Owner({
     id: r.id,
-    level: r.level
   });
 };
 
 const from = (r: Owner): Row => {
   return {
     id: r.id,
-    level: r.level
   };
 };
 
 export const Store = (sql: Sql<any>): UserStore => {
-
   const find = async (payload: { id: string; password: string }) => {
     const { id, password } = payload
     if(id === "admin" && password === "admin"){
@@ -37,7 +32,7 @@ export const Store = (sql: Sql<any>): UserStore => {
         companyName:"Canon.Inc",
         groupName:"jigi33",
         email:"higuchi.fumito@mail.canon",
-        admin: Admin.Owner
+        admin: true
       })
     }else if(id === "test" && password === "test"){
       return User({
@@ -48,7 +43,7 @@ export const Store = (sql: Sql<any>): UserStore => {
         companyName:"Canon.Inc",
         groupName:"jigi33",
         email:"yao@mail.canon",
-        admin: Admin.Maintainer,
+        admin: false,
       })
     }else if(id === "guest" && password === "guest"){
       return User({
@@ -56,7 +51,7 @@ export const Store = (sql: Sql<any>): UserStore => {
         name: "ikarashi",
         groupId: "1490",
         post: "0000",
-        admin: Admin.Guest
+        admin: false
       })
     }
     return new Error(ErrorKind.InvalidIdOrPassword)
@@ -73,13 +68,14 @@ export const Store = (sql: Sql<any>): UserStore => {
     }
   };
 
-  const findOwner = async (payload: {id:string}) => {
+  const isAdmin = async (payload: {id:string}) => {
     const { id } = payload
     try {
       let rows = [];
       rows = await sql`SELECT * FROM owners WHERE id=${id}`;
       const owner = first(rows.map(to))
-      return owner;
+      if(owner !== undefined){ return true }
+      return false;
     } catch (err) {
       return err;
     }
@@ -109,14 +105,6 @@ export const Store = (sql: Sql<any>): UserStore => {
     }
   };
 
-  const update = async (payload: Owner): Promise<void | Error> => {
-    try {
-      await sql`UPDATE owners SET ${sql(from(payload),...COLUMNS)} WHERE id = ${payload.id}`;
-    }catch (err) {
-      return err;
-    }
-  };
-
   const clear = async (): Promise<void> => {
     try {
       await sql`TRUNCATE TABLE owners`;
@@ -127,10 +115,9 @@ export const Store = (sql: Sql<any>): UserStore => {
 
   return {
     find,
-    update,
     filter,
     clear,
-    findOwner,
+    isAdmin,
     insert,
     delete: delete_,
   };

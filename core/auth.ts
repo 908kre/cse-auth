@@ -1,11 +1,6 @@
 import { Lock, ErrorKind, Store, Auth, Crypt, Logger, ReqFn, ReqKind } from ".";
 import { uniq } from "lodash";
 
-export enum Admin {
-  Owner = 2,
-  Maintainer = 1,
-  Guest = 0,
-}
 
 export type Claims = {
   exp: number;
@@ -13,7 +8,7 @@ export type Claims = {
   groupId:string;
   post:string;
   roles: string[];
-  admin: Admin;
+  admin: boolean;
   name?:string;
   email?:string;
   companyName?:string;
@@ -24,12 +19,12 @@ export type Claims = {
 
 export const Claims =  (props: Omit<Claims, "exp"|"roles"|"admin"> & {
   roles?:string[],
-  admin?: Admin,
+  admin?: boolean,
   exp?: number,
 }):Claims => {
   const { userId, systemId, groupId, post } = props
   const  exp = props.exp ?? Math.floor(Date.now() / 1000) + 24 * (60 * 60)
-  const admin = props.admin ?? Admin.Guest 
+  const admin = props.admin ?? false 
   const roles = props.roles ?? []
 
   return {
@@ -63,20 +58,17 @@ export const SignIn = (
     if (userRoles instanceof Error) {
       return userRoles;
     }
-    console.log(userRoles)
     const groupRoles = await props.store.roleGroup.filter({
       groupId: user.groupId,
     });
     if (groupRoles instanceof Error) {
       return groupRoles;
     }
-    console.log(groupRoles)
 
     const groups = await props.store.roleGroup.filter({
       groupId: user.groupId,
       post: user.post,
     });
-    console.log(groups)
     if (groups instanceof Error) {
       return groups;
     }

@@ -1,6 +1,5 @@
 import { Lock, ErrorKind, Store, Auth } from "@csea/core";
 import { System } from "@csea/core/system";
-import { Admin } from "@csea/core/auth";
 
 export type Payload = {
   id?: string;
@@ -20,7 +19,7 @@ export const Fn = (props: {
       if (claims instanceof Error) {
         return claims;
       }
-      if (claims !== undefined && claims.admin !== Admin.Owner) {
+      if (claims !== undefined && claims.admin !== true) {
         return new Error(ErrorKind.PermissionDenied)
       }
       const system = System(payload)

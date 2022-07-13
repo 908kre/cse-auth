@@ -1,6 +1,5 @@
 import { UserStore, ErrorKind, Auth } from "..";
 import { Owner, User } from ".";
-import { Admin } from "@csea/core/auth"
 
 export type SetAdminFn = (req: {
   id: string;
@@ -18,18 +17,18 @@ export const SetAdminFn = (props: {
     if (claims instanceof Error) {
       return claims;
     }
-    if (claims !== undefined && claims.admin !== Admin.Owner) {
+    if (claims !== undefined && claims.admin !== true) {
       return new Error(ErrorKind.PermissionDenied)
     }
     const owner = Owner(req)
     const valErr = owner.validate()
     if(valErr instanceof Error) { return valErr }
-    // const err = await props.store.user.isAdmin(req);
-    // if (err instanceof Error) { return err }
-    // if(err === true){
-    //   return await props.store.user.delete(req);
-    // }else{
-    //   return await props.store.user.insert(owner);
-    // }
+    const err = await props.store.user.isAdmin(req);
+    if (err instanceof Error) { return err }
+    if(err === true){
+      return await props.store.user.delete(req);
+    }else{
+      return await props.store.user.insert(owner);
+    }
   };
 };

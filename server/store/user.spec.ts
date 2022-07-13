@@ -11,8 +11,7 @@ afterAll(async () => {
   });
 });
 
-// test('oracle', async () => {
-//   const err = await store.user.findGcip({ id: 'axa000001' });
+// test('oracle', async () => { const err = await store.user.findGcip({ id: 'axa000001' });
 //   if (err instanceof Error) {
 //     throw err;
 //   }
@@ -47,12 +46,12 @@ describe("user", () => {
         throw err;
       }
     });
-    test("is-find-owner", async () => {
-      const err = await store.user.findOwner({id: owner.id});
+    test("is-admin", async () => {
+      const err = await store.user.isAdmin({id: owner.id});
       if (err instanceof Error || err === undefined) {
         throw err;
       }
-      expect(err.id).toEqual(owner.id);
+      expect(err).toEqual(true);
     });
     test("find", async () => {
       const err = await store.user.find({id: "AXA097046", password:"smafa_test2"});
@@ -72,11 +71,11 @@ describe("user", () => {
       if (ret instanceof Error) {
         throw ret;
       }
-      const err = await store.user.findOwner({ id: owner.id });
+      const err = await store.user.isAdmin({ id: owner.id });
       if (err instanceof Error) {
         throw err;
       }
-      expect(err).toEqual(undefined);
+      expect(err).toEqual(false);
     });
     test("empty", async () => {
       await store.user.filter({}).catch((err) => {

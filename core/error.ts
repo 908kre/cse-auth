@@ -19,5 +19,8 @@ export enum ErrorKind {
   PermissionDenied = "PermissionDenied",
   UserNotFound = "UserNotFound",
   InvalidIdOrPassword = "InvalidIdOrPassword",
+  InvalidFormat = "InvalidFormat",
+  MaintainerAlreadyExist = "MaintainerAlreadyExist",
+  MaintainerNotFound = "MaintainerNotFound"
 }
 export default ErrorKind;

@@ -1,5 +1,5 @@
 import React from "react";
-import { Claims, Admin } from "@csea/core/auth";
+import { Claims } from "@csea/core/auth";
 import useSWR, { useSWRConfig } from "swr";
 import useToast from "@csea/web/hooks/toast"
 import { useCookies } from "react-cookie";
@@ -76,10 +76,6 @@ export const useLogin = (props: {
     const claims = await verify(token)
     if(claims instanceof Error){ 
       return toast.error(claims.message)
-    }
-    if(claims && claims.admin === Admin.Guest){
-      logOut()
-      return toast.error(ErrorKind.PermissionDenied)
     }
     props?.onLogin?.();
     toast.info('成功しました')

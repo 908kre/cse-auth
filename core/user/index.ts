@@ -1,9 +1,5 @@
 import ErrorKind from "@csea/core/error";
-import { Admin } from "@csea/core/auth";
 export { default as FilterFn } from "@csea/core/user/filter";
-export { default as CreateFn } from "@csea/core/user/create";
-export { default as DeleteFn } from "@csea/core/user/delete";
-export { default as UpdateFn } from "@csea/core/user/update";
 export { SetAdminFn } from "@csea/core/user/set-admin";
 
 
@@ -15,7 +11,7 @@ export type User = {
   groupId: string;
   groupName: string;
   post: string;
-  admin: Admin;
+  admin: boolean;
 };
 
 export const User = (args?: {
@@ -26,7 +22,7 @@ export const User = (args?: {
   groupId?: string;
   groupName?: string;
   post?: string;
-  admin?: Admin;
+  admin?: boolean;
 }): User => {
   const id = args?.id ?? "";
   const name = args?.name ?? "";
@@ -35,7 +31,7 @@ export const User = (args?: {
   const groupId = args?.groupId ?? "";
   const groupName = args?.groupName ?? "";
   const post = args?.post ?? "";
-  const admin = args?.admin ?? Admin.Guest;
+  const admin = args?.admin ?? false;
   return {
     id,
     name,
@@ -50,16 +46,13 @@ export const User = (args?: {
 
 export type Owner = {
   id: string;
-  level: Admin;
   validate: () => void | Error;
 };
 
 export const Owner = (args?: {
   id?: string;
-  level?:Admin;
 }): Owner => {
   const id = args?.id ?? "";
-  const level = args?.level ?? Admin.Guest;
   const validate = () => {
     if (id === "") {
       return new Error(ErrorKind.InvalidOwnerIdFormat);
@@ -67,7 +60,6 @@ export const Owner = (args?: {
   };
   return {
     id,
-    level,
     validate
   };
 };

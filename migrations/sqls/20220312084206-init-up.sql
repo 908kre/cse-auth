@@ -29,6 +29,11 @@ CREATE TABLE role_groups (
 
 
 CREATE TABLE owners (
-    id       text     NOT NULL PRIMARY KEY,
-    level     smallint NOT NULL
+    id       text     NOT NULL PRIMARY KEY
+);
+
+CREATE TABLE maintainers (
+    id              text     NOT NULL,
+    system_id       text     NOT NULL,
+    UNIQUE (id, system_id)
 );

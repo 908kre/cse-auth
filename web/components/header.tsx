@@ -1,6 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import { Claims, Admin } from "@csea/core/auth";
+import { Claims } from "@csea/core/auth";
 import useSWR, { useSWRConfig } from "swr";
 
 export const Header = (props: {
@@ -38,7 +38,7 @@ export const Header = (props: {
         </div>
         <div className="navbar-end">
           {
-            props.claims && props.claims.admin === Admin.Owner ? <a className="navbar-item" onClick={() => navigate("/owner")}>設定</a> : null
+            props.claims && props.claims.admin === true ? <a className="navbar-item" onClick={() => navigate("/owner")}>設定</a> : null
           }
           <a className="navbar-item" onClick={() => props.onLogout?.()}>ログアウト</a>
         </div>

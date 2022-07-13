@@ -8,20 +8,17 @@ import oracledb from "oracledb";
 
 const COLUMNS = [
   "id",
-  "level"
 ] as const
 
 const to = (r: Row): Owner => {
   return Owner({
     id: r.id,
-    level: r.level
   });
 };
 
 const from = (r: Owner): Row => {
   return {
     id: r.id,
-    level: r.level
   };
 };
 
@@ -93,10 +90,10 @@ export const Store = (sql: Sql<any>): UserStore => {
     const user = await findGcip(payload)
     if(user instanceof Error) {return user}
 
-    const owner = await findOwner(payload)
+    const owner = await isAdmin(payload)
     if(owner instanceof Error) {return owner}
     if(owner){
-      user.admin = owner.level
+      user.admin = owner
     }
     return user
   };
@@ -112,13 +109,14 @@ export const Store = (sql: Sql<any>): UserStore => {
     }
   };
 
-  const findOwner = async (payload: {id:string}) => {
+  const isAdmin = async (payload: {id:string}) => {
     const { id } = payload
     try {
       let rows = [];
       rows = await sql`SELECT * FROM owners WHERE id=${id}`;
       const owner = first(rows.map(to))
-      return owner;
+      if(owner !== undefined){return true}
+      return false;
     } catch (err) {
       return err;
     }
@@ -148,13 +146,6 @@ export const Store = (sql: Sql<any>): UserStore => {
     }
   };
 
-  const update = async (payload: Owner): Promise<void | Error> => {
-    try {
-      await sql`UPDATE owners SET ${sql(from(payload),...COLUMNS)} WHERE id = ${payload.id}`;
-    }catch (err) {
-      return err;
-    }
-  };
 
   const clear = async (): Promise<void> => {
     try {
@@ -166,10 +157,9 @@ export const Store = (sql: Sql<any>): UserStore => {
 
   return {
     find,
-    update,
     filter,
     clear,
-    findOwner,
+    isAdmin,
     insert,
     delete: delete_,
   };
