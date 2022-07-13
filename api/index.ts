@@ -3,6 +3,7 @@ import SystemApi from "./system";
 import RoleApi from "./role";
 import RoleUserApi from "./roleUser";
 import RoleGroupApi from "./roleGroup";
+import MaintainerApi from "./maintainer";
 import { ReqFn, ReqKind } from "@csea/core";
 import UserApi from "./user";
 import { Claims } from "@csea/core/auth";
@@ -28,6 +29,7 @@ export type Api = {
   roleUser: ReturnType<typeof RoleUserApi>;
   roleGroup: ReturnType<typeof RoleGroupApi>;
   user: ReturnType<typeof UserApi>;
+  maintainer: ReturnType<typeof MaintainerApi>;
 };
 
 export const Api = (): Api => {
@@ -38,6 +40,7 @@ export const Api = (): Api => {
   const roleUser = RoleUserApi({ http, prefix: `${prefix}/role-user` });
   const roleGroup = RoleGroupApi({ http, prefix: `${prefix}/role-group` });
   const user = UserApi({ http, prefix: `${prefix}/user` });
+  const maintainer = MaintainerApi({ http, prefix: `${prefix}/maintainer` });
 
   const signIn:ReqFn<ReqKind.SignIn>['run'] = async (payload) => {
     try {
@@ -78,5 +81,6 @@ export const Api = (): Api => {
     user,
     roleUser,
     roleGroup,
+    maintainer
   };
 };

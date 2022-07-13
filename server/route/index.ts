@@ -10,6 +10,7 @@ import RoleUserRoutes from "./roleUser";
 import RoleGroupRoutes from "./roleGroup";
 import UserRoutes from "./user";
 import AuthRoutes from "./auth";
+import MaintainerRoutes from "./maintainer";
 import fastifyCookie from "@fastify/cookie"
 
 export const App = (props: {
@@ -40,6 +41,9 @@ export const App = (props: {
   });
   app.register(RoleGroupRoutes(props), {
     prefix: `${prefix}/role-group`,
+  });
+  app.register(MaintainerRoutes(props), {
+    prefix: `${prefix}/maintainer`,
   });
   app.register(UserRoutes(props), {
     prefix: `${prefix}/user`,

@@ -1,4 +1,7 @@
 import { ErrorKind } from "@csea/core";
+export { default as CreateFn } from "@csea/core/maintainer/create";
+export { default as FilterFn } from "@csea/core/maintainer/filter";
+export { default as DeleteFn } from "@csea/core/maintainer/delete";
 
 export type Maintainer = {
   id: string;
