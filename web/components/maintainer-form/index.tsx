@@ -39,6 +39,7 @@ export const MaintainerForm = (props: {
           <select
             {...register("systemId")} 
           >
+            <option value="" disabled selected style={{display:"none"}}>選択してください</option>
             {props.systems.map(x => <option key={x.id} value={x.id}> {x.name} </option>)}
           </select>
         </div>

@@ -28,14 +28,9 @@ export const Fn = (props: {
     if(roleUser instanceof Error){return roleUser}
     const roleGroup = await props.store.roleGroup.filter({groupId: claims.groupId, post: claims.post})
     if(roleGroup instanceof Error){return roleGroup}
-
-    const uIds = roleUser.map(x => x.roleId)
-    const gIds = roleGroup.map(x => x.roleId)
-    const ids = uniq([...uIds, ...gIds])
-    
-    const roles = await props.store.role.filter({ids: ids})
-    if(roles instanceof Error){return roles}
-    const systemIds = uniq(roles.map(x => x.systemId))
+    const maintainers = await props.store.maintainer.filter({id:claims.userId ?? ""})
+    if(maintainers instanceof Error){return maintainers}
+    const systemIds = maintainers.map(x => x.systemId)
     const rows = await props.store.role.filter({systemIds: systemIds})
     return rows
   }

@@ -2,6 +2,7 @@ import { Lock, ErrorKind, Store, Auth } from "@csea/core";
 import { Maintainer } from "@csea/core/maintainer";
 
 export type Payload = {
+  id?:string;
   token?: string;
 };
 
@@ -15,9 +16,9 @@ export const Fn = (props: {
     if (claims instanceof Error) {
       return claims;
     }
-    const roleUsers = await props.store.maintainer.filter(payload)
-    if(roleUsers instanceof Error){return roleUsers}
-    return roleUsers
+    const rows = await props.store.maintainer.filter(payload)
+    if(rows instanceof Error){return rows}
+    return rows
   }
 }
 

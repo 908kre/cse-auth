@@ -81,7 +81,7 @@ export type UserStore = {
 
 export type MaintainerStore = {
   find: (payload: { id: string; systemId: string }) => Promise<Maintainer | undefined | Error>;
-  filter: (payload: {}) => Promise<Maintainer[] | Error>;
+  filter: (payload: {id?:string}) => Promise<Maintainer[] | Error>;
   insert: (payload:Maintainer) => Promise<void | Error>
   delete: (payload:{id: string, systemId:string}) => Promise<void | Error>
   clear: () => Promise<void | Error>;
