@@ -12,7 +12,7 @@ export const MaintainerTable = (props: {
   const columns = [
     { key: "id", name: "ID"},
     { key: "systemId", name: "システムID"},
-    { key: "action", name: "操作", width: "6%",
+    { key: "action", name: "操作", width: "5%",
       formatter(column) {
         return (
           <div className="buttons">
