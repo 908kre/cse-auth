@@ -15,7 +15,6 @@ export type LoginHook = {
   logInInfo:LogInInfo
   claims?:Claims
   logIn:(req:LogInInfo) => Promise<void|Error>
-  logInAuth:(req:LogInInfo) => Promise<void|Error>
   logOut:() => void
 } 
 export const useLogin = (props: { 
@@ -66,27 +65,12 @@ export const useLogin = (props: {
     setIsLoggedIn(false);
   };
 
-  const logInAuth = async (req) => {
-    const token = await props.api.signIn(req);
-    if (token instanceof Error) {
-      return toast.error(token.message);
-    }
-    setCookie(TOKEN_KEY, token);
-    setToken(token);
-    const claims = await verify(token)
-    if(claims instanceof Error){ 
-      return toast.error(claims.message)
-    }
-    props?.onLogin?.();
-    toast.info('成功しました')
-  };
 
   return {
     isLoggedIn,
     logInInfo,
     claims,
     logIn,
-    logInAuth,
     logOut,
   };
 };
