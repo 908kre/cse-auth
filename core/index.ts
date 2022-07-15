@@ -6,10 +6,7 @@ import { RoleGroup } from "@csea/core/roleGroup";
 import { User, Owner } from "@csea/core/user";
 import { Maintainer } from "@csea/core/maintainer";
 import { Claims } from "@csea/core/auth"
-
 export const TOKEN_KEY = "x-auth-token";
-
-
 export type SystemStore = {
   insert: (payload: System) => Promise<void | Error>;
   update: (payload: System) => Promise<void | Error>;
