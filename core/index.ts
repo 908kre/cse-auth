@@ -72,6 +72,7 @@ export type RoleGroupStore = {
 
 export type UserStore = {
   find: (payload: { id: string; password: string }) => Promise<User | Error>;
+  findGcip?: (payload: { id: string; }) => Promise<User | Error>;
   filter: (payload: {}) => Promise<Owner[] | Error>;
   insert: (payload:Owner) => Promise<void | Error>
   delete: (payload:{id: string}) => Promise<void | Error>

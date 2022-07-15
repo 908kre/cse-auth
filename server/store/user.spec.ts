@@ -11,13 +11,13 @@ afterAll(async () => {
   });
 });
 
-// test('oracle', async () => { 
-//   const err = await store.user.findGcip({ id: 'AXA097046' });
-//   console.log(err)
-//   if (err instanceof Error) {
-//     throw err;
-//   }
-// })
+test('oracle', async () => { 
+  const err = await store.user.findGcip?.({ id: 'AXA097046' });
+  console.log(err)
+  if (err instanceof Error) {
+    throw err;
+  }
+})
 
 // test('ldap', async () => {
 //   const err = await store.user.findLdap({ id: 'AXA097046',password: 'smafa_test2'  });
