@@ -12,6 +12,7 @@ import UserRoutes from "./user";
 import AuthRoutes from "./auth";
 import MaintainerRoutes from "./maintainer";
 import fastifyCookie from "@fastify/cookie"
+import fastifyCors from "@fastify/cors";
 
 export const App = (props: {
   store: Store;
@@ -26,7 +27,9 @@ export const App = (props: {
     logger: true,
   });
   const prefix = path.join("/", process.env.PREFIX || "", "/api/v1");
-
+  app.register(require('@fastify/cors'), { 
+      origin: "*"
+  })
   app.register(fastifyStatic, {
     root: "/app/web/dist",
   });
