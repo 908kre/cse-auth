@@ -40,7 +40,11 @@ export const Header = (props: {
           {
             props.claims && props.claims.admin === true ? <a className="navbar-item" onClick={() => navigate("/owner")}>設定</a> : null
           }
-          <a className="navbar-item" onClick={() => props.onLogout?.()}>ログアウト</a>
+          <a className="navbar-item" onClick={() => {
+            navigate("/system")
+            props.onLogout?.()
+          }}>ログアウト</a>
+
         </div>
       </div>
     </nav>

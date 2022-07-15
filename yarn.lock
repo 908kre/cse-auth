@@ -1650,6 +1650,7 @@ __metadata:
   dependencies:
     "@csea/core": 0.1.0
     "@fastify/cookie": ^7.0.0
+    "@fastify/cors": ^7.0.0
     "@oniku/lockfile": ^0.0.0
     "@types/jest": ^27.5.1
     "@types/node": ^17.0.35
@@ -1920,6 +1921,16 @@ __metadata:
     cookie-signature: ^1.1.0
     fastify-plugin: ^3.0.1
   checksum: abc6f2276831824d6bf1719d42f3c9fe90298468543e2cb2b1fe47928b9fac5989d135204c5ae08f200edc74c74c6519d8bf24395ec42d040fd1d417c934b8e9
+  languageName: node
+  linkType: hard
+
+"@fastify/cors@npm:^7.0.0":
+  version: 7.0.0
+  resolution: "@fastify/cors@npm:7.0.0"
+  dependencies:
+    fastify-plugin: ^3.0.0
+    vary: ^1.1.2
+  checksum: 1885eb60b6a64dc91c8ca47708b60de371982d8224e801d7ed60bf821bd045d0c99917c0cb7544dccd9ad1a3dd72368244f2ec2f58bc5fa46d10fe95ad43283a
   languageName: node
   linkType: hard
 
@@ -19898,7 +19909,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vary@npm:~1.1.2":
+"vary@npm:^1.1.2, vary@npm:~1.1.2":
   version: 1.1.2
   resolution: "vary@npm:1.1.2"
   checksum: ae0123222c6df65b437669d63dfa8c36cee20a504101b2fcd97b8bf76f91259c17f9f2b4d70a1e3c6bbcee7f51b28392833adb6b2770b23b01abec84e369660b
