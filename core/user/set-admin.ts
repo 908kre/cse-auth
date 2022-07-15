@@ -20,6 +20,9 @@ export const SetAdminFn = (props: {
     if (claims !== undefined && claims.admin !== true) {
       return new Error(ErrorKind.PermissionDenied)
     }
+    if (claims !== undefined && claims.userId === req.id) {
+      return new Error(ErrorKind.PermissionDenied)
+    }
     const owner = Owner(req)
     const valErr = owner.validate()
     if(valErr instanceof Error) { return valErr }

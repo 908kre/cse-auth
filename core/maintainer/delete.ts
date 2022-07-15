@@ -19,6 +19,9 @@ export const Fn = (props: {
       if (claims instanceof Error) {
         return claims;
       }
+      if (claims !== undefined && claims.admin !== true) {
+        return new Error(ErrorKind.PermissionDenied)
+      }
       const maintainer = await props.store.maintainer.find(payload)
       if(maintainer instanceof Error) { return maintainer }
       if(maintainer === undefined) { return new Error(ErrorKind.MaintainerNotFound) }

@@ -30,6 +30,7 @@ export const useLogin = (props: {
   });
   const [token, setToken] = React.useState<string>("");
   const [claims, setClaims] = React.useState<Claims | undefined>(undefined);
+
   React.useEffect(() => {
     if(cookies[TOKEN_KEY]){
       verify(cookies[TOKEN_KEY])

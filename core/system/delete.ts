@@ -24,6 +24,9 @@ export const Fn = (props: {
       if (claims instanceof Error) {
         return claims;
       }
+      if (claims !== undefined && claims.admin !== true) {
+        return new Error(ErrorKind.PermissionDenied)
+      }
       const system = await find(req)
       if(system instanceof Error) { return system }
       const roles =  await props.store.role.filter({systemId: system.id})

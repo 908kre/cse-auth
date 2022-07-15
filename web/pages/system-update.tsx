@@ -8,9 +8,10 @@ import RoleTable from "@csea/web/components/role-table";
 import Form from "@csea/web/components/form";
 import useToast from "@csea/web/hooks/toast";
 import { ConfirmModal } from "@csea/web/components/confirm-modal";
+import { Claims } from "@csea/core/auth";
 
 const toast = useToast();
-export const SystemUpdatePage = (props: { api: Api }) => {
+export const SystemUpdatePage = (props: { api: Api, claims?: Claims }) => {
   const { mutate } = useSWRConfig();
   const navigate = useNavigate();
   const [isActive, setIsActive] = React.useState(false);

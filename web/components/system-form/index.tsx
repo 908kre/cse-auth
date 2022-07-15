@@ -8,6 +8,7 @@ export const SystemForm = (props: {
   system?: System;
   onSubmit: (req: Payload) => void;
   onDelete?: (req: DeletePayload) => void;
+  isAdmin?:boolean;
 }) => {
   const {
     register,
@@ -75,11 +76,11 @@ export const SystemForm = (props: {
                 </button>
               </div>
               <div className="control">
-                {props.onDelete && (
+                {(props.onDelete && props.isAdmin !== false) ? (
                   <DeleteBtn
                     onClick={() => props.system && props.onDelete?.(props.system)}
                   />
-                )}
+                ): null}
               </div>
             </div>
           </div>

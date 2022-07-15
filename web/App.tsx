@@ -48,7 +48,7 @@ export default function App() {
                 />
                 <Route
                   path={"/system/update/:id"}
-                  element={<SystemUpdatePage api={api}/>}
+                  element={<SystemUpdatePage api={api} claims={claims}/>}
                 />
                 <Route
                   path={"/system/:id/role/:roleid"}

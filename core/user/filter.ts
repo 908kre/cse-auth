@@ -15,6 +15,9 @@ export const Fn = (props: {
     if (claims instanceof Error) {
       return claims;
     }
+    if (claims !== undefined && claims.admin !== true) {
+      return []
+    }
     const users = await props.store.user.filter(payload)
     if(users instanceof Error){return users}
     return users

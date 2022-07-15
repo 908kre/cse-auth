@@ -16,6 +16,9 @@ export const Fn = (props: {
     if (claims instanceof Error) {
       return claims;
     }
+    if (claims !== undefined && claims.admin !== true) {
+      return []
+    }
     const rows = await props.store.maintainer.filter(payload)
     if(rows instanceof Error){return rows}
     return rows
