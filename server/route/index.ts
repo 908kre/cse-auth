@@ -28,8 +28,6 @@ export const App = (props: {
   });
   const prefix = path.join("/", process.env.PREFIX || "", "/api/v1");
   app.register(require('@fastify/cors'), { 
-      // origin: "*",
-      // methods: ["GET","POST"]
   })
   app.register(fastifyStatic, {
     root: "/app/web/dist",
