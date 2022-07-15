@@ -26,66 +26,64 @@ import { useLogin, LoginHook } from "@csea/web/hooks/login";
 export default function App() {
   const navigate = useNavigate();
   const api = Api()
-  const { isLoggedIn, logInInfo, logInAuth, logOut, claims } = useLogin({
+  const { isLoggedIn, logInInfo, logIn, logOut, claims } = useLogin({
     api,
   });
-  if(!isLoggedIn){
-    return <>
-      <LoginPage
-        id={logInInfo.id}
-        password={logInInfo.password}
-        onSubmit={logInAuth}
-      />
+  return (
+    <>
+      {
+        isLoggedIn ? <PageLayout
+          header= { <Header
+            claims={claims}
+            onLogout={logOut}
+          />}
+          content={
+            <Suspense fallback={<div>Loading...</div>}>
+              <Routes>
+                <Route path={"/system"} element={<SystemsPage api={api} claims={claims} />} />
+                <Route path={"/role"} element={<RolesPage api={api}/>} />
+                <Route
+                  path={"/system/create"}
+                  element={<SystemCreatePage api={api}/>}
+                />
+                <Route
+                  path={"/system/update/:id"}
+                  element={<SystemUpdatePage api={api} claims={claims}/>}
+                />
+                <Route
+                  path={"/system/:id/role/:roleid"}
+                  element={<RoleUpdatePage api={api} />}
+                />
+              <Route
+                path={"/system/:id/role/:roleid/:userid"}
+                element={<RoleUpdatePage api={api} />}
+              />
+                <Route
+                  path={"/system/:id/role/:roleid/:groupid/"}
+                  element={<RoleUpdatePage api={api} />}
+                />
+                <Route
+                  path={"/system/:id/role/:roleid/:groupid/:post"}
+                  element={<RoleUpdatePage api={api} />}
+                />
+                <Route
+                  path={"/owner"}
+                  element={<OwnerConfigPage api={api} />}
+                />
+                <Route
+                  path="*"
+                  element={<Navigate to="/system" replace />}
+                />
+              </Routes>
+            </Suspense>
+          }
+        />: <LoginPage
+          id={logInInfo.id}
+          password={logInInfo.password}
+          onSubmit={logIn}
+        />
+      }
       <ToastContainer position="bottom-right" />
     </>
-  }
-  return (
-    <PageLayout
-      header= { <Header
-        claims={claims}
-        onLogout={logOut}
-      />}
-      content={
-        <Suspense fallback={<div>Loading...</div>}>
-          <Routes>
-            <Route path={"/system"} element={<SystemsPage api={api} claims={claims} />} />
-            <Route path={"/role"} element={<RolesPage api={api}/>} />
-            <Route
-              path={"/system/create"}
-              element={<SystemCreatePage api={api}/>}
-            />
-            <Route
-              path={"/system/update/:id"}
-              element={<SystemUpdatePage api={api}/>}
-            />
-            <Route
-              path={"/system/:id/role/:roleid"}
-              element={<RoleUpdatePage api={api} />}
-            />
-            <Route
-              path={"/system/:id/role/:roleid/:userid"}
-              element={<RoleUpdatePage api={api} />}
-            />
-            <Route
-              path={"/system/:id/role/:roleid/:groupid/"}
-              element={<RoleUpdatePage api={api} />}
-            />
-            <Route
-              path={"/system/:id/role/:roleid/:groupid/:post"}
-              element={<RoleUpdatePage api={api} />}
-            />
-            <Route
-              path={"/owner"}
-              element={<OwnerConfigPage api={api} />}
-            />
-            <Route
-              path="*"
-              element={<Navigate to="/system" replace />}
-            />
-          </Routes>
-          <ToastContainer position="bottom-right" />
-        </Suspense>
-      }
-    />
   );
 }
