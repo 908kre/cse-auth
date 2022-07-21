@@ -38,8 +38,9 @@ export const MaintainerForm = (props: {
         <div className="select is-fullwidth">
           <select
             {...register("systemId")} 
+            defaultValue=""
           >
-            <option value="" disabled selected style={{display:"none"}}>選択してください</option>
+            <option value="" disabled style={{display:"none"}}>選択してください</option> 
             {props.systems.map(x => <option key={x.id} value={x.id}> {x.name} </option>)}
           </select>
         </div>

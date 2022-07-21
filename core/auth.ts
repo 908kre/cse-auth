@@ -22,7 +22,7 @@ export const Claims =  (props: Omit<Claims, "exp"|"roles"|"admin"> & {
   admin?: boolean,
   exp?: number,
 }):Claims => {
-  const { userId, systemId, groupId, post } = props
+  const { userId, systemId, groupId, post,name, email, companyName, groupName } = props
   const  exp = props.exp ?? Math.floor(Date.now() / 1000) + 24 * (60 * 60)
   const admin = props.admin ?? false 
   const roles = props.roles ?? []
@@ -33,6 +33,10 @@ export const Claims =  (props: Omit<Claims, "exp"|"roles"|"admin"> & {
     groupId,
     systemId,
     post,
+    name,
+    email,
+    companyName,
+    groupName,
     roles,
     admin
   }
