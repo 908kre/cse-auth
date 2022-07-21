@@ -26,9 +26,11 @@ export const App = (props: {
     logger: true,
   });
   const prefix = path.join("/", process.env.PREFIX || "", "/api/v1");
+  const uiPrefix = path.join("/", process.env.PREFIX || "")
 
   app.register(fastifyStatic, {
     root: "/app/web/dist",
+    prefix:uiPrefix,
   });
   app.register(SystemRoutes(props), {
     prefix: `${prefix}/system`,
